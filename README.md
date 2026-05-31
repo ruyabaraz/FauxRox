@@ -7,22 +7,11 @@ It combines movement tracking, Bluetooth heart-rate data, Gemini Live voice coac
 
 This is not a static workout overlay. FauxRox runs a full HYROX-inspired race loop on Spectacles: the athlete calibrates the ground, crosses a start line, runs between dynamically spawned stations, completes movement-tracked exercises, gets short AI coaching, finishes through a real finish gate, and saves race results to the cloud.
 
-Built with **Lens Studio 5.x**, **TypeScript**, **Spectacles**, **Gemini Live**, **Bluetooth LE**, and **Supabase Snap Cloud**.
+Built with **Lens Studio 5.15.4.
 
 ## Demo
 
-Add demo video here.
 
-Recommended demo structure:
-
-1. Onboarding and goal selection
-2. Bluetooth heart-rate connection
-3. Ground calibration and start line
-4. Run arrow guidance
-5. Hand-tracked station
-6. Burpee hard-gate station
-7. AI coach question
-8. Finish gate and race summary
 
 ## Core Systems
 
