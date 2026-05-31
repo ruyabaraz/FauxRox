@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    5c57427b-d1b0-4a1c-98e2-ee8ce6b2d2bb: 7146a05e-bb50-47ab-b16c-795ccab56559/961e583cb600b47cf84cb9ad46c94baa/Data/speakerOn.png
+  Assets:
+    - !<FileTexture/5c57427b-d1b0-4a1c-98e2-ee8ce6b2d2bb>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 594
+        Height: 520
+  SourceHash: 961e583cb600b47cf84cb9ad46c94baa
+  FileHash: e3d577f58f7ca50c035f14c69366417b
+  NativePackageItems:
+    []

@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    c9bed1b9-3733-46ce-9820-20d0df78c099: c9278dfc-9dc6-47c9-b745-5abcfbda5130/17691d654bc04190834abce570e48408/Data/BrandonText-Bold.otf
+  Assets:
+    - !<Font/c9bed1b9-3733-46ce-9820-20d0df78c099>
+      PackagePath: ""
+  SourceHash: 17691d654bc04190834abce570e48408
+  FileHash: 13b5e777bf4d129190afd90793386645
+  NativePackageItems:
+    []

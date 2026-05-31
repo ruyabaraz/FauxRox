@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/9a66882f-7cb2-44f8-8bf7-bd4a5e2b43b8>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 11e3fed3-a36f-4e6a-acc1-42569ccd6f25
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 11e3fed3-a36f-4e6a-acc1-42569ccd6f25
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 331da8ed-3d0c-4364-bfd9-32adaeaae856
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/331da8ed-3d0c-4364-bfd9-32adaeaae856>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: a2529a09-7977-463f-af64-20522df422ad
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    calibrationVisual: false
+    courseManagerScript: false
+    groundCalibration: false
+    instructionText: false
+    startButtonObject: false
+    statusText: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - groundCalibration: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      courseManagerScript: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      calibrationVisual: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      statusText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      instructionText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      startButtonObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input AssignableType groundCalibration
+    - // @input Component.ScriptComponent courseManagerScript
+    - // @input SceneObject calibrationVisual
+    - // @input Component.Text statusText
+    - // @input Component.Text instructionText
+    - // @input SceneObject startButtonObject

@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    2c4ea6cf-8f39-414a-9102-34ae4fc1c9b3: 01d76a7f-a474-17d8-1e19-35e8cfe456f4/3d91b5d3f7be5978fb6b75086dcc4210/Data/progress_deep.png
+  Assets:
+    - !<FileTexture/2c4ea6cf-8f39-414a-9102-34ae4fc1c9b3>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 62
+        Height: 36
+  SourceHash: 3d91b5d3f7be5978fb6b75086dcc4210
+  FileHash: 3f8e563453919bd0dbdaa4a4be1667b3
+  NativePackageItems:
+    []

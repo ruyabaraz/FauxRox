@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    fa38e1aa-76be-4270-a185-bbdba3384da5: 0ff92145-9c84-4952-3fcd-3525322e678e/2c77b959bad6fd57caa3e4339db2ce10/Data/Water_BaseColor.jpg
+  Assets:
+    - !<FileTexture/fa38e1aa-76be-4270-a185-bbdba3384da5>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 1024
+        Height: 1024
+  SourceHash: 2c77b959bad6fd57caa3e4339db2ce10
+  FileHash: ecf482c34c0e16774a81128b4134fbfb
+  NativePackageItems:
+    []

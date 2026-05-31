@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    c7d1797a-8f20-4b27-9fb5-e6bb3fc7ebeb: 04fa93ea-14c4-3e23-66ea-6bc7d33f981d/3828918a8003406259bf0aa9a218b90d/Data/Noise_Electro_A.jpg
+  Assets:
+    - !<FileTexture/c7d1797a-8f20-4b27-9fb5-e6bb3fc7ebeb>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 512
+        Height: 512
+  SourceHash: 3828918a8003406259bf0aa9a218b90d
+  FileHash: ef763808040b9cbc08faec341c1b94f0
+  NativePackageItems:
+    []

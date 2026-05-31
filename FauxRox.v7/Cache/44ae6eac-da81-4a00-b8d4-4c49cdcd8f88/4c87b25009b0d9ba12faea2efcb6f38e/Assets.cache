@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    51f8cea3-382a-43da-9d4a-ae4a691ef1e8: 44ae6eac-da81-4a00-b8d4-4c49cdcd8f88/4c87b25009b0d9ba12faea2efcb6f38e/Data/BeatPB_white.png
+  Assets:
+    - !<FileTexture/51f8cea3-382a-43da-9d4a-ae4a691ef1e8>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 512
+        Height: 512
+  SourceHash: 4c87b25009b0d9ba12faea2efcb6f38e
+  FileHash: 672d2fcf210c5587bbde529b3ea7af17
+  NativePackageItems:
+    []

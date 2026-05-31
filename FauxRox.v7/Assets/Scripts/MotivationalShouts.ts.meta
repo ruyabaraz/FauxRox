@@ -1,0 +1,68 @@
+- !<AssetImportMetadata/b40a1e34-3cc7-49af-a0ac-9cebdf258f49>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 0998fbaa-50c9-477e-88bc-c1a0a880568f
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 0998fbaa-50c9-477e-88bc-c1a0a880568f
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 6d6b4fa4-636a-4170-9a9f-d8b470e4d94d
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/6d6b4fa4-636a-4170-9a9f-d8b470e4d94d>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 9ca7ed18-d27b-419b-9923-f09cdf56a6bd
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    aiCoach: false
+    cloudManager: false
+    debugPrint: false
+    enabled: false
+    heartRateTracker: false
+    minShoutInterval: false
+    raceStateMachine: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - raceStateMachine: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      aiCoach: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      heartRateTracker: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      cloudManager: !<MappingBased.AssignableType_3> 00000000-0000-0000-0000-000000000000
+      enabled: true
+      minShoutInterval: !<float> 8.000000
+      debugPrint: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Motivational Shouts System"}'
+    - '// @ui {"widget":"separator"}'
+    - // @input AssignableType raceStateMachine
+    - // @input AssignableType_1 aiCoach
+    - // @input AssignableType_2 heartRateTracker
+    - // @input AssignableType_3 cloudManager
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - // @input bool enabled = true
+    - // @input float minShoutInterval = 15
+    - // @input bool debugPrint = true
+    - '// @ui {"widget":"group_end"}'

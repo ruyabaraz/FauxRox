@@ -1,0 +1,44 @@
+- !<AssetImportMetadata/7c2eb5ef-1ab7-4a3f-aebf-15cf86245f93>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 13f4d961-1599-4c70-a5df-e4370f40aeaf
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 13f4d961-1599-4c70-a5df-e4370f40aeaf
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 94299252-8a55-4ddc-bf77-a99730615850
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/94299252-8a55-4ddc-bf77-a99730615850>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: bd5d2ca1-0f6d-4fd1-8d84-354b3d1d09cf
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    maxAlpha: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - maxAlpha: !<float> 1.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input float maxAlpha = 1 {"hint":"Maximum alpha for this mesh (0.0 - 1.0)"}'

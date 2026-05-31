@@ -1,0 +1,17 @@
+- !<AssetCache>
+  AssetFiles:
+    e1784f33-ea9d-45ca-91be-03a23ab150f2: 340ab85e-9406-49c7-8f60-e207f528cb7b/64feb0680f3b806677b1b75c077b05cb/Data/start.lights.mesh
+  Assets:
+    - !<FileMesh/e1784f33-ea9d-45ca-91be-03a23ab150f2>
+      PackagePath: ""
+      Info: !<MeshInfo>
+        Triangles: 96
+        Vertices: 192
+        Blendshapes:
+          []
+        Joints: 0
+        AabbSize: {x: 1.746081, y: 0.005378, z: 1.561430}
+  SourceHash: 64feb0680f3b806677b1b75c077b05cb
+  FileHash: 7d65304f431d5a9d3c5c26440d2ff158
+  NativePackageItems:
+    []

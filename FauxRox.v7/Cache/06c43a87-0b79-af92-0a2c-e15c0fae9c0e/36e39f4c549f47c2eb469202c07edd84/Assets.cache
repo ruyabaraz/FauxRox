@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    9adb6f7e-84f2-4901-a4ab-a998d316812a: 06c43a87-0b79-af92-0a2c-e15c0fae9c0e/36e39f4c549f47c2eb469202c07edd84/Data/Lato-Regular.ttf
+  Assets:
+    - !<Font/9adb6f7e-84f2-4901-a4ab-a998d316812a>
+      PackagePath: ""
+  SourceHash: 36e39f4c549f47c2eb469202c07edd84
+  FileHash: 39ecab0be56c0e2e071856eae5ea0ee0
+  NativePackageItems:
+    []

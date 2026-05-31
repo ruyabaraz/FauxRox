@@ -1,0 +1,179 @@
+{ 
+	"ui": 
+	[
+		{
+        	"label": "Graph Parameters",
+        	"widget": "group_start"
+        },
+{
+                	"bindingName": "baseColor",
+                	"label":       "Base Color",
+                	"widget":      "color",
+                	"sortIndex":   "2",
+                	"hint":        "Specifies the base color (albedo) of the material if the 'Base Textre' is disabled. \nMultiplied with the 'Base Texture' otherwise.",
+                	"default":     "1.0"
+                },
+                
+                {
+                	"label":       "Rim Texture",
+                	"bindingName": "rimTexture",
+                	"bindingType": "define",
+                	"optimize":    true,
+                	"widget":      "group_start",
+                	"sortIndex":   "0",
+                	"hint":        "Most materials use a base texture (albedo), but disabling it means the base texture will be considered white, and 'Base Color' will solely control the color."
+                }
+                ,                    
+                    { 
+                    	"bindingName": "baseTex", 
+                    	"label":       "Texture", 
+                    	"widget":      "texture_group",
+                    	"sortIndex":   "2",
+                    	"hint":        ""
+                    },
+                    
+                    {
+                    	"bindingName": "ENABLE_ANIMATED_BASE",
+                    	"bindingType": "define",
+                    	"optimize":    true,
+                    	"label":       "Animated",
+                    	"widget":      "checkbox",
+                    	"sortIndex":   "5",
+                    	"hint":        "Allows shifting of textures, or controls the speed of scrolling if animation is enabled."
+                    },
+                    
+                    {
+                    	"bindingName": "scrollDirection",
+                    	"label":       "Scroll Direction",
+                    	"widget":      "spinbox",
+                    	"step":        "0.01",
+                    	"sortIndex":   "6",
+                    	"hint":        "",
+                    	"default":     "1.0"
+                    },
+                    
+                    {
+                    	"bindingName": "scrollSpeed",
+                    	"label":       "Scroll Speed",
+                    	"widget":      "spinbox",
+                    	"step":        "0.01",
+                    	"sortIndex":   "7",
+                    	"hint":        "",
+                    	"default":     "1.0"
+                    },
+                    
+                    {
+                    	"label":       "UV Coords",
+                    	"bindingType": "defineSelect",
+                    	"values":      
+                    	[
+                    		
+                    		{
+                    			"value": "NODE_44_DROPLIST_ITEM 0",
+                    			"label": "UV 0"
+                    		},
+                    		
+                    		{
+                    			"value": "NODE_44_DROPLIST_ITEM 1",
+                    			"label": "UV 1"
+                    		}
+                    	],
+                    	"sortIndex":   "8",
+                    	"hint":        ""
+                    },
+                    
+                    {
+                    	"bindingName": "baseScale",
+                    	"label":       "UV Scale",
+                    	"widget":      "spinbox",
+                    	"step":        "0.01",
+                    	"sortIndex":   "9",
+                    	"hint":        "",
+                    	"default":     "1.0"
+                    },
+                {
+                	"_bindingName": "rimTexture",
+                	"widget": "group_end"
+                }
+                ,
+                
+                {
+                	"label":       "Rim Highlight",
+                	"bindingName": "ENABLE_RIM",
+                	"bindingType": "define",
+                	"optimize":    true,
+                	"widget":      "group_start",
+                	"sortIndex":   "0",
+                	"hint":        ""
+                }
+                ,                    
+                    {
+                    	"bindingName": "rimInvert",
+                    	"label":       "Invert",
+                    	"widget":      "checkbox",
+                    	"sortIndex":   "10",
+                    	"hint":        ""
+                    },
+                    
+                    {
+                    	"bindingName": "rimColor",
+                    	"label":       "Color",
+                    	"widget":      "color",
+                    	"sortIndex":   "15",
+                    	"hint":        "",
+                    	"default":     "1.0"
+                    },
+                    
+                    {
+                    	"bindingName": "rimExponent",
+                    	"label":       "Exponent",
+                    	"widget":      "slider",
+                    	"min":         0,
+                    	"max":         10,
+                    	"step":        "0.01",
+                    	"sortIndex":   "16",
+                    	"hint":        "",
+                    	"default":     "1.0"
+                    },
+                    
+                    {
+                    	"bindingName": "rimIntensity",
+                    	"label":       "Intensity",
+                    	"widget":      "slider",
+                    	"min":         0,
+                    	"max":         10,
+                    	"step":        "0.01",
+                    	"sortIndex":   "17",
+                    	"hint":        "",
+                    	"default":     "1.0"
+                    },
+                {
+                	"_bindingName": "ENABLE_RIM",
+                	"widget": "group_end"
+                }
+                ,
+
+        {
+        	"widget": "group_end"
+        },
+        
+		
+	{
+		"bindingName": "alphaTestThreshold",
+		"widget": "slider",
+		"min" : 0.0,
+		"max" : 1.0,
+		"step": 0.001,
+		"default": 0.5,
+		"hint": "When the 'Alpha Test' blend mode is enabled, pixels with alpha values lower than this disappear."
+	}
+	
+	],
+	
+	"shaderType": "Mesh3d",
+	
+	"extraDefines":
+	[
+		"SC_ENABLE_RT_CASTER"
+	]
+}

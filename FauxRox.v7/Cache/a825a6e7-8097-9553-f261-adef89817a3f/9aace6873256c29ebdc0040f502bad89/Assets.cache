@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    d9638875-c655-4549-8c24-d7055cdbee0c: a825a6e7-8097-9553-f261-adef89817a3f/9aace6873256c29ebdc0040f502bad89/Data/Life bar 5.png
+  Assets:
+    - !<FileTexture/d9638875-c655-4549-8c24-d7055cdbee0c>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 273
+        Height: 31
+  SourceHash: 9aace6873256c29ebdc0040f502bad89
+  FileHash: 25002a340fddc44687ed01e0b9718050
+  NativePackageItems:
+    []

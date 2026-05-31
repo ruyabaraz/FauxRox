@@ -1,0 +1,173 @@
+- !<ObjectPrefab/ece122af-fab5-4a50-8682-36cf41946e68>
+  PackagePath: ""
+  objects:
+    - !<own> 397c9408-a0a7-46bb-b790-1960eaa40103
+  LazyLoading: false
+  RetainAssets: true
+- !<SceneObject/397c9408-a0a7-46bb-b790-1960eaa40103>
+  PrefabRemaps:
+    - 397c9408-a0a7-46bb-b790-1960eaa40103: 397c9408-a0a7-46bb-486f-e69f155bfefc
+    - 3e0b48af-e89d-4889-861e-7900e27cd616: 6b20b2fb-6091-49a9-8d60-5eeef03ebea6
+    - 4dbddbdf-0365-4cad-b77d-d4d29c139781: 4dbddbdf-0365-4cad-4882-2b2d63ec687e
+    - 703ac561-3afa-4124-a1f2-b8c612ca12fd: 1f52354d-d5fd-400d-8947-b6a43f785b96
+    - 7961e73f-e320-46b4-94f1-07bbb85274ea: 4e942432-2782-4e34-9c81-94568f4a51e5
+    - bded4abf-2f33-4c9d-b4ba-a1fbabb079fa: bded4abf-2f33-4c9d-4b45-5e04544f8605
+    - c8ab1c44-f85c-4076-8bd2-d84f04f9554d: c0e730e9-2706-413e-a648-a97923a42d83
+    - d14db9b5-c811-447f-a568-5be2a76a3ece: 99a07706-012f-4f32-9e92-283c1df06f7a
+  Name: MicButton
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: -100.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 4dbddbdf-0365-4cad-b77d-d4d29c139781
+  Components:
+    []
+- !<Image/3e0b48af-e89d-4889-861e-7900e27cd616>
+  PrefabRemaps:
+    []
+  Name: Image
+  Enabled: true
+  RenderOrder: 10
+  StretchMode: Fit
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 0fc80ac7-6e7f-4375-867e-9bfb2cdd47c9
+  FlipX: false
+  FlipY: false
+  RotationAngle: 0
+  Pivot: {x: 0.000000, y: 0.000000}
+  ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000
+- !<SceneObject/4dbddbdf-0365-4cad-b77d-d4d29c139781>
+  PrefabRemaps:
+    []
+  Name: SphereToggle
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.010002}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> c8ab1c44-f85c-4076-8bd2-d84f04f9554d
+    - !<own> 7961e73f-e320-46b4-94f1-07bbb85274ea
+  Components:
+    - !<own> bded4abf-2f33-4c9d-b4ba-a1fbabb079fa
+    - !<own> d14db9b5-c811-447f-a568-5be2a76a3ece
+- !<Image/703ac561-3afa-4124-a1f2-b8c612ca12fd>
+  PrefabRemaps:
+    []
+  Name: Image
+  Enabled: true
+  RenderOrder: 10
+  StretchMode: Fit
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> eb9b330f-fe1c-4ad4-9cd5-eff64a8b9e0b
+  FlipX: false
+  FlipY: false
+  RotationAngle: 0
+  Pivot: {x: 0.000000, y: 0.000000}
+  ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000
+- !<SceneObject/7961e73f-e320-46b4-94f1-07bbb85274ea>
+  PrefabRemaps:
+    []
+  Name: ListeningUIanimation
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.009998}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 9.000000, y: 9.000002, z: 9.000002}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 703ac561-3afa-4124-a1f2-b8c612ca12fd
+- !<ScriptComponent/bded4abf-2f33-4c9d-b4ba-a1fbabb079fa>
+  PrefabRemaps:
+    []
+  Name: RoundButton
+  Enabled: true
+  ScriptAsset: !<reference> ecf4e352-5db4-4239-8a5e-c4c517a0f03c
+  ScriptInputsDefault:
+    _renderOrder: true
+    _inactive: true
+    _playAudio: true
+    _style: true
+    _defaultToOn: true
+    addCallbacks: true
+    triggerUpCallbacks: true
+    triggerDownCallbacks: true
+    onValueChangeCallbacks: true
+    onFinishedCallbacks: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      _renderOrder: 0
+      _inactive: false
+      _playAudio: false
+      _style: PrimaryNeutral
+      _toggleable: true
+      _defaultToOn: false
+      addCallbacks: false
+      triggerUpCallbacks:
+        []
+      triggerDownCallbacks:
+        []
+      onValueChangeCallbacks:
+        []
+      onFinishedCallbacks:
+        []
+      _width: 4.500000
+  ScriptTypes:
+    "":
+      {}
+- !<SceneObject/c8ab1c44-f85c-4076-8bd2-d84f04f9554d>
+  PrefabRemaps:
+    []
+  Name: Microphone
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.009998}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 2.500000, y: 2.500000, z: 2.500000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 3e0b48af-e89d-4889-861e-7900e27cd616
+- !<ScriptComponent/d14db9b5-c811-447f-a568-5be2a76a3ece>
+  PrefabRemaps:
+    []
+  Name: CoachToggleButton
+  Enabled: true
+  ScriptAsset: !<reference> b82c6ef8-80a8-4eda-acaa-b1c6aa15fd28
+  ScriptInputsDefault:
+    muteButton: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      aiCoach: !<MappingBased.AssignableType> 92e747a2-5b0a-459f-8419-f2a12f991894
+      micIcon: !<reference.Image> 3e0b48af-e89d-4889-861e-7900e27cd616
+      micOnTexture: !<reference.Texture> e96c1dc5-ee1a-41fa-b0ce-6cb7c79df5ec
+      micOffTexture: !<reference.Texture> 85e37329-fb08-485d-bcce-659730dca236
+      muteButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    "":
+      {}

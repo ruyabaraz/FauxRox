@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    d530979b-fbda-47bc-8ac7-4ea23b0a41c1: ef97739e-a730-4a9e-928b-d1fa32c98880/bc09729b74cbb1741e0eb6af5b6d2e65/Data/arrow.png
+  Assets:
+    - !<FileTexture/d530979b-fbda-47bc-8ac7-4ea23b0a41c1>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 2048
+        Height: 2048
+  SourceHash: bc09729b74cbb1741e0eb6af5b6d2e65
+  FileHash: 894b3b17f1fc7838bb85c74e995fbae3
+  NativePackageItems:
+    []

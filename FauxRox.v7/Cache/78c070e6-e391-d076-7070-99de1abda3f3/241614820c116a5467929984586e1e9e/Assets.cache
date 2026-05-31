@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    11fcd96a-808b-42f3-83f7-7661f7298493: 78c070e6-e391-d076-7070-99de1abda3f3/241614820c116a5467929984586e1e9e/Data/Life 7.png
+  Assets:
+    - !<FileTexture/11fcd96a-808b-42f3-83f7-7661f7298493>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 36
+        Height: 221
+  SourceHash: 241614820c116a5467929984586e1e9e
+  FileHash: d26953626f24af30f345c26486092e59
+  NativePackageItems:
+    []

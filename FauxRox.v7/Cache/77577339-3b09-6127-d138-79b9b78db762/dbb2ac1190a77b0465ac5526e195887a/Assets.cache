@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    250a6a82-4e26-4c2c-b9cd-5b16d02ed72f: 77577339-3b09-6127-d138-79b9b78db762/dbb2ac1190a77b0465ac5526e195887a/Data/AvenirNextLTPro-BoldIt.otf
+  Assets:
+    - !<Font/250a6a82-4e26-4c2c-b9cd-5b16d02ed72f>
+      PackagePath: ""
+  SourceHash: dbb2ac1190a77b0465ac5526e195887a
+  FileHash: 34f032f80e69110d9d84265fb3c26070
+  NativePackageItems:
+    []

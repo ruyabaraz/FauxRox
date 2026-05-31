@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    f0baad59-e9d9-453b-887c-ca2950f2410f: c63a297e-77f8-5272-b340-8c708060e44b/1dfbbf004bdda09827957941403807ce/Data/Matcap_Gem.jpg
+  Assets:
+    - !<FileTexture/f0baad59-e9d9-453b-887c-ca2950f2410f>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 512
+        Height: 512
+  SourceHash: 1dfbbf004bdda09827957941403807ce
+  FileHash: 0228ecbd9e2c91b49ebae8a1d2e2c916
+  NativePackageItems:
+    []

@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    63f85eec-fb4f-4527-9e95-b720b2318c71: e392714e-44ed-3ef7-d175-39a74f70d121/36299ec1bfebafa7b1fac1fba611aa80/Data/Matcap_Hair.jpg
+  Assets:
+    - !<FileTexture/63f85eec-fb4f-4527-9e95-b720b2318c71>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 512
+        Height: 512
+  SourceHash: 36299ec1bfebafa7b1fac1fba611aa80
+  FileHash: 3f7d258c7a4a5b96e29a1b406a56dbde
+  NativePackageItems:
+    []

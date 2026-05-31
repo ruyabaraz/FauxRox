@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    03b29fc0-a7c6-4a79-8d8c-84a8f27e5978: da0fd3a4-6b79-47ca-a5da-6b1f060740b7/86777866b7b00dbb6f5af30a03a61703/Data/Barlow-ThinItalic.ttf
+  Assets:
+    - !<Font/03b29fc0-a7c6-4a79-8d8c-84a8f27e5978>
+      PackagePath: ""
+  SourceHash: 86777866b7b00dbb6f5af30a03a61703
+  FileHash: a3d0f4bafed5b725b43779b795a4b238
+  NativePackageItems:
+    []

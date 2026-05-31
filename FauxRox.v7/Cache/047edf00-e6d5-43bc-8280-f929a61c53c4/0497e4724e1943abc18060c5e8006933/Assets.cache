@@ -1,0 +1,30 @@
+- !<AssetCache>
+  AssetFiles:
+    e7814d83-1f8b-4c7f-98fe-421b2c045ee5: 047edf00-e6d5-43bc-8280-f929a61c53c4/0497e4724e1943abc18060c5e8006933/Data/animation.t3d
+    5e93bba8-8085-40a5-ae3a-3cc81d418d3b: 047edf00-e6d5-43bc-8280-f929a61c53c4/0497e4724e1943abc18060c5e8006933/Data/skierg_0.png
+  Assets:
+    - !<AnimatedTexture/e7814d83-1f8b-4c7f-98fe-421b2c045ee5>
+      PackagePath: ""
+      keyFrames:
+        default:
+          - time: 0.000000
+            value: 0
+          - time: 1.000000
+            value: 24
+      ReverseSupported: true
+      FrameSize: {x: 170, y: 877}
+      AnimationSequences:
+        default: 24
+      AutoPlay: true
+      Reversed: false
+      PingPong: false
+      CurrentSequence: default
+    - !<FileTexture/5e93bba8-8085-40a5-ae3a-3cc81d418d3b>
+      PackagePath: skierg_0.png
+      FileInfo: !<FileTextureInfo>
+        Width: 2040
+        Height: 1754
+  SourceHash: 0497e4724e1943abc18060c5e8006933
+  FileHash: 4738be1eaae9e6a0b679953faf6de141
+  NativePackageItems:
+    []

@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    24be3af3-e98d-4a8b-8aca-6808023c3402: adcf29c8-44a4-484d-964b-96e47f1db55d/3224945a1e08414be58b0572494d66fa/Data/Barlow-SemiBold.ttf
+  Assets:
+    - !<Font/24be3af3-e98d-4a8b-8aca-6808023c3402>
+      PackagePath: ""
+  SourceHash: 3224945a1e08414be58b0572494d66fa
+  FileHash: eb7dc1185f62866e1b012e8b1d4abe90
+  NativePackageItems:
+    []

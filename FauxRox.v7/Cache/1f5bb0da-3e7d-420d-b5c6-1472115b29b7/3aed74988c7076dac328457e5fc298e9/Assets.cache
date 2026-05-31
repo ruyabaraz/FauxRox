@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    471f026a-089e-47e2-bea8-58d04e9bc9c1: 1f5bb0da-3e7d-420d-b5c6-1472115b29b7/3aed74988c7076dac328457e5fc298e9/Data/Avenir Next Condensed.ttc
+  Assets:
+    - !<Font/471f026a-089e-47e2-bea8-58d04e9bc9c1>
+      PackagePath: ""
+  SourceHash: 3aed74988c7076dac328457e5fc298e9
+  FileHash: 1ff26215b7a3c383c6f7a83c819203b9
+  NativePackageItems:
+    []

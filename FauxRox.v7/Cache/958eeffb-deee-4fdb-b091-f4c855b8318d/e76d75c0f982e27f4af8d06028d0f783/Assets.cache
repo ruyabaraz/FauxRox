@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    43b592c5-cf32-44cb-9461-f04aa613b46c: 958eeffb-deee-4fdb-b091-f4c855b8318d/e76d75c0f982e27f4af8d06028d0f783/Data/timerBG3.png
+  Assets:
+    - !<FileTexture/43b592c5-cf32-44cb-9461-f04aa613b46c>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 741
+        Height: 267
+  SourceHash: e76d75c0f982e27f4af8d06028d0f783
+  FileHash: c7238f6ab7099a2c4838ae52189aa586
+  NativePackageItems:
+    []

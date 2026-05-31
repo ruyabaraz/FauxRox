@@ -1,0 +1,62 @@
+- !<AssetImportMetadata/881e770d-97d5-4ff5-a7e3-4b60232e7d6d>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 043ba86d-84d0-40ff-be01-65d028bd1cb6
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 043ba86d-84d0-40ff-be01-65d028bd1cb6
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> d95eaf87-2084-4533-bac4-52da23520030
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/d95eaf87-2084-4533-bac4-52da23520030>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 80e6eec1-07ec-4e39-b349-c45ce090be40
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    calibrationFrames: false
+    camera: false
+    maxHitDistance: false
+    minHitDistance: false
+    moveThreshold: false
+    progressText: false
+    visualIndicator: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - camera: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      visualIndicator: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      progressText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      maxHitDistance: !<float> 500.000000
+      minHitDistance: !<float> 30.000000
+      calibrationFrames: !<float> 30.000000
+      moveThreshold: !<float> 8.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input SceneObject camera
+    - // @input SceneObject visualIndicator
+    - // @input Component.Text progressText
+    - // @input float maxHitDistance = 500
+    - // @input float minHitDistance = 30
+    - // @input float calibrationFrames = 30
+    - // @input float moveThreshold = 8

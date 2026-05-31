@@ -1,0 +1,68 @@
+- !<AssetImportMetadata/7bb25daa-d563-45bd-a1c4-9957850f5a98>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 5f42b360-62b1-43ce-87a8-e450220bd593
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 5f42b360-62b1-43ce-87a8-e450220bd593
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 60963c21-2863-4434-84f0-f8feb739c8ba
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/60963c21-2863-4434-84f0-f8feb739c8ba>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 8b44fa94-f7ba-49ae-8d59-f1a1dc59d24a
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    camera: false
+    debugPrint: false
+    hitCooldown: false
+    hitVfxPrefab: false
+    readyZoneMaxY: false
+    readyZoneMinY: false
+    targetHeightOffset: false
+    targetZonePrefab: false
+    targetZoneRadius: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - camera: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      targetZonePrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
+      hitVfxPrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
+      targetHeightOffset: !<float> 40.000000
+      readyZoneMinY: !<float> -30.000000
+      readyZoneMaxY: !<float> 10.000000
+      targetZoneRadius: !<float> 25.000000
+      hitCooldown: 0.300000
+      debugPrint: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input SceneObject camera
+    - // @input Asset.ObjectPrefab targetZonePrefab
+    - // @input Asset.ObjectPrefab hitVfxPrefab
+    - // @input float targetHeightOffset = 25
+    - // @input float readyZoneMinY = -30
+    - // @input float readyZoneMaxY = 10
+    - // @input float targetZoneRadius = 25
+    - // @input float hitCooldown = 0.3
+    - // @input bool debugPrint = true

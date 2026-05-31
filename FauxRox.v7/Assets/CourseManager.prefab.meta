@@ -1,0 +1,75 @@
+- !<AssetImportMetadata/ca79e166-5de5-415a-a711-61fae39cf44c>
+  ImportedAssetIds:
+    ObjectPrefab: !<reference> bf74f6ae-3a3c-4148-a540-52332d74992c
+  ImporterName: ObjectPrefabImporter
+  PrimaryAsset: !<reference> bf74f6ae-3a3c-4148-a540-52332d74992c
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    ObjectPrefab: !<own> 9a3fcfba-1413-4569-a6ea-e1d7456f33a1
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<SceneObject/83690e17-7f8b-47f4-7392-37acf2cff654>
+  PrefabRemaps:
+    []
+  Name: CourseManager
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: -25.800961, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> dc009798-2926-4e64-4f2c-04d74a73e6ed
+- !<ObjectPrefabAssetData/9a3fcfba-1413-4569-a6ea-e1d7456f33a1>
+  Prototype: !<ObjectOwner/b8a1f933-615e-43e8-b5d6-a018cbbe16c9>
+    PackagePath: ""
+    objects:
+      - !<own> 83690e17-7f8b-47f4-7392-37acf2cff654
+- !<ScriptComponent/dc009798-2926-4e64-4f2c-04d74a73e6ed>
+  PrefabRemaps:
+    []
+  Name: CourseManager
+  Enabled: true
+  ScriptAsset: !<reference> 1935fddd-7670-41ef-ac8f-332097711ce5
+  ScriptInputsDefault:
+    spawnDistanceAhead: true
+    fadeDuration: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      startLinePrefab: !<reference.ObjectPrefab> 65d8ee85-618a-49a7-a3e9-fd5bde311abc
+      finishPrefab: !<reference.ObjectPrefab> 4889b8bc-430a-40de-ba15-7338530d4ec9
+      airSkiergPrefab: !<reference.ObjectPrefab> df5fe982-1183-4875-b94d-39c6bb1488f5
+      powerLanePrefab: !<reference.ObjectPrefab> df5fe982-1183-4875-b94d-39c6bb1488f5
+      crabWalkPrefab: !<reference.ObjectPrefab> df5fe982-1183-4875-b94d-39c6bb1488f5
+      burpeeBroadJumpPrefab: !<reference.ObjectPrefab> df5fe982-1183-4875-b94d-39c6bb1488f5
+      powerRowPrefab: !<reference.ObjectPrefab> df5fe982-1183-4875-b94d-39c6bb1488f5
+      heavyCarryPrefab: !<reference.ObjectPrefab> df5fe982-1183-4875-b94d-39c6bb1488f5
+      walkingLungesPrefab: !<reference.ObjectPrefab> df5fe982-1183-4875-b94d-39c6bb1488f5
+      targetPressPrefab: !<reference.ObjectPrefab> bce0b0a1-4b56-4965-8e6b-460c00c5d331
+      defaultWorkoutPrefab: !<reference.ObjectPrefab> 65d8ee85-618a-49a7-a3e9-fd5bde311abc
+      finishVfxPrefab: !<reference.ObjectPrefab> 4829461f-458b-45f5-99a3-5352cd6d03eb
+      runDistance: !<float> 5.000000
+      spawnDistanceAhead: !<float> 200.000000
+      fadeDuration: 0.500000
+      airSkiergReps: !<float> 2.000000
+      powerRowReps: !<float> 2.000000
+      targetPressReps: !<float> 3.000000
+      powerLaneDistance: !<float> 5.000000
+      crabWalkDistance: !<float> 5.000000
+      burpeeReps: !<float> 5.000000
+      heavyCarryDistance: !<float> 5.000000
+      lungesDistance: !<float> 5.000000
+  ScriptTypes:
+    "":
+      {}

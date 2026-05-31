@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    35cc6ace-e65e-4166-91b0-388252439447: b0037777-b6d9-4034-8450-6a14aa5ac004/5cba16ebe7984383d8d28f0f040239a8/Data/01_top_hud_glass_background.png
+  Assets:
+    - !<FileTexture/35cc6ace-e65e-4166-91b0-388252439447>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 760
+        Height: 400
+  SourceHash: 5cba16ebe7984383d8d28f0f040239a8
+  FileHash: a6f29c40627f1146c6f5b6898a725a1c
+  NativePackageItems:
+    []

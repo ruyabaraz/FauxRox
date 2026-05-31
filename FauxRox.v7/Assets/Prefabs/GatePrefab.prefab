@@ -1,0 +1,58 @@
+- !<ObjectPrefab/df5fe982-1183-4875-b94d-39c6bb1488f5>
+  PackagePath: ""
+  objects:
+    - !<own> ee312327-2fe8-47c4-965c-9a5b355b5859
+  LazyLoading: false
+  RetainAssets: true
+- !<SceneObject/4d1cb60e-5957-445f-8a2f-255b872ab4c9>
+  PrefabRemaps:
+    []
+  Name: start 1
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 90.000000, y: -0.000000, z: 0.000000}
+    Scale: {x: 109.000000, y: 45.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 59a700cc-b52d-4d5d-85b2-cd6c814afcdb
+- !<RenderMeshVisual/59a700cc-b52d-4d5d-85b2-cd6c814afcdb>
+  PrefabRemaps:
+    []
+  Name: component_0
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> ef0ef46e-1e95-482f-b9a6-d47b54dc1d40
+  Mesh: !<reference> 49f30014-5c4d-4b5e-a3b8-9b5458df996b
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/ee312327-2fe8-47c4-965c-9a5b355b5859>
+  PrefabRemaps:
+    - 4d1cb60e-5957-445f-8a2f-255b872ab4c9: 1186a25e-4efc-471a-bdd6-ae4ff72de54d
+    - 59a700cc-b52d-4d5d-85b2-cd6c814afcdb: b48da181-cee4-4ab9-9cd3-029d5ad93ee7
+    - ee312327-2fe8-47c4-965c-9a5b355b5859: ee312327-2fe8-47c4-69a3-65a4caa4a7a6
+  Name: GatePrefab
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 4d1cb60e-5957-445f-8a2f-255b872ab4c9
+  Components:
+    []

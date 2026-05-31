@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    7e22d46b-1b7a-409c-9b96-26131a8ee9d3: 40077a1b-63c1-4938-89f7-c5f0ebadc8e1/856d2f5a6d458266a9d81474a0237c99/Data/BrandonText-Medium.otf
+  Assets:
+    - !<Font/7e22d46b-1b7a-409c-9b96-26131a8ee9d3>
+      PackagePath: ""
+  SourceHash: 856d2f5a6d458266a9d81474a0237c99
+  FileHash: 18ec9f0fdf5ad195684b71d77c6789d2
+  NativePackageItems:
+    []

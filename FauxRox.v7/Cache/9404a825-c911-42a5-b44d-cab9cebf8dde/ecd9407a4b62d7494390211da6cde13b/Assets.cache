@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    645ef402-6dd1-4af8-8766-22e6dc677491: 9404a825-c911-42a5-b44d-cab9cebf8dde/ecd9407a4b62d7494390211da6cde13b/Data/timerBG.png
+  Assets:
+    - !<FileTexture/645ef402-6dd1-4af8-8766-22e6dc677491>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 741
+        Height: 267
+  SourceHash: ecd9407a4b62d7494390211da6cde13b
+  FileHash: 9d978a524f3125640e427bc58d42dd40
+  NativePackageItems:
+    []

@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    1dfe88ae-174f-4a9f-b3fe-efbb4ca8f549: 1cdf202e-a157-4a10-f292-ad7c464fecbd/4a0fc232d4153f3b6700fb8f6848ba36/Data/Life 4.png
+  Assets:
+    - !<FileTexture/1dfe88ae-174f-4a9f-b3fe-efbb4ca8f549>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 1
+        Height: 1
+  SourceHash: 4a0fc232d4153f3b6700fb8f6848ba36
+  FileHash: d7c4a7b00d275c3c76bcdd3b76742ca1
+  NativePackageItems:
+    []

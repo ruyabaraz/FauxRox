@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    429f6e7a-9435-495c-bf56-427c205fb2f0: 0aa371d9-3899-4609-85cc-cb3428cef6b1/8e01f60d2d38a36305330023bf39876e/Data/Barlow-Medium.ttf
+  Assets:
+    - !<Font/429f6e7a-9435-495c-bf56-427c205fb2f0>
+      PackagePath: ""
+  SourceHash: 8e01f60d2d38a36305330023bf39876e
+  FileHash: d8926c9d103641b921429f5bc3ace340
+  NativePackageItems:
+    []

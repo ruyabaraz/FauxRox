@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    44afddf9-950c-4e9f-b960-8a64fe4a6aac: 3c4015ec-3371-4f2b-8895-a9f9012f4257/b89db3465eac4901e474e64a8bbd2f4f/Data/Barlow-Light.ttf
+  Assets:
+    - !<Font/44afddf9-950c-4e9f-b960-8a64fe4a6aac>
+      PackagePath: ""
+  SourceHash: b89db3465eac4901e474e64a8bbd2f4f
+  FileHash: 8612c99aacbae1bcf9ce78db2376272b
+  NativePackageItems:
+    []

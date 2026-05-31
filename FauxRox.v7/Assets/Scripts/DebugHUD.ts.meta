@@ -1,0 +1,62 @@
+- !<AssetImportMetadata/afacdfef-d6d0-4fd9-ae21-0fe46b3757d4>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 834b7058-ea5e-41c0-871d-676cb99adef1
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 834b7058-ea5e-41c0-871d-676cb99adef1
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 99d0752b-df51-4d54-a882-0ef55fe94d94
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/99d0752b-df51-4d54-a882-0ef55fe94d94>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: abbe931d-a64e-43ea-85eb-37056585746d
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    courseManager: false
+    debugText: false
+    enabled: false
+    handZoneDetector: false
+    heartRateTracker: false
+    raceStateMachine: false
+    updateInterval: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - debugText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      raceStateMachine: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      handZoneDetector: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      courseManager: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      heartRateTracker: !<MappingBased.AssignableType_3> 00000000-0000-0000-0000-000000000000
+      enabled: true
+      updateInterval: 0.100000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input Component.Text debugText
+    - // @input AssignableType raceStateMachine
+    - // @input AssignableType_1 handZoneDetector
+    - // @input AssignableType_2 courseManager
+    - // @input AssignableType_3 heartRateTracker
+    - // @input bool enabled = true
+    - // @input float updateInterval = 0.1

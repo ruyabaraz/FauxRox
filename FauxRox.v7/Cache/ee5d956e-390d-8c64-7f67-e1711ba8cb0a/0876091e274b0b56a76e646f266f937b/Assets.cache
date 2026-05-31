@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    48e888c6-02ac-43eb-a14a-d6cf889cc46a: ee5d956e-390d-8c64-7f67-e1711ba8cb0a/0876091e274b0b56a76e646f266f937b/Data/Life bar 4.png
+  Assets:
+    - !<FileTexture/48e888c6-02ac-43eb-a14a-d6cf889cc46a>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 273
+        Height: 31
+  SourceHash: 0876091e274b0b56a76e646f266f937b
+  FileHash: 48ad9a716843248679c63177fbd229ee
+  NativePackageItems:
+    []

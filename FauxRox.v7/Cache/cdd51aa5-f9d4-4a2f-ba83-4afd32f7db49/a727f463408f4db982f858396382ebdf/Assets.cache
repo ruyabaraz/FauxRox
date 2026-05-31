@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    6b03e877-527d-482d-8cc2-9239efec9af6: cdd51aa5-f9d4-4a2f-ba83-4afd32f7db49/a727f463408f4db982f858396382ebdf/Data/BrandonText-Black.otf
+  Assets:
+    - !<Font/6b03e877-527d-482d-8cc2-9239efec9af6>
+      PackagePath: ""
+  SourceHash: a727f463408f4db982f858396382ebdf
+  FileHash: 02fcfe18800c13e6ae092eec45aad328
+  NativePackageItems:
+    []

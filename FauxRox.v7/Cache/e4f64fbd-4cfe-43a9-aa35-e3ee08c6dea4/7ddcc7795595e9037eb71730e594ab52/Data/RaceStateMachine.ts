@@ -1,0 +1,803 @@
+// ============================================================================
+// RaceStateMachine.ts — HYROX MIRAGE Core Game Loop
+// Lens Studio 5.x · Spectacles · TypeScript
+// ============================================================================
+// DYNAMIC follow-the-runner system:
+// - Stations spawn in front of player when run distance completes
+// - No fixed course layout - works anywhere
+// ============================================================================
+
+import { StationMode, StationConfig, MotionType } from "./CourseManager";
+import { LocationTracker } from "./LocationTracker";
+import { HandZoneDetector } from "./HandZoneDetector";
+
+enum RaceState {
+  IDLE        = 'IDLE',
+  COUNTDOWN   = 'COUNTDOWN',
+  RUNNING     = 'RUNNING',      // Running to reach distance target
+  STATION     = 'STATION',      // At workout station
+  PAUSED      = 'PAUSED',
+  FINISHED    = 'FINISHED',
+}
+
+@component
+export class RaceStateMachine extends BaseScriptComponent {
+
+  // ── References ────────────────────────────────────────────────────────────
+
+  @input courseManagerScript: ScriptComponent;
+  @input courseSetupScript: ScriptComponent;
+  @input locationTracker: LocationTracker;
+  @input handZoneDetector: HandZoneDetector;
+  @input camera: SceneObject;  // For player position and forward direction
+
+  // ── UI Elements ───────────────────────────────────────────────────────────
+
+  @input statusText: Text;
+  @input timerText: Text;
+  @input stationInfoText: Text;
+  @input @allowUndefined instructionText: Text;
+  @input @allowUndefined finishTunnelVfx: SceneObject;
+
+  // ── Settings ──────────────────────────────────────────────────────────────
+
+  @input countdownSeconds: number = 3;
+  @input useGPSTracking: boolean = true;
+
+  // ── Accessors ─────────────────────────────────────────────────────────────
+
+  private cm(): any { return this.courseManagerScript as any; }
+  private setup(): any { return this.courseSetupScript as any; }
+  private camTransform: Transform = null;
+
+  // ── State ──────────────────────────────────────────────────────────────────
+
+  private _state: RaceState = RaceState.IDLE;
+  private _raceStartTime: number = 0;
+  private _stationStartTime: number = 0;
+  private _currentStationIndex: number = -1;
+  private _countdownRemaining: number = 0;
+  private _pausedFromState: RaceState = RaceState.RUNNING;
+  private _gpsStatusText: string = '';
+
+  // Split tracking
+  private _splitNames: string[] = [];
+  private _splitDurations: number[] = [];
+
+  // Current station progress
+  private _currentConfig: StationConfig = null;
+  private _stationProgress: number = 0;
+  private _stationRequirement: number = 0;
+
+  // Run tracking
+  private _runTarget: number = 0;
+  private _runDistance: number = 0;
+  private _lastPlayerPos: vec3 = null;
+
+  // ── Public Getters ─────────────────────────────────────────────────────────
+
+  get state(): string { return this._state; }
+  get currentStationIndex(): number { return this._currentStationIndex; }
+  get elapsedMs(): number {
+    if (this._raceStartTime === 0) return 0;
+    return (getTime() * 1000) - this._raceStartTime;
+  }
+
+  // ── Lifecycle ──────────────────────────────────────────────────────────────
+
+  onAwake(): void {
+    if (this.camera) {
+      this.camTransform = this.camera.getTransform();
+    }
+
+    this.createEvent('UpdateEvent').bind(this.onUpdate.bind(this));
+
+    // Monitor GPS status (delayed to ensure LocationTracker is initialized)
+    this.createEvent('OnStartEvent').bind(() => {
+      this.initGpsStatusMonitor();
+    });
+
+    this.setUIIdle();
+    print('[RaceStateMachine] Init — IDLE (Dynamic Mode)');
+  }
+
+  private initGpsStatusMonitor(): void {
+    if (!this.locationTracker) {
+      print('[RaceStateMachine] No LocationTracker linked');
+      return;
+    }
+
+    if (typeof this.locationTracker.onGpsStatusChange !== 'function') {
+      print('[RaceStateMachine] LocationTracker.onGpsStatusChange not available');
+      return;
+    }
+
+    this.locationTracker.onGpsStatusChange((status: string, message: string) => {
+      this._gpsStatusText = this.formatGpsStatusBanner(status, message);
+      if (this._state === RaceState.IDLE) {
+        this.setUIIdle();
+      }
+    });
+    print('[RaceStateMachine] GPS status monitor initialized');
+  }
+
+  private formatGpsStatusBanner(status: string, message: string): string {
+    switch (status) {
+      case 'CONNECTED':
+        return '[GPS] Connected';
+      case 'CHECKING':
+        return '[GPS] Checking...';
+      case 'NOT_AVAILABLE':
+        return '[!] GPS Not Available\nUsing step tracking';
+      case 'PERMISSION_DENIED':
+        return '[!] GPS Permission Denied\nEnable in Spectacles settings';
+      default:
+        return '';
+    }
+  }
+
+  // ── Public API ─────────────────────────────────────────────────────────────
+
+  startRace(): void {
+    if (this._state !== RaceState.IDLE && this._state !== RaceState.FINISHED) {
+      print('[RaceStateMachine] Cannot start from ' + this._state);
+      return;
+    }
+
+    var course = this.cm();
+    if (!course || !course.isReady) {
+      print('[RaceStateMachine] ERROR: CourseManager not ready!');
+      return;
+    }
+
+    // Reset state
+    this._splitNames = [];
+    this._splitDurations = [];
+    this._currentStationIndex = -1;
+    this._stationProgress = 0;
+    this._stationRequirement = 0;
+    this._currentConfig = null;
+    this._runTarget = 0;
+    this._runDistance = 0;
+    this._lastPlayerPos = null;
+    this._countdownRemaining = this.countdownSeconds;
+
+    // Clear instruction text
+    if (this.instructionText) {
+      this.instructionText.text = '';
+    }
+
+    this._state = RaceState.COUNTDOWN;
+    print('[RaceStateMachine] Countdown started');
+  }
+
+  togglePause(): void {
+    if (this._state === RaceState.RUNNING || this._state === RaceState.STATION) {
+      this._pausedFromState = this._state;
+      this._state = RaceState.PAUSED;
+      if (this.statusText) this.statusText.text = 'PAUSED\nPinch to Resume';
+    } else if (this._state === RaceState.PAUSED) {
+      this._state = this._pausedFromState;
+    }
+  }
+
+  resetRace(): void {
+    // Stop GPS tracking
+    if (this.locationTracker) {
+      this.locationTracker.stopTracking();
+    }
+
+    // Stop hand zone detection
+    if (this.handZoneDetector) {
+      this.handZoneDetector.stopDetection();
+    }
+
+    // Reset course
+    var course = this.cm();
+    if (course) {
+      course.resetCourse();
+    }
+
+    this._state = RaceState.IDLE;
+    this._raceStartTime = 0;
+    this._currentStationIndex = -1;
+    this._splitNames = [];
+    this._splitDurations = [];
+    this._stationProgress = 0;
+    this._currentConfig = null;
+    this._runTarget = 0;
+    this._runDistance = 0;
+    this._lastPlayerPos = null;
+
+    if (this.finishTunnelVfx) this.finishTunnelVfx.enabled = false;
+
+    // Refresh GPS status banner
+    if (this.locationTracker && typeof this.locationTracker.getGpsStatus === 'function') {
+      this._gpsStatusText = this.formatGpsStatusBanner(
+        this.locationTracker.getGpsStatus(),
+        this.locationTracker.getGpsStatusMessage()
+      );
+    }
+
+    // Respawn START line
+    this.respawnStartLine();
+
+    this.setUIIdle();
+    print('[RaceStateMachine] Reset');
+  }
+
+  private respawnStartLine(): void {
+    var course = this.cm();
+    if (!course) return;
+
+    var playerPos = this.getPlayerPosition();
+    var playerForward = this.getPlayerForward();
+    course.spawnStationInFrontOfPlayer(0, playerPos, playerForward);
+    print('[RaceStateMachine] START line respawned');
+  }
+
+  // ── Update Loop ────────────────────────────────────────────────────────────
+
+  private onUpdate(): void {
+    var dt = getDeltaTime();
+
+    if (this._state === RaceState.COUNTDOWN) {
+      this.updateCountdown(dt);
+      return;
+    }
+
+    if (this._state === RaceState.RUNNING) {
+      this.updateTimerUI();
+      this.trackRunDistance();
+
+      // Check if run distance is complete
+      if (this._runTarget > 0 && this._runDistance >= this._runTarget) {
+        this.onRunDistanceComplete();
+        return;
+      }
+
+      this.updateRunningUI();
+      return;
+    }
+
+    if (this._state === RaceState.STATION) {
+      this.updateTimerUI();
+      if (this._currentConfig) {
+        this.updateStationProgress(dt);
+      }
+      return;
+    }
+  }
+
+  // ── Countdown ──────────────────────────────────────────────────────────────
+
+  private updateCountdown(dt: number): void {
+    this._countdownRemaining -= dt;
+
+    if (this.stationInfoText) this.stationInfoText.text = '';
+    if (this.instructionText) this.instructionText.text = '';
+
+    if (this.statusText) {
+      var num = Math.ceil(this._countdownRemaining);
+      this.statusText.text = num > 0 ? num.toString() : 'GO!';
+    }
+
+    if (this._countdownRemaining <= 0) {
+      this._raceStartTime = getTime() * 1000;
+      this.startFirstStation();
+      print('[RaceStateMachine] GO!');
+    }
+  }
+
+  // ── Station Flow ───────────────────────────────────────────────────────────
+
+  /**
+   * Start the race - fade out START line and begin first run
+   */
+  private startFirstStation(): void {
+    var course = this.cm();
+    if (!course) return;
+
+    // START line is just visual, skip to first real station (index 1)
+    // Fade out START and begin run to first workout station
+    course.fadeOutAndDestroy(() => {
+      this._currentStationIndex = 1;
+      this._currentConfig = course.getStationConfig(1);
+
+      if (!this._currentConfig) {
+        print('[RaceStateMachine] ERROR: No config for station 1');
+        return;
+      }
+
+      // Start running to first workout station
+      if (this._currentConfig.runDistanceBefore > 0) {
+        this._runTarget = this._currentConfig.runDistanceBefore;
+        this._runDistance = 0;
+        this._lastPlayerPos = null;
+
+        if (this.useGPSTracking && this.locationTracker) {
+          this.locationTracker.startTracking((totalDist, _deltaDist) => {
+            this._runDistance = totalDist;
+          });
+        }
+
+        this._state = RaceState.RUNNING;
+        print('[RaceStateMachine] RUN ' + this._runTarget + 'm to ' + this._currentConfig.name);
+        this.updateRunningUI();
+      } else {
+        this.spawnAndEnterStation();
+      }
+    });
+  }
+
+  /**
+   * Prepare for next station - start running phase
+   */
+  private prepareForNextStation(): void {
+    var course = this.cm();
+    if (!course) return;
+
+    this._currentStationIndex++;
+
+    if (this._currentStationIndex >= course.stationCount) {
+      this.finishRace();
+      return;
+    }
+
+    this._currentConfig = course.getStationConfig(this._currentStationIndex);
+
+    if (!this._currentConfig) {
+      print('[RaceStateMachine] ERROR: No config for station ' + this._currentStationIndex);
+      return;
+    }
+
+    // Check if there's a run before this station
+    if (this._currentConfig.runDistanceBefore > 0) {
+      this._runTarget = this._currentConfig.runDistanceBefore;
+      this._runDistance = 0;
+      this._lastPlayerPos = null;
+
+      // Start GPS tracking for run segment
+      if (this.useGPSTracking && this.locationTracker) {
+        this.locationTracker.startTracking((totalDist, _deltaDist) => {
+          this._runDistance = totalDist;
+        });
+        print('[RaceStateMachine] GPS tracking started for run');
+      }
+
+      this._state = RaceState.RUNNING;
+      print('[RaceStateMachine] RUN ' + this._runTarget + 'm to ' + this._currentConfig.name);
+      this.updateRunningUI();
+    } else {
+      // No run before this station → spawn immediately
+      this.spawnAndEnterStation();
+    }
+  }
+
+  /**
+   * Called when run distance target is reached
+   */
+  private onRunDistanceComplete(): void {
+    print('[RaceStateMachine] Run complete! ' + this._runDistance.toFixed(1) + 'm / ' + this._runTarget + 'm');
+
+    // Stop GPS tracking and record run split
+    var actualDistance = this._runDistance;
+    if (this.useGPSTracking && this.locationTracker) {
+      actualDistance = this.locationTracker.stopTracking();
+    }
+
+    // Record split
+    var runName = 'Run to ' + this._currentConfig.name;
+    var runDuration = this.calculateSplitDuration();
+    this._splitNames.push(runName);
+    this._splitDurations.push(runDuration);
+
+    print('[RaceStateMachine] ' + runName + ': ' + (runDuration / 1000).toFixed(1) + 's (' + actualDistance.toFixed(1) + 'm)');
+
+    // Clear run state
+    this._runTarget = 0;
+    this._runDistance = 0;
+
+    // Spawn station in front of player and enter
+    this.spawnAndEnterStation();
+  }
+
+  /**
+   * Spawn current station in front of player and enter station mode
+   */
+  private spawnAndEnterStation(): void {
+    var course = this.cm();
+    if (!course) return;
+
+    var playerPos = this.getPlayerPosition();
+    var playerForward = this.getPlayerForward();
+
+    course.spawnStationInFrontOfPlayer(this._currentStationIndex, playerPos, playerForward);
+    this.enterStationMode();
+  }
+
+  /**
+   * Enter station mode - start tracking progress
+   */
+  private enterStationMode(): void {
+    this._stationStartTime = getTime() * 1000;
+    this._stationProgress = 0;
+    this._stationRequirement = this._currentConfig.requirement;
+    this._lastPlayerPos = null;
+
+    // Start GPS tracking for distance-based stations
+    if (this._currentConfig.mode === StationMode.DISTANCE) {
+      if (this.useGPSTracking && this.locationTracker) {
+        this.locationTracker.startTracking((totalDist, _deltaDist) => {
+          this._stationProgress = totalDist;
+        });
+        print('[RaceStateMachine] GPS tracking started for distance station');
+      }
+    }
+
+    // Start hand zone detection for ZONE_HIT stations
+    if (this._currentConfig.mode === StationMode.ZONE_HIT) {
+      if (this.handZoneDetector && this._currentConfig.motionType) {
+        // Target Press (OVERHEAD_REACH) uses fixed station position for the sphere target
+        // Air SkiErg and Power Row use camera-relative (null)
+        var stationPos: vec3 = null;
+        if (this._currentConfig.motionType === MotionType.OVERHEAD_REACH) {
+          var course = this.cm();
+          var activeStation = course?.getActiveStation();
+          if (activeStation) {
+            stationPos = activeStation.getTransform().getWorldPosition();
+          }
+        }
+
+        this.handZoneDetector.startDetection(
+          this._currentConfig.motionType as any,
+          (repCount: number) => {
+            this._stationProgress = repCount;
+            this.updateStationUI();
+
+            if (this._stationProgress >= this._stationRequirement) {
+              this.completeCurrentStation();
+            }
+          },
+          null,
+          stationPos
+        );
+        print('[RaceStateMachine] Hand zone detection started: ' + this._currentConfig.motionType + (stationPos ? ' (station-anchored)' : ' (camera-follow)'));
+      }
+    }
+
+    // Show finish VFX if this is the last station
+    var course = this.cm();
+    if (course && this._currentStationIndex === course.stationCount - 1 && this.finishTunnelVfx) {
+      this.finishTunnelVfx.enabled = true;
+    }
+
+    this._state = RaceState.STATION;
+
+    if (this.statusText) {
+      this.statusText.text = this._currentConfig.name;
+    }
+
+    print('[RaceStateMachine] Entered: ' + this._currentConfig.name);
+    print('[RaceStateMachine] Mode: ' + this._currentConfig.mode + ', Req: ' + this._stationRequirement);
+
+    this.updateStationUI();
+  }
+
+  // ── Station Progress ───────────────────────────────────────────────────────
+
+  private updateStationProgress(dt: number): void {
+    if (!this._currentConfig) return;
+
+    var mode = this._currentConfig.mode;
+
+    switch (mode) {
+      case StationMode.TIMED:
+        this._stationProgress += dt;
+        if (this._stationProgress >= this._stationRequirement) {
+          this.completeCurrentStation();
+        }
+        break;
+
+      case StationMode.DISTANCE:
+        this.trackStationDistance();
+        if (this._stationProgress >= this._stationRequirement) {
+          this.completeCurrentStation();
+        }
+        break;
+
+      // ZONE_HIT is handled by callback in handZoneDetector
+    }
+
+    this.updateStationUI();
+  }
+
+  private trackStationDistance(): void {
+    // Check if GPS is ACTUALLY providing updates (not just "connected" status)
+    if (this.useGPSTracking && this.locationTracker && this.locationTracker.isGpsActivelyUpdating(3.0)) {
+      // GPS is giving us real updates - trust the callback
+      return;
+    }
+
+    // Fallback to camera position tracking (indoor or GPS not responding)
+    var playerPos = this.getPlayerPosition();
+    if (!playerPos) return;
+
+    if (this._lastPlayerPos !== null) {
+      var dx = playerPos.x - this._lastPlayerPos.x;
+      var dz = playerPos.z - this._lastPlayerPos.z;
+      var dist = Math.sqrt(dx * dx + dz * dz);
+      // Convert cm to meters
+      this._stationProgress += dist / 100;
+    }
+
+    this._lastPlayerPos = new vec3(playerPos.x, playerPos.y, playerPos.z);
+  }
+
+  // ── Run Tracking ───────────────────────────────────────────────────────────
+
+  private trackRunDistance(): void {
+    // Check if GPS is ACTUALLY providing updates (not just "connected" status)
+    var gpsActive = this.useGPSTracking && this.locationTracker && this.locationTracker.isGpsActivelyUpdating(3.0);
+    if (gpsActive) {
+      // GPS is giving us real updates - trust the callback
+      print('[RaceStateMachine] trackRunDistance: GPS active, skipping camera');
+      return;
+    }
+
+    // Fallback to camera position tracking (indoor or GPS not responding)
+    var playerPos = this.getPlayerPosition();
+    if (!playerPos) {
+      print('[RaceStateMachine] trackRunDistance: playerPos is null!');
+      return;
+    }
+
+    if (this._lastPlayerPos !== null) {
+      var dx = playerPos.x - this._lastPlayerPos.x;
+      var dz = playerPos.z - this._lastPlayerPos.z;
+      var dist = Math.sqrt(dx * dx + dz * dz);
+      // Convert cm to meters
+      var deltaMeter = dist / 100;
+      this._runDistance += deltaMeter;
+
+      // Debug log every 0.5m or significant movement
+      if (deltaMeter > 0.01) {
+        print('[RaceStateMachine] trackRunDistance: delta=' + deltaMeter.toFixed(3) + 'm, total=' + this._runDistance.toFixed(2) + 'm');
+      }
+    } else {
+      print('[RaceStateMachine] trackRunDistance: first position set');
+    }
+
+    this._lastPlayerPos = new vec3(playerPos.x, playerPos.y, playerPos.z);
+  }
+
+  // ── Station Completion ─────────────────────────────────────────────────────
+
+  private completeCurrentStation(): void {
+    var name = this._currentConfig ? this._currentConfig.name : 'Station';
+    var mode = this._currentConfig ? this._currentConfig.mode : null;
+    var duration = this.calculateSplitDuration();
+
+    // Stop GPS tracking for distance stations
+    if (mode === StationMode.DISTANCE) {
+      if (this.useGPSTracking && this.locationTracker) {
+        this.locationTracker.stopTracking();
+      }
+      print('[RaceStateMachine] ' + name + ' — Distance: ' + this._stationProgress.toFixed(1) + 'm');
+    }
+
+    // Stop hand zone detection for ZONE_HIT stations
+    if (mode === StationMode.ZONE_HIT) {
+      if (this.handZoneDetector) {
+        this.handZoneDetector.stopDetection();
+      }
+      print('[RaceStateMachine] ' + name + ' — Zone Hits: ' + this._stationProgress);
+    }
+
+    // Record split
+    this._splitNames.push(name);
+    this._splitDurations.push(duration);
+
+    print('[RaceStateMachine] ' + name + ' COMPLETE — ' + (duration / 1000).toFixed(1) + 's');
+
+    // Fade out current station and prepare for next
+    var course = this.cm();
+    if (course) {
+      course.fadeOutAndDestroy(() => {
+        this.prepareForNextStation();
+      });
+    } else {
+      this.prepareForNextStation();
+    }
+  }
+
+  private finishRace(): void {
+    var totalMs = (getTime() * 1000) - this._raceStartTime;
+    this._state = RaceState.FINISHED;
+
+    if (this.statusText) this.statusText.text = 'FINISHED!';
+    if (this.timerText) this.timerText.text = this.formatTime(totalMs);
+
+    // Show split summary
+    if (this.stationInfoText) {
+      var lines = '';
+      var fastIdx = 0;
+      var slowIdx = 0;
+      var best = Infinity;
+      var worst = 0;
+
+      for (var i = 0; i < this._splitDurations.length; i++) {
+        if (this._splitDurations[i] < best) {
+          best = this._splitDurations[i];
+          fastIdx = i;
+        }
+        if (this._splitDurations[i] > worst) {
+          worst = this._splitDurations[i];
+          slowIdx = i;
+        }
+      }
+
+      for (var j = 0; j < this._splitNames.length; j++) {
+        var dur = (this._splitDurations[j] / 1000).toFixed(1);
+        var tag = j === fastIdx ? ' *FAST*' : j === slowIdx ? ' *SLOW*' : '';
+        lines += this._splitNames[j] + ': ' + dur + 's' + tag + '\n';
+      }
+      this.stationInfoText.text = lines;
+    }
+
+    print('[RaceStateMachine] FINISHED ' + (totalMs / 1000).toFixed(1) + 's');
+  }
+
+  // ── UI Updates ─────────────────────────────────────────────────────────────
+
+  private setUIIdle(): void {
+    if (this.statusText) this.statusText.text = 'HYROX MIRAGE';
+    if (this.stationInfoText) {
+      this.stationInfoText.text = this._gpsStatusText || '';
+    }
+    if (this.timerText) this.timerText.text = '00:00';
+    if (this.instructionText) this.instructionText.text = 'Pinch to Start Race';
+  }
+
+  private updateRunningUI(): void {
+    if (this.statusText) {
+      this.statusText.text = 'RUN';
+    }
+
+    if (this.stationInfoText && this._currentConfig) {
+      var nextName = this._currentConfig.name;
+      // Show actual tracking mode: GPS only if actively updating, otherwise STEP (camera)
+      var trackingMode = (this.useGPSTracking && this.locationTracker && this.locationTracker.isGpsActivelyUpdating(3.0))
+        ? 'GPS' : 'STEP';
+
+      var runInfo = this._runDistance.toFixed(0) + 'm / ' + this._runTarget.toFixed(0) + 'm';
+
+      // Progress bar
+      var pct = Math.min(1, this._runDistance / Math.max(1, this._runTarget));
+      var barLen = 10;
+      var filled = Math.round(pct * barLen);
+      var bar = '[';
+      for (var i = 0; i < barLen; i++) {
+        bar += i < filled ? '#' : '-';
+      }
+      bar += '] ' + Math.floor(pct * 100) + '%';
+
+      this.stationInfoText.text = 'Next: ' + nextName + '\n' + runInfo + ' [' + trackingMode + ']\n' + bar;
+    }
+  }
+
+  private updateStationUI(): void {
+    if (!this.stationInfoText || !this._currentConfig) return;
+
+    var mode = this._currentConfig.mode;
+    var instruction = this._currentConfig.instruction;
+    var progress = this._stationProgress;
+    var target = this._stationRequirement;
+
+    var progressText = '';
+
+    switch (mode) {
+      case StationMode.TIMED:
+        var remaining = Math.max(0, target - progress);
+        progressText = instruction + '\n' + remaining.toFixed(0) + 's remaining';
+        break;
+
+      case StationMode.DISTANCE:
+        // Show actual tracking mode: GPS only if actively updating, otherwise STEP (camera)
+        var distTrackMode = (this.useGPSTracking && this.locationTracker && this.locationTracker.isGpsActivelyUpdating(3.0))
+          ? 'GPS' : 'STEP';
+        progressText = instruction + '\n' + progress.toFixed(1) + 'm / ' + target + 'm [' + distTrackMode + ']';
+        break;
+
+      case StationMode.ZONE_HIT:
+        progressText = instruction + '\n' + Math.floor(progress) + ' / ' + target + ' hits';
+        break;
+
+      default:
+        progressText = instruction;
+    }
+
+    // Progress bar
+    var pct = Math.min(1, progress / Math.max(1, target));
+    var barLen = 10;
+    var filled = Math.round(pct * barLen);
+    var bar = '[';
+    for (var i = 0; i < barLen; i++) {
+      bar += i < filled ? '#' : '-';
+    }
+    bar += '] ' + Math.floor(pct * 100) + '%';
+
+    this.stationInfoText.text = progressText + '\n' + bar;
+  }
+
+  private updateTimerUI(): void {
+    if (!this.timerText) return;
+    this.timerText.text = this.formatTime(this.elapsedMs);
+  }
+
+  // ── Player Position/Direction ──────────────────────────────────────────────
+
+  private getPlayerPosition(): vec3 {
+    // Try to get ground position from CourseSetup
+    var setup = this.setup();
+    if (setup && typeof setup.getPlayerGroundPosition === 'function') {
+      return setup.getPlayerGroundPosition();
+    }
+
+    // Fallback to camera position
+    if (this.camTransform) {
+      return this.camTransform.getWorldPosition();
+    }
+
+    return vec3.zero();
+  }
+
+  private getPlayerForward(): vec3 {
+    if (!this.camTransform) {
+      return new vec3(0, 0, -1);  // Default forward
+    }
+
+    // Get camera forward, flatten to horizontal
+    // In Lens Studio, camera looks down -Z axis, but Transform.forward may return +Z
+    // We need the direction the player is LOOKING, which is typically -Z local axis
+    var forward = this.camTransform.forward;
+
+    // Use back direction instead (camera looks opposite to Transform.forward)
+    var back = this.camTransform.back;
+    var flatForward = new vec3(back.x, 0, back.z).normalize();
+
+    print('[RaceStateMachine] getPlayerForward: forward=(' + forward.x.toFixed(2) + ',' + forward.z.toFixed(2) + '), back=(' + back.x.toFixed(2) + ',' + back.z.toFixed(2) + '), using back');
+
+    return flatForward;
+  }
+
+  // ── Helpers ────────────────────────────────────────────────────────────────
+
+  private calculateSplitDuration(): number {
+    var now = getTime() * 1000;
+    var splitStart = this._stationStartTime > 0 ? this._stationStartTime : this._raceStartTime;
+
+    // Account for previous splits
+    if (this._splitDurations.length > 0) {
+      var prevTotal = 0;
+      for (var i = 0; i < this._splitDurations.length; i++) {
+        prevTotal += this._splitDurations[i];
+      }
+      return (now - this._raceStartTime) - prevTotal;
+    }
+
+    return now - splitStart;
+  }
+
+  private formatTime(ms: number): string {
+    var totalSec = Math.floor(ms / 1000);
+    var min = Math.floor(totalSec / 60);
+    var sec = totalSec % 60;
+    var centis = Math.floor((ms % 1000) / 10);
+    return this.pad2(min) + ':' + this.pad2(sec) + '.' + this.pad2(centis);
+  }
+
+  private pad2(n: number): string {
+    return n < 10 ? '0' + n : '' + n;
+  }
+}

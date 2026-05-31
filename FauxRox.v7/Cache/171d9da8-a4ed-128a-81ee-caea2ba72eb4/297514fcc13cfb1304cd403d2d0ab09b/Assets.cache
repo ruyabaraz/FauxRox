@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    c17cf938-7b51-4938-b426-6ba02bed0ec0: 171d9da8-a4ed-128a-81ee-caea2ba72eb4/297514fcc13cfb1304cd403d2d0ab09b/Data/pointer2.png
+  Assets:
+    - !<FileTexture/c17cf938-7b51-4938-b426-6ba02bed0ec0>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 60
+        Height: 56
+  SourceHash: 297514fcc13cfb1304cd403d2d0ab09b
+  FileHash: ae1fbbf14b3e074869d481310752457a
+  NativePackageItems:
+    []

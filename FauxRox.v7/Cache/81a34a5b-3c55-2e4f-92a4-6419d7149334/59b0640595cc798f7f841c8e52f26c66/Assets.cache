@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    87619335-2566-4ac3-ba02-2c9397d4f2bf: 81a34a5b-3c55-2e4f-92a4-6419d7149334/59b0640595cc798f7f841c8e52f26c66/Data/Matcap_Gold.jpg
+  Assets:
+    - !<FileTexture/87619335-2566-4ac3-ba02-2c9397d4f2bf>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 512
+        Height: 512
+  SourceHash: 59b0640595cc798f7f841c8e52f26c66
+  FileHash: 968e5b4ceb1833d00f22ef72217fa7f9
+  NativePackageItems:
+    []

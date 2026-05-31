@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    f1495dd0-de44-4cf7-82e4-10a981a0ce15: d8b31536-6430-4c06-aa88-7d6ed94dec98/eb1b338e0cb51a514340185dea137b2a/Data/Barlow-BoldItalic.ttf
+  Assets:
+    - !<Font/f1495dd0-de44-4cf7-82e4-10a981a0ce15>
+      PackagePath: ""
+  SourceHash: eb1b338e0cb51a514340185dea137b2a
+  FileHash: 88347c18d76eba73f1adbc158610a5d0
+  NativePackageItems:
+    []

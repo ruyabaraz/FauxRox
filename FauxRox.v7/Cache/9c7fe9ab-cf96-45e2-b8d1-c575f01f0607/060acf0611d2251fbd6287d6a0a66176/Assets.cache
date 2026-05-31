@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    75fec792-f06a-4f7a-848c-bd4b91a429e9: 9c7fe9ab-cf96-45e2-b8d1-c575f01f0607/060acf0611d2251fbd6287d6a0a66176/Data/Barlow-Regular.ttf
+  Assets:
+    - !<Font/75fec792-f06a-4f7a-848c-bd4b91a429e9>
+      PackagePath: ""
+  SourceHash: 060acf0611d2251fbd6287d6a0a66176
+  FileHash: e0c560ea763bfa49d3f6d77adc3f075f
+  NativePackageItems:
+    []

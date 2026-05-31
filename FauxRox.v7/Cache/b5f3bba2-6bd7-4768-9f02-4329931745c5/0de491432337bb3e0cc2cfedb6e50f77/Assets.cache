@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    bd95e802-0b99-4ce0-b175-e15cc3de7abf: b5f3bba2-6bd7-4768-9f02-4329931745c5/0de491432337bb3e0cc2cfedb6e50f77/Data/fauxroxOpeningNew.png
+  Assets:
+    - !<FileTexture/bd95e802-0b99-4ce0-b175-e15cc3de7abf>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 1169
+        Height: 257
+  SourceHash: 0de491432337bb3e0cc2cfedb6e50f77
+  FileHash: 8a0647416c50774a075deaf0cdf384dc
+  NativePackageItems:
+    []

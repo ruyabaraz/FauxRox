@@ -1,0 +1,56 @@
+- !<AssetImportMetadata/77ffade8-77b1-485e-a086-a22d7f4e94bd>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> b82c6ef8-80a8-4eda-acaa-b1c6aa15fd28
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> b82c6ef8-80a8-4eda-acaa-b1c6aa15fd28
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 7513ad6a-fd1b-4cd2-a58b-5b3a592e93e3
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/7513ad6a-fd1b-4cd2-a58b-5b3a592e93e3>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 49573db4-76fa-41db-bcc7-b9970df3e58b
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    aiCoach: false
+    micIcon: false
+    micOffTexture: false
+    micOnTexture: false
+    muteButton: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - aiCoach: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      micIcon: !<reference.Image> 00000000-0000-0000-0000-000000000000
+      micOnTexture: !<reference.Texture> 00000000-0000-0000-0000-000000000000
+      micOffTexture: !<reference.Texture> 00000000-0000-0000-0000-000000000000
+      muteButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input AssignableType aiCoach
+    - // @input Component.Image micIcon
+    - // @input Asset.Texture micOnTexture
+    - // @input Asset.Texture micOffTexture
+    - // @input SceneObject muteButton

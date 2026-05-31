@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    62170f70-71bd-4621-9efc-f7d62e850519: 59676b67-ca8b-b9f3-b65e-fbd619b18cba/2393e161b14a5d816e64106aa9d3c1fa/Data/Matcap_Glass.png
+  Assets:
+    - !<FileTexture/62170f70-71bd-4621-9efc-f7d62e850519>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 512
+        Height: 512
+  SourceHash: 2393e161b14a5d816e64106aa9d3c1fa
+  FileHash: 2b82af3d08e17e0520f26f1ad8bb0c76
+  NativePackageItems:
+    []

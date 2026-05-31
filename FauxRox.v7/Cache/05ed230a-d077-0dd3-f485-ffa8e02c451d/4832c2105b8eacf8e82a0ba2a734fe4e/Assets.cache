@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    ec0ec12c-0798-4bd1-8505-4a0b7fb7601e: 05ed230a-d077-0dd3-f485-ffa8e02c451d/4832c2105b8eacf8e82a0ba2a734fe4e/Data/AvenirNextLTPro-Medium.otf
+  Assets:
+    - !<Font/ec0ec12c-0798-4bd1-8505-4a0b7fb7601e>
+      PackagePath: ""
+  SourceHash: 4832c2105b8eacf8e82a0ba2a734fe4e
+  FileHash: 3ac065f5f9e5827250a53e6ee4c8bd5a
+  NativePackageItems:
+    []

@@ -1,0 +1,112 @@
+- !<AssetImportMetadata/0e2374d0-a214-45cc-8608-1df3f1de332f>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 6e0c8af7-4ad4-4ab3-9074-e0d3ba66dab4
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 6e0c8af7-4ad4-4ab3-9074-e0d3ba66dab4
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> aa0c5b0c-7569-4dea-b8d8-88a72e0a9ab1
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/aa0c5b0c-7569-4dea-b8d8-88a72e0a9ab1>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 104b5521-3a78-4f5a-a5ad-d9913e679cb0
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    advancedButton: false
+    beatPBButton: false
+    beginnerButton: false
+    birthYearText: false
+    confirmButton: false
+    debugPrint: false
+    defaultBirthYear: false
+    finishStrongButton: false
+    frame: false
+    guestButton: false
+    intermediateButton: false
+    mainPanel: false
+    maxEffortButton: false
+    nameInputField: false
+    pacingButton: false
+    profileManager: false
+    welcomeText: false
+    yearMinusButton: false
+    yearPlusButton: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - profileManager: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      frame: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      mainPanel: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      welcomeText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      nameInputField: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      birthYearText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      yearMinusButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      yearPlusButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      beginnerButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      intermediateButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      advancedButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      finishStrongButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      beatPBButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      maxEffortButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      pacingButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      confirmButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      guestButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      debugPrint: true
+      defaultBirthYear: !<float> 1990.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input AssignableType profileManager
+    - // @input SceneObject frame
+    - // @input SceneObject mainPanel
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Welcome"}'
+    - // @input Component.Text welcomeText
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Name Input"}'
+    - // @input Component.ScriptComponent nameInputField
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Birth Year"}'
+    - // @input Component.Text birthYearText
+    - // @input Component.ScriptComponent yearMinusButton
+    - // @input Component.ScriptComponent yearPlusButton
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Fitness Level"}'
+    - // @input Component.ScriptComponent beginnerButton
+    - // @input Component.ScriptComponent intermediateButton
+    - // @input Component.ScriptComponent advancedButton
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Goal"}'
+    - // @input Component.ScriptComponent finishStrongButton
+    - // @input Component.ScriptComponent beatPBButton
+    - // @input Component.ScriptComponent maxEffortButton
+    - // @input Component.ScriptComponent pacingButton
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Actions"}'
+    - // @input Component.ScriptComponent confirmButton
+    - // @input Component.ScriptComponent guestButton
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Settings"}'
+    - // @input bool debugPrint = true
+    - // @input float defaultBirthYear = 1990

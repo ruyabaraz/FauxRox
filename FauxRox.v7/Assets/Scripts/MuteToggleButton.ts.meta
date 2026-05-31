@@ -1,0 +1,53 @@
+- !<AssetImportMetadata/f5dfdfe0-e7c4-45ae-b265-66a73f380cc0>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 2c37688a-d57d-46f0-84c2-7a436e936ce5
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 2c37688a-d57d-46f0-84c2-7a436e936ce5
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 33b7ff84-5769-465e-bad6-eb09e1f0e899
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/33b7ff84-5769-465e-bad6-eb09e1f0e899>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: be8b333b-8e8b-4bdd-8fb3-05757f2d7380
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    aiCoach: false
+    speakerIcon: false
+    speakerOffTexture: false
+    speakerOnTexture: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - aiCoach: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      speakerIcon: !<reference.Image> 00000000-0000-0000-0000-000000000000
+      speakerOnTexture: !<reference.Texture> 00000000-0000-0000-0000-000000000000
+      speakerOffTexture: !<reference.Texture> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input AssignableType aiCoach
+    - // @input Component.Image speakerIcon
+    - // @input Asset.Texture speakerOnTexture
+    - // @input Asset.Texture speakerOffTexture

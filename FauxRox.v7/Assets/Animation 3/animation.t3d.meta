@@ -1,0 +1,30 @@
+- !<AssetImportMetadata/3ba02155-e9ec-4cb6-b0bf-2ed22194306b>
+  ImportedAssetIds:
+    AnimatedTexture: !<reference> 3d1ee069-d8b2-4695-b39c-d6b4b1d6faae
+    skiergR2_0.png: !<reference> d7bdcf04-7d84-4bc9-a276-c152ad3e45cb
+  ImporterName: LensAnimationImporter
+  PrimaryAsset: !<reference> 3d1ee069-d8b2-4695-b39c-d6b4b1d6faae
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CannotBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    AnimatedTexture: !<own> 0e693597-4739-4fbc-8c85-d4a2f67115f4
+  DependentFiles:
+    - skiergR2_0.png
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<SingleCompressionSettings>
+    CompressorName: None
+    CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<AnimatedTextureData/0e693597-4739-4fbc-8c85-d4a2f67115f4>
+  AutoPlay: true
+  Reversed: false
+  PingPong: false
+  CurrentSequence: default
+  KeyFramesData:
+    default:
+      - time: 0.000000
+        value: 0
+      - time: 1.000000
+        value: 24

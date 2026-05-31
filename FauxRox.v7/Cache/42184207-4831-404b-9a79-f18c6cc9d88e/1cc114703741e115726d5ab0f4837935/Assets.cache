@@ -1,0 +1,75 @@
+- !<AssetCache>
+  AssetFiles:
+    1807d5f4-e197-4b07-92ca-8593a9f67538: 42184207-4831-404b-9a79-f18c6cc9d88e/1cc114703741e115726d5ab0f4837935/Data/Meshes/arrow.001.mesh
+  Assets:
+    - !<ObjectPrefab/cc122276-8d68-41f2-8613-d829b2b29f34>
+      PackagePath: ""
+      objects:
+        - !<own> a6036ab9-5052-47e1-bc10-8807e8ba4cbd
+      LazyLoading: false
+      RetainAssets: true
+    - !<FileMesh/1807d5f4-e197-4b07-92ca-8593a9f67538>
+      PackagePath: Meshes/arrow.001
+      Info: !<MeshInfo>
+        Triangles: 24
+        Vertices: 42
+        Blendshapes:
+          []
+        Joints: 0
+        AabbSize: {x: 6.262660, y: 0.762007, z: 6.159520}
+  SourceHash: 1cc114703741e115726d5ab0f4837935
+  FileHash: 71e021ca9340f9291445125f50a61fb1
+  NativePackageItems:
+    []
+- !<RenderMeshVisual/8584ae86-afe0-489b-8e57-f2efb7fce737>
+  PrefabRemaps:
+    []
+  Name: component_0
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    []
+  Mesh: !<reference> 1807d5f4-e197-4b07-92ca-8593a9f67538
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/a6036ab9-5052-47e1-bc10-8807e8ba4cbd>
+  PrefabRemaps:
+    - 8584ae86-afe0-489b-8e57-f2efb7fce737: 8584ae86-afe0-489b-71a8-0d10480318c8
+    - a6036ab9-5052-47e1-bc10-8807e8ba4cbd: a6036ab9-5052-47e1-43ef-77f81745b342
+    - db244d3d-cc38-42e9-a4ec-19dda91657f8: db244d3d-cc38-42e9-5b13-e62256e9a807
+  Name: arrow
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> db244d3d-cc38-42e9-a4ec-19dda91657f8
+  Components:
+    []
+- !<SceneObject/db244d3d-cc38-42e9-a4ec-19dda91657f8>
+  PrefabRemaps:
+    []
+  Name: arrow.001
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 8584ae86-afe0-489b-8e57-f2efb7fce737

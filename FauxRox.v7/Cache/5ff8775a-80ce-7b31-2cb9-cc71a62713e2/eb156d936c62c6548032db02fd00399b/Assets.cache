@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    3401aa7a-8814-49f9-8794-0a013c61085e: 5ff8775a-80ce-7b31-2cb9-cc71a62713e2/eb156d936c62c6548032db02fd00399b/Data/Matcap_Plastic.jpg
+  Assets:
+    - !<FileTexture/3401aa7a-8814-49f9-8794-0a013c61085e>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 512
+        Height: 512
+  SourceHash: eb156d936c62c6548032db02fd00399b
+  FileHash: 584ef4d32d97e84dd8ee723a9bd4e482
+  NativePackageItems:
+    []

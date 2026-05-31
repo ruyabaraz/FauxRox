@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    fbee27e0-1b46-4861-b257-b9afa41d5a25: 10cb6be3-35a7-47b1-96cf-84ea44799edd/3c6bbb6236d9ec77ca8db7c8fa02511c/Data/ProgressRing_GraphCode.txt
+  Assets:
+    - !<BinAsset/fbee27e0-1b46-4861-b257-b9afa41d5a25>
+      PackagePath: ""
+  SourceHash: 3c6bbb6236d9ec77ca8db7c8fa02511c
+  FileHash: d64be629cf32957978fa19412428a89c
+  NativePackageItems:
+    []

@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    a7bd7813-ecc0-4684-8fd3-a8aaa768260b: 475e2e2e-1e78-d681-86c9-23ab492938ea/627857c30bf6a7768ad4d44150eb2838/Data/Hearth.png
+  Assets:
+    - !<FileTexture/a7bd7813-ecc0-4684-8fd3-a8aaa768260b>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 51
+        Height: 50
+  SourceHash: 627857c30bf6a7768ad4d44150eb2838
+  FileHash: 34c32d7dde67541b8143f3b60d70df13
+  NativePackageItems:
+    []

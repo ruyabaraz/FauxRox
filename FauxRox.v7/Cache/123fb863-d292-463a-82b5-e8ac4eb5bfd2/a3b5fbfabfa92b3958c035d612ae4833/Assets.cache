@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    0c0a9505-fe52-4e6d-9e4c-93582c8ff797: 123fb863-d292-463a-82b5-e8ac4eb5bfd2/a3b5fbfabfa92b3958c035d612ae4833/Data/Barlow-MediumItalic.ttf
+  Assets:
+    - !<Font/0c0a9505-fe52-4e6d-9e4c-93582c8ff797>
+      PackagePath: ""
+  SourceHash: a3b5fbfabfa92b3958c035d612ae4833
+  FileHash: 93b157cd65891ab0cc8f4d7f9e030ac1
+  NativePackageItems:
+    []

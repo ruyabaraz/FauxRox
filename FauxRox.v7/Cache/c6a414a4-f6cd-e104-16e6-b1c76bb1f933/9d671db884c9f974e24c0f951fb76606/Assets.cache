@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    93f6a3af-23a3-42e8-bbab-963786b23f03: c6a414a4-f6cd-e104-16e6-b1c76bb1f933/9d671db884c9f974e24c0f951fb76606/Data/progress_line.png
+  Assets:
+    - !<FileTexture/93f6a3af-23a3-42e8-bbab-963786b23f03>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 536
+        Height: 36
+  SourceHash: 9d671db884c9f974e24c0f951fb76606
+  FileHash: 08b191c5b2cadf001386aaa608bb2dd7
+  NativePackageItems:
+    []

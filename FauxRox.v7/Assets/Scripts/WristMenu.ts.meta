@@ -1,0 +1,77 @@
+- !<AssetImportMetadata/9bd60952-d800-4c16-9cb9-507c2f2dda72>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> cf45e093-b1c3-4613-a8fa-56105b546848
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> cf45e093-b1c3-4613-a8fa-56105b546848
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 6ad0637c-0b69-4350-99dc-8042096a83d4
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/6ad0637c-0b69-4350-99dc-8042096a83d4>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 1170d0c4-1f43-46ac-997e-bff47e23d07c
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    aiCoach: false
+    askCoachButton: false
+    askCoachButtonObject: false
+    debugPrint: false
+    menuContainer: false
+    pauseButton: false
+    pauseButtonObject: false
+    raceStateMachineScript: false
+    resumeButton: false
+    resumeButtonObject: false
+    stopButton: false
+    stopButtonObject: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - raceStateMachineScript: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      aiCoach: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      pauseButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      pauseButtonObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      resumeButton: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      resumeButtonObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      stopButton: !<MappingBased.AssignableType_3> 00000000-0000-0000-0000-000000000000
+      stopButtonObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      askCoachButton: !<MappingBased.AssignableType_4> 00000000-0000-0000-0000-000000000000
+      askCoachButtonObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      menuContainer: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      debugPrint: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input Component.ScriptComponent raceStateMachineScript
+    - // @input AssignableType aiCoach
+    - // @input AssignableType_1 pauseButton
+    - // @input SceneObject pauseButtonObject
+    - // @input AssignableType_2 resumeButton
+    - // @input SceneObject resumeButtonObject
+    - // @input AssignableType_3 stopButton
+    - // @input SceneObject stopButtonObject
+    - // @input AssignableType_4 askCoachButton
+    - // @input SceneObject askCoachButtonObject
+    - // @input SceneObject menuContainer
+    - // @input bool debugPrint = true

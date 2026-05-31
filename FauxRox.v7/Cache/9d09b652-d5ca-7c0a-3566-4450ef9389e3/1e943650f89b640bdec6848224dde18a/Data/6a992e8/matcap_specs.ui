@@ -1,0 +1,84 @@
+{ 
+	"ui": 
+	[
+		{
+        	"label": "Graph Parameters",
+        	"widget": "group_start"
+        },
+{
+                	"label":       "Matcap",
+                	"bindingName": "ENABLE_MATCAP",
+                	"bindingType": "define",
+                	"optimize":    true,
+                	"widget":      "group_start",
+                	"sortIndex":   "0",
+                	"hint":        "Matcap - Projects a material capture (Matcap) texture using the object’s surface normal and camera orientation to simulate lighting and reflections. The effect rotates with the view, giving a sculpted, studio-lit look without real lights."
+                }
+                ,                    
+                    { 
+                    	"bindingName": "matcapTex", 
+                    	"label":       "Texture", 
+                    	"widget":      "texture_group",
+                    	"sortIndex":   "5",
+                    	"hint":        ""
+                    },
+                    
+                    {
+                    	"bindingName": "matcapIntensity",
+                    	"label":       "Intensity",
+                    	"widget":      "slider",
+                    	"min":         0,
+                    	"max":         2,
+                    	"step":        "0.01",
+                    	"sortIndex":   "6",
+                    	"hint":        "",
+                    	"default":     "1.0"
+                    },
+                    
+                    {
+                    	"bindingName": "ENABLE_NORMAL",
+                    	"bindingType": "define",
+                    	"optimize":    true,
+                    	"label":       "Normal Map",
+                    	"widget":      "checkbox",
+                    	"sortIndex":   "14",
+                    	"hint":        ""
+                    },
+                    
+                    { 
+                    	"bindingName": "normalTex", 
+                    	"label":       "Texture", 
+                    	"widget":      "texture_group",
+                    	"sortIndex":   "15",
+                    	"hint":        ""
+                    },
+                {
+                	"_bindingName": "ENABLE_MATCAP",
+                	"widget": "group_end"
+                }
+                ,
+
+        {
+        	"widget": "group_end"
+        },
+        
+		
+	{
+		"bindingName": "alphaTestThreshold",
+		"widget": "slider",
+		"min" : 0.0,
+		"max" : 1.0,
+		"step": 0.001,
+		"default": 0.5,
+		"hint": "When the 'Alpha Test' blend mode is enabled, pixels with alpha values lower than this disappear."
+	}
+	
+	],
+	
+	"shaderType": "Mesh3d",
+	
+	"extraDefines":
+	[
+		"SC_ENABLE_RT_CASTER"
+	]
+}

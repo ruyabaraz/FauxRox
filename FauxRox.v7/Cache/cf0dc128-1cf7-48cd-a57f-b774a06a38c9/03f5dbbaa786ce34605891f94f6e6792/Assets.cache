@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    fefc3f20-6db7-4db0-8bbc-cf78523f90b4: cf0dc128-1cf7-48cd-a57f-b774a06a38c9/03f5dbbaa786ce34605891f94f6e6792/Data/BrandonPrinted-Double.otf
+  Assets:
+    - !<Font/fefc3f20-6db7-4db0-8bbc-cf78523f90b4>
+      PackagePath: ""
+  SourceHash: 03f5dbbaa786ce34605891f94f6e6792
+  FileHash: 0b087b892635c387091e0631f79cf12f
+  NativePackageItems:
+    []

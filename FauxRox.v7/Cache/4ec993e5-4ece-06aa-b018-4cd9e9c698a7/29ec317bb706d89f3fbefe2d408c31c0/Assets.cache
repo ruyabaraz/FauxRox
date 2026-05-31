@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    065d2392-c75d-4c5a-95aa-bb56b7a1be59: 4ec993e5-4ece-06aa-b018-4cd9e9c698a7/29ec317bb706d89f3fbefe2d408c31c0/Data/Matcap_Leather.jpg
+  Assets:
+    - !<FileTexture/065d2392-c75d-4c5a-95aa-bb56b7a1be59>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 512
+        Height: 512
+  SourceHash: 29ec317bb706d89f3fbefe2d408c31c0
+  FileHash: 63e97d7cdbc0c75ed8de83e39294e5df
+  NativePackageItems:
+    []

@@ -1,0 +1,13 @@
+- !<AssetCache>
+  AssetFiles:
+    785daa08-76bb-44a4-8025-a1daf41ea133: 4ed47953-300c-4afe-b196-e3d4baab0d10/8f255b587418b30c2368bcc11fcb334c/Data/max_effort_white.png
+  Assets:
+    - !<FileTexture/785daa08-76bb-44a4-8025-a1daf41ea133>
+      PackagePath: ""
+      FileInfo: !<FileTextureInfo>
+        Width: 512
+        Height: 512
+  SourceHash: 8f255b587418b30c2368bcc11fcb334c
+  FileHash: 844735426b686abc9e30072b6c95062f
+  NativePackageItems:
+    []

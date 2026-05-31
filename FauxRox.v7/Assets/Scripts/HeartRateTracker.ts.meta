@@ -1,0 +1,53 @@
+- !<AssetImportMetadata/e74024a8-d117-4f69-a134-42d3b5f64476>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 9d040967-d456-48f8-a174-4fb6756a9325
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 9d040967-d456-48f8-a174-4fb6756a9325
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> b3091e63-ace5-4640-844c-168d44b0a485
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/b3091e63-ace5-4640-844c-168d44b0a485>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 24f06edf-7229-4993-85bf-77380bd4e36d
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    bluetoothModule: false
+    debugPrint: false
+    maxHeartRate: false
+    scanTimeout: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - bluetoothModule: !<reference.BluetoothCentralModule> 00000000-0000-0000-0000-000000000000
+      maxHeartRate: !<float> 190.000000
+      scanTimeout: !<float> 15.000000
+      debugPrint: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input Asset.BluetoothCentralModule bluetoothModule
+    - // @input float maxHeartRate = 190
+    - // @input float scanTimeout = 5
+    - // @input bool debugPrint = true

@@ -1,0 +1,135 @@
+- !<ObjectPrefab/e780675e-83fe-454e-8156-1c64eb5b1ae7>
+  PackagePath: ""
+  objects:
+    - !<own> 32ae4a96-b501-483b-968a-8ef478bdea51
+  LazyLoading: false
+  RetainAssets: true
+- !<SceneObject/1e96929b-51cf-4846-85d7-6184c391cdfe>
+  PrefabRemaps:
+    []
+  Name: Speaker
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.009998}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 2.500000, y: 2.500000, z: 2.500000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> b2a96faa-4033-4ff1-8f64-0a5de6279877
+- !<SceneObject/32ae4a96-b501-483b-968a-8ef478bdea51>
+  PrefabRemaps:
+    - 1e96929b-51cf-4846-85d7-6184c391cdfe: 1e96929b-51cf-4846-7a28-9e7b3c6e3201
+    - 32ae4a96-b501-483b-968a-8ef478bdea51: 32ae4a96-b501-483b-6975-710b874215ae
+    - 3e450e09-77af-449b-a2ed-a61b1a581d45: 3e450e09-77af-449b-5d12-59e4e5a7e2ba
+    - 733d2d74-79be-4dbc-ac92-611447d75014: 349842ec-450d-4289-824d-93dcdb3bea86
+    - 7f724d4d-3ceb-408e-960c-d0d44331cf4a: 7f724d4d-3ceb-408e-69f3-2f2bbcce30b5
+    - b2a96faa-4033-4ff1-8f64-0a5de6279877: 5b53f9a7-c33d-4bec-8436-031bb2c8ac18
+  Name: SpeakerButton
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: -19.600000, y: -32.000000, z: -110.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 7f724d4d-3ceb-408e-960c-d0d44331cf4a
+  Components:
+    []
+- !<ScriptComponent/3e450e09-77af-449b-a2ed-a61b1a581d45>
+  PrefabRemaps:
+    []
+  Name: RoundButton
+  Enabled: true
+  ScriptAsset: !<reference> ecf4e352-5db4-4239-8a5e-c4c517a0f03c
+  ScriptInputsDefault:
+    _renderOrder: true
+    _inactive: true
+    _playAudio: true
+    _style: true
+    _defaultToOn: true
+    addCallbacks: true
+    triggerUpCallbacks: true
+    triggerDownCallbacks: true
+    onValueChangeCallbacks: true
+    onFinishedCallbacks: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      _renderOrder: 0
+      _inactive: false
+      _playAudio: false
+      _style: PrimaryNeutral
+      _toggleable: true
+      _defaultToOn: false
+      addCallbacks: false
+      triggerUpCallbacks:
+        []
+      triggerDownCallbacks:
+        []
+      onValueChangeCallbacks:
+        []
+      onFinishedCallbacks:
+        []
+      _width: 4.500000
+  ScriptTypes:
+    "":
+      {}
+- !<ScriptComponent/733d2d74-79be-4dbc-ac92-611447d75014>
+  PrefabRemaps:
+    []
+  Name: MuteToggleButton
+  Enabled: true
+  ScriptAsset: !<reference> 2c37688a-d57d-46f0-84c2-7a436e936ce5
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      aiCoach: !<MappingBased.AssignableType> 92e747a2-5b0a-459f-8419-f2a12f991894
+      speakerIcon: !<reference.Image> b2a96faa-4033-4ff1-8f64-0a5de6279877
+      speakerOnTexture: !<reference.Texture> 5c57427b-d1b0-4a1c-98e2-ee8ce6b2d2bb
+      speakerOffTexture: !<reference.Texture> eb353ac9-019f-4f9a-8524-58437342fe72
+  ScriptTypes:
+    "":
+      {}
+- !<SceneObject/7f724d4d-3ceb-408e-960c-d0d44331cf4a>
+  PrefabRemaps:
+    []
+  Name: SphereToggle
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.010002}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 1e96929b-51cf-4846-85d7-6184c391cdfe
+  Components:
+    - !<own> 3e450e09-77af-449b-a2ed-a61b1a581d45
+    - !<own> 733d2d74-79be-4dbc-ac92-611447d75014
+- !<Image/b2a96faa-4033-4ff1-8f64-0a5de6279877>
+  PrefabRemaps:
+    []
+  Name: Image
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Fit
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 085e624e-a806-4f79-b9dc-a0424e6bf63d
+  FlipX: false
+  FlipY: false
+  RotationAngle: 0
+  Pivot: {x: 0.000000, y: 0.000000}
+  ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000

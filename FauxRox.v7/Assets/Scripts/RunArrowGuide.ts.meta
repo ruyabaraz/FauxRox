@@ -1,0 +1,62 @@
+- !<AssetImportMetadata/17e2f96d-eb91-438e-9bd6-d9cccb06e332>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 6fc11991-25d9-4c5a-a898-173a99b1d23d
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 6fc11991-25d9-4c5a-a898-173a99b1d23d
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> b0c31662-0e01-4980-92d3-40a4cf365b26
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/b0c31662-0e01-4980-92d3-40a4cf365b26>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 1a680cc5-5118-497e-b05c-d15f218d4df0
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    arrowHeightOffset: false
+    arrowPrefab: false
+    arrowSpacing: false
+    camera: false
+    debugPrint: false
+    maxArrows: false
+    spawnAheadDistance: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - camera: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      arrowPrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
+      arrowSpacing: !<float> 250.000000
+      spawnAheadDistance: !<float> 1000.000000
+      maxArrows: !<float> 5.000000
+      arrowHeightOffset: !<float> -80.000000
+      debugPrint: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input SceneObject camera
+    - // @input Asset.ObjectPrefab arrowPrefab
+    - // @input float arrowSpacing = 250
+    - // @input float spawnAheadDistance = 1000
+    - // @input float maxArrows = 5
+    - // @input float arrowHeightOffset = -80
+    - // @input bool debugPrint = true

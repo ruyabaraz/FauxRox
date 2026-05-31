@@ -1,0 +1,78 @@
+- !<ObjectPrefab/bce0b0a1-4b56-4965-8e6b-460c00c5d331>
+  PackagePath: ""
+  objects:
+    - !<own> 5353832e-1820-42f2-bc5c-afb1402daf74
+  LazyLoading: false
+  RetainAssets: true
+- !<RenderMeshVisual/1641a36e-e058-4562-b8a8-e477b18a3c4b>
+  PrefabRemaps:
+    []
+  Name: Render Mesh Visual
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> e3fbc2bb-f93c-475d-8191-b7be330fb4b3
+  Mesh: !<reference> 2e5e428e-9a20-4c3f-ad4a-4451f07df611
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<ColliderComponent/42600504-4b15-40ed-b428-b8cb361b8593>
+  PrefabRemaps:
+    []
+  Name: Physics Collider
+  Enabled: true
+  Shape: !<Sphere>
+    FitVisual: true
+    Radius: 6.000000
+  Matter: !<reference> 00000000-0000-0000-0000-000000000000
+  Filter: !<reference> 00000000-0000-0000-0000-000000000000
+  OverlapFilter: !<reference> 00000000-0000-0000-0000-000000000000
+  WorldSettings: !<reference> 00000000-0000-0000-0000-000000000000
+  EnableSmoothing: false
+  PositionTension: 30.000000
+  RotationTension: 30.000000
+  ForceCompound: false
+  Intangible: false
+  ShowCollider: false
+- !<SceneObject/5353832e-1820-42f2-bc5c-afb1402daf74>
+  PrefabRemaps:
+    - 1641a36e-e058-4562-b8a8-e477b18a3c4b: 1641a36e-e058-4562-4757-1b884e75c3b4
+    - 42600504-4b15-40ed-b428-b8cb361b8593: e3b97f4d-90d5-42ea-af6b-bc5cc6047a1c
+    - 5353832e-1820-42f2-bc5c-afb1402daf74: 5353832e-1820-42f2-43a3-504ebfd2508b
+    - cf65d8a3-486d-44b2-be64-6921ff4d9212: cf65d8a3-486d-44b2-419b-96de00b26ded
+  Name: WallBallPrefab
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> cf65d8a3-486d-44b2-be64-6921ff4d9212
+  Components:
+    []
+- !<SceneObject/cf65d8a3-486d-44b2-be64-6921ff4d9212>
+  PrefabRemaps:
+    []
+  Name: Object 0
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 200.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 60.000000, y: 60.000000, z: 60.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 1641a36e-e058-4562-b8a8-e477b18a3c4b
+    - !<own> 42600504-4b15-40ed-b428-b8cb361b8593

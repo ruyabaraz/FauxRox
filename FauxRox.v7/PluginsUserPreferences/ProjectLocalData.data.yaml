@@ -1,0 +1,45 @@
+data:
+  externalSources:
+    - 02e74267-bc16-4ca8-9f06-72cdad41013c: /Users/ruya/Desktop/spectacles/HYROX/microphone2.png
+    - 04258359-cfa2-42a1-8287-c44b8a157d70: /Applications/Lens Studio 5.15.0.app/Contents/JsPlugins/PresetsRegistry/Assets/UberPBRMaterial/Resources/uber_pbr.ss_graph
+    - 07f87718-ddba-481a-8baa-d0d115dfab12: /private/var/folders/ht/ywwllstn13ngf8981ql117r00000gn/T/LensStudio_XbIpCQ/animation.t3d
+    - 09d9f1ed-32bd-4008-9b81-0c742f1d3eec: /Users/ruya/Library/Fonts/BrandonGrotesque-Medium.otf
+    - 0aa371d9-3899-4609-85cc-cb3428cef6b1: /Users/ruya/Library/Fonts/Barlow-Medium.ttf
+    - 21384200-f259-4010-a9b1-034054304106: /Applications/Lens Studio 5.15.0.app/Contents/Plugins/Es_ShaderGraph_Model.bundle/InstantiationResources/image_unlit.ss_graph
+    - 3754f07e-a488-4eff-b1bd-6464abe83c04: /Users/ruya/Desktop/generated_goal_icons/goal_pacing_pulse.png
+    - 3ba02155-e9ec-4cb6-b0bf-2ed22194306b: /private/var/folders/ht/ywwllstn13ngf8981ql117r00000gn/T/LensStudio_YARcQQ/animation.t3d
+    - 40077a1b-63c1-4938-89f7-c5f0ebadc8e1: /Users/ruya/Library/Fonts/BrandonText-Medium.otf
+    - 44ae6eac-da81-4a00-b8d4-4c49cdcd8f88: /Users/ruya/Desktop/generated_goal_icons/BeatPB_white.png
+    - 4ed47953-300c-4afe-b196-e3d4baab0d10: /Users/ruya/Desktop/generated_goal_icons/max_effort_white.png
+    - 50e7d380-8b55-40ba-94f3-7290bad5473f: /Users/ruya/Desktop/spectacles/Spectacles-Sample/Path Pioneer/Assets/2D Art/UI/Resources/Fonts/AvenirNextLTPro-Medium.otf
+    - 701cba16-1b8f-495b-a2e6-d8965761da83: /Users/ruya/Library/Fonts/BrandonGrotesque-Bold.otf
+    - 7146a05e-bb50-47ab-b16c-795ccab56559: /Users/ruya/Downloads/speakerOn.png
+    - 72e51d47-9591-48ea-8994-f3112f96fda0: /Applications/Lens Studio 5.15.4.app/Contents/JsPlugins/PresetsRegistry/Assets/Resources/Normal.png
+    - 7f49cc9a-01b1-441a-8b0e-17051baaec72: /Users/ruya/Desktop/spectacles/HYROX/START_NEW.fbx
+    - 822e135e-5979-4123-b954-76bd7585baeb: /Users/ruya/Desktop/generated_goal_icons/heart_outline.png
+    - 84423533-96b7-4b72-8f18-33f5cddf51ca: /Applications/Lens Studio 5.15.4.app/Contents/JsPlugins/PresetsRegistry/Assets/Resources/MaterialParams.png
+    - 86fb4023-a2d7-4e84-b605-bb3613e07b3e: /Applications/Lens Studio 5.15.0.app/Contents/JsPlugins/PresetsRegistry/Assets/TypeScript/Resources/Untitled TypeScript.ts
+    - 925467ce-5bfc-48ea-8fbf-a3a98fceae25: /Applications/Lens Studio 5.15.0.app/Contents/JsPlugins/PresetsRegistry/Assets/Resources/Base.png
+    - 9a86f571-25de-4e68-8fd1-498787549e9f: /Users/ruya/Desktop/spectacles/Hyrox/Assets/Scripts/Untitled TypeScript.ts
+    - a0e65ccf-b672-4eab-9535-facc0f5dfb37: /Users/ruya/Desktop/spectacles/Spectacles-Sample/Path Pioneer/Assets/2D Art/UI/Resources/Fonts/AvenirNextLTPro-Regular.otf
+    - a22603db-9cd6-4726-b565-34110d8ba71e: /Applications/Lens Studio 5.15.0.app/Contents/JsPlugins/PresetsRegistry/Assets/UnlitMaterial/Resources/unlit.ss_graph
+    - a2c7c9ed-a620-4e91-8967-ec5881cb4e4e: /Users/ruya/Desktop/generated_goal_icons/hearticon.png
+    - a764fcb6-d6cc-4a8c-959b-647e8d1aab4b: /Users/ruya/Library/Fonts/Barlow-Bold.ttf
+    - ab770a65-81fa-45c0-9f6e-76c7ceb26d0e: /Users/ruya/Library/Preferences/Snap/Lens Studio/LibraryComponents/SupabaseClient@0.0.10/SupabaseClient.lspkg
+    - b4d7177a-5cd8-4834-bb63-a27496ba2a94: /Users/ruya/Desktop/spectacles/Spectacles-Sample/Path Pioneer/Assets/2D Art/UI/Resources/Fonts/AvenirNextLTPro-Bold.otf
+    - b5963fa5-09d3-4f65-892d-44a615e82e85: /Users/ruya/Desktop/spectacles/HYROX/microphoneOFF.png
+    - b5f3bba2-6bd7-4768-9f02-4329931745c5: /Users/ruya/Desktop/spectacles/HYROX/fauxroxOpeningNew.png
+    - b80b42d6-2e3f-4429-8c6f-4aa8c0310e98: /Applications/Lens Studio 5.15.4.app/Contents/JsPlugins/PresetsRegistry/Assets/PBRMaterial/Resources/pbr.ss_graph
+    - b8e7fd6d-347e-4d73-9846-9dc054868faf: /Users/ruya/Library/Preferences/Snap/Lens Studio/LibraryComponents/SpectaclesUIKit@0.0.8/SpectaclesUIKit.lspkg
+    - bb4256bb-652a-43a4-b17f-65e64bbffe30: /Users/ruya/Desktop/spectacles/Hyrox/Assets/Scripts/CourseManager.ts
+    - c01fa18c-310c-4bd4-af29-028e5a5061fa: /Users/ruya/Desktop/generated_arrow_assets/fauxrox_arrow_start_lime_glass.png
+    - c2b39307-1f2f-447e-9449-2d0b72dd7b99: /Applications/Lens Studio 5.15.4.app/Contents/JsPlugins/PresetsRegistry/Assets/Text3DMaterial/Resources/text_3d.ss_graph
+    - c8d378de-e561-4e15-97fa-96f9a4740ef2: /Users/ruya/Downloads/FauxRox/FauxRox5.png
+    - cb1c9cad-6f77-4436-9b72-b76a72498260: /Users/ruya/Desktop/SFX/3 2 1 0 Countdown With Sound Effect  No Copyright  Ready To Use - cj Bayabado.mp3
+    - cdd51aa5-f9d4-4a2f-ba83-4afd32f7db49: /Users/ruya/Library/Fonts/BrandonText-Black.otf
+    - d009fe1b-4e87-45ba-a12b-d49dc9d6cdfb: /Users/ruya/Desktop/generated_goal_icons/goal_finish_strong_flag_white.png
+    - d14460cc-d557-4eaa-ad2d-f28752d9c3bd: /private/var/folders/ht/ywwllstn13ngf8981ql117r00000gn/T/LensStudio_mcshPY/animation.t3d
+    - d8b31536-6430-4c06-aa88-7d6ed94dec98: /Users/ruya/Library/Fonts/Barlow-BoldItalic.ttf
+    - ea6f2a68-da10-4243-9ed5-edc9ae0f06ba: /Users/ruya/Desktop/generated_goal_icons/pacing_white.png
+    - f72e208d-22b2-45ce-ab43-b5f58cb5b13e: /Users/ruya/Downloads/speakerOff.png
+    - f9dcfd50-6802-4e2c-a3d8-e5a5c29123ce: /Users/ruya/Library/Fonts/Barlow-Black.ttf

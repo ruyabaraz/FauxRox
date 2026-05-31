@@ -1,0 +1,86 @@
+- !<AssetImportMetadata/4224fe48-5508-4326-a5df-296923040e62>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> ed81c89a-a5c5-4de0-a55b-8127e2ebd941
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> ed81c89a-a5c5-4de0-a55b-8127e2ebd941
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> a4d2ca30-4c31-4959-95fa-2fa7cd7cee7b
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/a4d2ca30-4c31-4959-95fa-2fa7cd7cee7b>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: b16681c8-2bf3-48e9-9da6-ca138e0008b6
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    cancelButton: false
+    debugPrint: false
+    deviceButtonPrefab: false
+    deviceButtonsContainer: false
+    deviceListPanel: false
+    frame: false
+    heartRateHUD: false
+    heartRateTracker: false
+    noButton: false
+    promptPanel: false
+    rescanButton: false
+    scanningPanel: false
+    scanningText: false
+    skipButton: false
+    yesButton: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - promptPanel: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      yesButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      noButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      scanningPanel: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      scanningText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      deviceListPanel: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      deviceButtonsContainer: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      deviceButtonPrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
+      rescanButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      cancelButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      heartRateTracker: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      heartRateHUD: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      frame: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      skipButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      debugPrint: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input SceneObject promptPanel
+    - // @input Component.ScriptComponent yesButton
+    - // @input Component.ScriptComponent noButton
+    - // @input SceneObject scanningPanel
+    - // @input Component.Text scanningText
+    - // @input SceneObject deviceListPanel
+    - // @input SceneObject deviceButtonsContainer
+    - // @input Asset.ObjectPrefab deviceButtonPrefab
+    - // @input Component.ScriptComponent rescanButton
+    - // @input Component.ScriptComponent cancelButton
+    - // @input AssignableType heartRateTracker
+    - // @input SceneObject heartRateHUD
+    - // @input SceneObject frame
+    - // @input Component.ScriptComponent skipButton
+    - // @input bool debugPrint = true

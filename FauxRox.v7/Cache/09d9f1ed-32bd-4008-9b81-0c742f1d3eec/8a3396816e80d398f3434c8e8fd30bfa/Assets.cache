@@ -1,0 +1,10 @@
+- !<AssetCache>
+  AssetFiles:
+    cfc03aab-a3d6-48dc-9e8b-4f12a9863064: 09d9f1ed-32bd-4008-9b81-0c742f1d3eec/8a3396816e80d398f3434c8e8fd30bfa/Data/BrandonGrotesque-Medium.otf
+  Assets:
+    - !<Font/cfc03aab-a3d6-48dc-9e8b-4f12a9863064>
+      PackagePath: ""
+  SourceHash: 8a3396816e80d398f3434c8e8fd30bfa
+  FileHash: 8306a18f6299c0b0c6501cab780ee329
+  NativePackageItems:
+    []

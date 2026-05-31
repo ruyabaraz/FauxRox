@@ -1,0 +1,90 @@
+- !<AssetImportMetadata/d9d54035-5550-409e-a3a3-7225db08524c>
+  ImportedAssetIds:
+    ObjectPrefab: !<reference> bce0b0a1-4b56-4965-8e6b-460c00c5d331
+  ImporterName: ObjectPrefabImporter
+  PrimaryAsset: !<reference> bce0b0a1-4b56-4965-8e6b-460c00c5d331
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    ObjectPrefab: !<own> 25c651c4-16e9-4220-be5a-b7c86877c682
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<RenderMeshVisual/1641a36e-e058-4562-4757-1b884e75c3b4>
+  PrefabRemaps:
+    []
+  Name: Render Mesh Visual
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> e3fbc2bb-f93c-475d-8191-b7be330fb4b3
+  Mesh: !<reference> 2e5e428e-9a20-4c3f-ad4a-4451f07df611
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<ObjectPrefabAssetData/25c651c4-16e9-4220-be5a-b7c86877c682>
+  Prototype: !<ObjectOwner/34b08294-30a6-4031-b2f4-49fa3cb3730f>
+    PackagePath: ""
+    objects:
+      - !<own> 5353832e-1820-42f2-43a3-504ebfd2508b
+- !<SceneObject/5353832e-1820-42f2-43a3-504ebfd2508b>
+  PrefabRemaps:
+    []
+  Name: WallBallPrefab
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> cf65d8a3-486d-44b2-419b-96de00b26ded
+  Components:
+    []
+- !<SceneObject/cf65d8a3-486d-44b2-419b-96de00b26ded>
+  PrefabRemaps:
+    []
+  Name: Object 0
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 200.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 60.000000, y: 60.000000, z: 60.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 1641a36e-e058-4562-4757-1b884e75c3b4
+    - !<own> e3b97f4d-90d5-42ea-af6b-bc5cc6047a1c
+- !<ColliderComponent/e3b97f4d-90d5-42ea-af6b-bc5cc6047a1c>
+  PrefabRemaps:
+    []
+  Name: Physics Collider
+  Enabled: true
+  Shape: !<Sphere>
+    FitVisual: true
+    Radius: 6.000000
+  Matter: !<reference> 00000000-0000-0000-0000-000000000000
+  Filter: !<reference> 00000000-0000-0000-0000-000000000000
+  OverlapFilter: !<reference> 00000000-0000-0000-0000-000000000000
+  WorldSettings: !<reference> 00000000-0000-0000-0000-000000000000
+  EnableSmoothing: false
+  PositionTension: 30.000000
+  RotationTension: 30.000000
+  ForceCompound: false
+  Intangible: false
+  ShowCollider: false
