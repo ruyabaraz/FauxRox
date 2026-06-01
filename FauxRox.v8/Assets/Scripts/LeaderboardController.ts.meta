@@ -1,0 +1,71 @@
+- !<AssetImportMetadata/e626eaa1-3902-4c6b-80b0-48feabf37009>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> fb724c05-370a-4381-98d8-bb5724ab5bcf
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> fb724c05-370a-4381-98d8-bb5724ab5bcf
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> e62301eb-1225-47b3-bfd9-7f545a5e8db8
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/e62301eb-1225-47b3-bfd9-7f545a5e8db8>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: bfbb96e3-fe19-472d-85bf-2dad9cb64656
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    cloudManager: false
+    debugPrint: false
+    goBackButton: false
+    leaderboardListText: false
+    leaderboardPanel: false
+    loadingText: false
+    raceAgainButton: false
+    titleText: false
+    yourRankText: false
+    yourTimeText: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - cloudManager: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      leaderboardPanel: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      titleText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      leaderboardListText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      yourRankText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      yourTimeText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      loadingText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      goBackButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      raceAgainButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      debugPrint: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input AssignableType cloudManager
+    - // @input SceneObject leaderboardPanel
+    - // @input Component.Text titleText
+    - // @input Component.Text leaderboardListText
+    - // @input Component.Text yourRankText
+    - // @input Component.Text yourTimeText
+    - // @input Component.Text loadingText
+    - // @input Component.ScriptComponent goBackButton
+    - // @input Component.ScriptComponent raceAgainButton
+    - // @input bool debugPrint = true
