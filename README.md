@@ -231,7 +231,17 @@ Am I ahead of my PB?
 How do I compare with John?
 Who is on the leaderboard?
 ```
+                                                                                        
+### Leaderboard System                                                                  
+                                                                                          
+LeaderboardController.ts` displays cloud-synced rankings:    
 
+- Top 10 players with times and dates                                                   
+- Current user's rank                                                                   
+- Personal best time                                                                    
+- "Race Again" quick restart                                                            
+- Accessible from finish panel
+  
 ## Onboarding and Personalization
 
 FauxRox includes a lightweight onboarding flow for:
@@ -286,6 +296,8 @@ Assets/
     GroundCalibration.ts     # Floor detection and calibration
     WristMenu.ts             # In-race controls
     MotivationalShouts.ts    # Contextual AI encouragement
+    LeaderboardController.ts   # Leaderboard UI panel                                     
+    StartTrigger.ts            # Custom Interactable button support  
 ```
 
 ## Setup
