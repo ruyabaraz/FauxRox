@@ -16,7 +16,7 @@
   MeshShadowMode: None
   ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
   ShadowDensity: 1.000000
-  Text: ""
+  Text: Device
   Editable: false
   ShowEditingPreview: true
   TouchHandler: !<reference> 00000000-0000-0000-0000-000000000000
@@ -148,7 +148,7 @@
     - 75471576-7630-4b1e-8322-e6fc213234db: 75471576-7630-4b1e-7cdd-1903decdcb24
     - 7798de92-c1a6-45e7-b3eb-69d8ee4fc255: 7798de92-c1a6-45e7-4c14-962711b03daa
   Name: CapsuleButton
-  Enabled: true
+  Enabled: false
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: -2.500000, z: 0.000000}
