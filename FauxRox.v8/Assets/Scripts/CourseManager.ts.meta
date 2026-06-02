@@ -35,7 +35,6 @@
     defaultWorkoutPrefab: false
     fadeDuration: false
     finishPrefab: false
-    finishVfxPrefab: false
     heavyCarryDistance: false
     heavyCarryPrefab: false
     lungesDistance: false
@@ -69,7 +68,6 @@
       walkingLungesPrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
       targetPressPrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
       defaultWorkoutPrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
-      finishVfxPrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
       runDistance: !<float> 100.000000
       spawnDistanceAhead: !<float> 200.000000
       fadeDuration: 0.500000
@@ -96,7 +94,6 @@
     - // @input Asset.ObjectPrefab walkingLungesPrefab
     - // @input Asset.ObjectPrefab targetPressPrefab
     - // @input Asset.ObjectPrefab defaultWorkoutPrefab
-    - // @input Asset.ObjectPrefab finishVfxPrefab
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"label", "label":"Run Settings"}'
     - // @input float runDistance = 100

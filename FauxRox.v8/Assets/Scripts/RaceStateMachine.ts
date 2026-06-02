@@ -72,7 +72,6 @@ export class RaceStateMachine extends BaseScriptComponent {
   @input @allowUndefined countdownBeepSound: AudioComponent;  // Plays ONCE at countdown start (SFX contains all beeps)
   @input @allowUndefined countdownGoSound: AudioComponent;    // Plays on GO!
   @input @allowUndefined instructionText: Text;
-  @input @allowUndefined finishTunnelVfx: SceneObject;
 
   /** Title image (FauxRox logo) - fades out after display */
   @input @allowUndefined titleImage: Image;
@@ -379,11 +378,6 @@ export class RaceStateMachine extends BaseScriptComponent {
     // Hide SkiErg guides initially
     if (this.skiergGuides) {
       this.skiergGuides.enabled = false;
-    }
-
-    // Hide finish tunnel VFX initially
-    if (this.finishTunnelVfx) {
-      this.finishTunnelVfx.enabled = false;
     }
 
     // Hide finish panel initially
@@ -1425,8 +1419,6 @@ export class RaceStateMachine extends BaseScriptComponent {
     // Reset form detection state
     this.resetFormState();
 
-    if (this.finishTunnelVfx) this.finishTunnelVfx.enabled = false;
-
     // Reset progress bar
     if (this.progressBar) {
       (this.progressBar as any).setProgress(0);
@@ -2043,13 +2035,6 @@ export class RaceStateMachine extends BaseScriptComponent {
     this._gateForward = null;
     this._previousGateDot = 1;
 
-    // Spawn finish VFX at player position
-    var course = this.cm();
-    if (course && course.spawnFinishVFX) {
-      var playerPos = this.getPlayerPosition();
-      course.spawnFinishVFX(playerPos);
-    }
-
     // Clear status text
     if (this.statusText) {
       this.statusText.text = '';
@@ -2275,12 +2260,6 @@ export class RaceStateMachine extends BaseScriptComponent {
       this.showSkiergGuides();
     } else {
       this.hideSkiergGuides();
-    }
-
-    // Show finish VFX if this is the last station
-    var course = this.cm();
-    if (course && this._currentStationIndex === course.stationCount - 1 && this.finishTunnelVfx) {
-      this.finishTunnelVfx.enabled = true;
     }
 
     this._state = RaceState.STATION;

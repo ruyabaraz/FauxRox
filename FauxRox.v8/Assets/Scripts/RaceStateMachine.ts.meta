@@ -47,7 +47,6 @@
     finishResetButton: false
     finishStatusText: false
     finishTotalTimeText: false
-    finishTunnelVfx: false
     finishViewLeaderboardButton: false
     finishViewSplitsButton: false
     formReminderSound: false
@@ -112,7 +111,6 @@
       countdownBeepSound: !<reference.AudioComponent> 00000000-0000-0000-0000-000000000000
       countdownGoSound: !<reference.AudioComponent> 00000000-0000-0000-0000-000000000000
       instructionText: !<reference.Text> 00000000-0000-0000-0000-000000000000
-      finishTunnelVfx: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       titleImage: !<reference.Image> 00000000-0000-0000-0000-000000000000
       heartRateText: !<reference.Text> 00000000-0000-0000-0000-000000000000
       hrZoneText: !<reference.Text> 00000000-0000-0000-0000-000000000000
@@ -173,7 +171,6 @@
     - // @input Component.AudioComponent countdownBeepSound
     - // @input Component.AudioComponent countdownGoSound
     - // @input Component.Text instructionText
-    - // @input SceneObject finishTunnelVfx
     - // @input Component.Image titleImage
     - // @input Component.Text heartRateText
     - // @input Component.Text hrZoneText

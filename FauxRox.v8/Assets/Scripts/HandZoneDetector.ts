@@ -447,15 +447,15 @@ export class HandZoneDetector extends BaseScriptComponent {
 
     // For pull: ready zone is UP (hands raised), target is DOWN (hands pulled down)
     // HARDCODED thresholds - wrists at face level when arms raised = around -10cm from camera
-    var readyThreshold = -15;   // Hands 15cm below camera (raised to face level) = READY
+    var readyThreshold = -25;   // Hands 20cm below camera (raised near face) = READY
     var targetThreshold = -35;  // Hands 35cm below camera (pulled down to chest) = HIT
 
     var inReadyZone = avgY >= readyThreshold;
     var inTargetZone = avgY <= targetThreshold;
 
-    // Debug log every ~30 frames
-    if (Math.random() < 0.03) {
-      this.log('AIR_SKIERG: avgY=' + avgY.toFixed(0) + 'cm, ready>' + readyThreshold + ', target<' + targetThreshold + ', state=' + this._state);
+    // DEBUG: Log every 10 frames to see values
+    if (Math.random() < 0.1) {
+      print('[AIR_SKIERG DEBUG] avgY=' + avgY.toFixed(0) + 'cm | ready>=' + readyThreshold + ' (' + inReadyZone + ') | target<=' + targetThreshold + ' (' + inTargetZone + ') | state=' + this._state);
     }
 
     switch (this._state) {

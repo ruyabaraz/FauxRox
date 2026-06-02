@@ -23,7 +23,7 @@
       SimulateProperties:
         emissionRadius:
           typeIdx: 1
-          value: 5.000000
+          value: 50.000000
         forceStrength:
           typeIdx: 1
           value: 2.260000
@@ -35,7 +35,7 @@
           value: 0.400000
         sizeMinMax:
           typeIdx: 3
-          value: {x: 0.750000, y: 1.500000}
+          value: {x: 1.000000, y: 2.000000}
         colorA:
           typeIdx: 5
           value: {x: 0.834653, y: 1.000000, z: 0.184573, w: 1.000000}

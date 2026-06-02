@@ -58,9 +58,6 @@ export class CourseManager extends BaseScriptComponent {
   // Fallback prefab if station-specific not assigned
   @input @allowUndefined defaultWorkoutPrefab: ObjectPrefab;
 
-  // VFX prefab for finish line crossing
-  @input @allowUndefined finishVfxPrefab: ObjectPrefab;
-
   // ── Run Settings ────────────────────────────────────────────────────────
 
   @ui.separator
@@ -376,61 +373,6 @@ export class CourseManager extends BaseScriptComponent {
       station.destroy();
       if (onComplete) onComplete();
     });
-  }
-
-  /**
-   * Spawn finish line VFX at position
-   */
-  spawnFinishVFX(position: vec3): void {
-    if (!this.finishVfxPrefab) {
-      print('[CourseManager] No finishVfxPrefab assigned');
-      return;
-    }
-
-    var vfx = this.finishVfxPrefab.instantiate(null);
-    vfx.getTransform().setWorldPosition(new vec3(position.x, this._floorY, position.z));
-
-    print('[CourseManager] Finish VFX spawned!');
-
-    // Stop emitter after first burst (0.1s delay)
-    var stopEvent = this.createEvent('DelayedCallbackEvent');
-    stopEvent.bind(() => {
-      if (vfx && !isNull(vfx)) {
-        // Try to find and disable particle emitter in hierarchy
-        this.disableParticleEmitters(vfx);
-      }
-    });
-    (stopEvent as DelayedCallbackEvent).reset(0.1);
-
-    // Auto-destroy VFX after 6 seconds (let particles finish falling)
-    var destroyEvent = this.createEvent('DelayedCallbackEvent');
-    destroyEvent.bind(() => {
-      if (vfx && !isNull(vfx)) {
-        vfx.destroy();
-      }
-    });
-    (destroyEvent as DelayedCallbackEvent).reset(6.0);
-  }
-
-  /** Recursively disable particle emitters in hierarchy */
-  private disableParticleEmitters(obj: SceneObject): void {
-    try {
-      // Cast to any to bypass type checking and try to get VFX component
-      var anyObj = obj as any;
-      if (anyObj.getComponent) {
-        var comp = anyObj.getComponent("Component.VFXComponent");
-        if (comp) {
-          comp.enabled = false;
-          print('[CourseManager] Disabled VFXComponent');
-        }
-      }
-    } catch (e) {
-      // Ignore errors
-    }
-    // Recurse into children
-    for (var c = 0; c < obj.getChildrenCount(); c++) {
-      this.disableParticleEmitters(obj.getChild(c));
-    }
   }
 
   /**
