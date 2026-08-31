@@ -1,0 +1,239 @@
+- !<AssetImportMetadata/0f1c1d57-d6e8-4d77-8191-05157260e42c>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 684c8f47-990d-4c28-9512-c3c250877d23
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 684c8f47-990d-4c28-9512-c3c250877d23
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> c5910adb-95ad-400c-9e13-6a450e2f95a4
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/c5910adb-95ad-400c-9e13-6a450e2f95a4>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 014dd734-81f4-4401-869e-295bb991e27e
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    aiCoachScript: false
+    backButton: false
+    beatPBButton: false
+    courseManagerScript: false
+    debugPrint: false
+    editButton: false
+    engineButton: false
+    finishStrongButton: false
+    fiveKInputField: false
+    fiveKKeyboardButton: false
+    fiveKMinuteDownButton: false
+    fiveKMinuteUpButton: false
+    fiveKSecondDownButton: false
+    fiveKSecondUpButton: false
+    fiveKValueText: false
+    focusGroup: false
+    fullButton: false
+    goalGroup: false
+    headerLabel: false
+    headerText: false
+    listeningGroup: false
+    listeningPrompt: false
+    listeningPromptText: false
+    listeningTimeoutSeconds: false
+    listeningUnderstoodText: false
+    maxEffortButton: false
+    mediumButton: false
+    mixedButton: false
+    modeGroup: false
+    normalSpaceButton: false
+    paceAddButton: false
+    paceOfferGroup: false
+    paceOfferPrompt: false
+    paceOfferPromptText: false
+    paceProvenanceText: false
+    paceSkipButton: false
+    pacingButton: false
+    panelRoot: false
+    profileManager: false
+    raceDayButton: false
+    readyEffortText: false
+    readyEyebrowText: false
+    readyGroup: false
+    readyHeadlineText: false
+    readyMetaPrimaryText: false
+    readyMetaSecondaryText: false
+    runningButton: false
+    shortButton: false
+    smallSpaceButton: false
+    spaceGroup: false
+    startButton: false
+    stepSummaryText: false
+    strengthButton: false
+    summaryText: false
+    talkToCoachButton: false
+    timeGroup: false
+    trainingButton: false
+    voiceMicButton: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - courseManagerScript: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      profileManager: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      panelRoot: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      headerText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      headerLabel: "TODAY'S SESSION"
+      modeGroup: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      raceDayButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      trainingButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      goalGroup: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      finishStrongButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      beatPBButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      maxEffortButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      pacingButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      spaceGroup: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      smallSpaceButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      normalSpaceButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      timeGroup: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      shortButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      mediumButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      fullButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      focusGroup: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      runningButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      engineButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      strengthButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      mixedButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      summaryText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      stepSummaryText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      readyGroup: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      readyEyebrowText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      readyHeadlineText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      readyMetaPrimaryText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      readyMetaSecondaryText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      readyEffortText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      editButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      aiCoachScript: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      talkToCoachButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      voiceMicButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      listeningGroup: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      listeningPromptText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      listeningUnderstoodText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      listeningPrompt: "Tell me what you're up for"
+      listeningTimeoutSeconds: !<float> 12.000000
+      paceOfferGroup: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      paceOfferPromptText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      paceOfferPrompt: "Know your recent 5K time?"
+      fiveKValueText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      fiveKMinuteDownButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      fiveKMinuteUpButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      fiveKSecondDownButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      fiveKSecondUpButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      fiveKKeyboardButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      fiveKInputField: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      paceAddButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      paceSkipButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      paceProvenanceText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      startButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      backButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      debugPrint: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Session Picker"}'
+    - // @input Component.ScriptComponent courseManagerScript
+    - // @input AssignableType profileManager
+    - // @input SceneObject panelRoot
+    - // @input Component.Text headerText
+    - "// @input string headerLabel = \"TODAY'S SESSION\""
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Mode"}'
+    - // @input SceneObject modeGroup
+    - // @input Component.ScriptComponent raceDayButton
+    - // @input Component.ScriptComponent trainingButton
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Goal (race day only)"}'
+    - // @input SceneObject goalGroup
+    - // @input Component.ScriptComponent finishStrongButton
+    - // @input Component.ScriptComponent beatPBButton
+    - // @input Component.ScriptComponent maxEffortButton
+    - // @input Component.ScriptComponent pacingButton
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Space (training only)"}'
+    - // @input SceneObject spaceGroup
+    - // @input Component.ScriptComponent smallSpaceButton
+    - // @input Component.ScriptComponent normalSpaceButton
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Time (training only)"}'
+    - // @input SceneObject timeGroup
+    - // @input Component.ScriptComponent shortButton
+    - // @input Component.ScriptComponent mediumButton
+    - // @input Component.ScriptComponent fullButton
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Focus (training only; running needs space)"}'
+    - // @input SceneObject focusGroup
+    - // @input Component.ScriptComponent runningButton
+    - // @input Component.ScriptComponent engineButton
+    - // @input Component.ScriptComponent strengthButton
+    - // @input Component.ScriptComponent mixedButton
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Output"}'
+    - // @input Component.Text summaryText
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Progressive disclosure"}'
+    - // @input Component.Text stepSummaryText
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Ready state"}'
+    - // @input SceneObject readyGroup
+    - // @input Component.Text readyEyebrowText
+    - // @input Component.Text readyHeadlineText
+    - // @input Component.Text readyMetaPrimaryText
+    - // @input Component.Text readyMetaSecondaryText
+    - // @input Component.Text readyEffortText
+    - // @input Component.ScriptComponent editButton
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Talk to coach"}'
+    - // @input Component.ScriptComponent aiCoachScript
+    - // @input Component.ScriptComponent talkToCoachButton
+    - // @input Component.ScriptComponent voiceMicButton
+    - // @input SceneObject listeningGroup
+    - // @input Component.Text listeningPromptText
+    - // @input Component.Text listeningUnderstoodText
+    - "// @input string listeningPrompt = \"Tell me what you're up for\""
+    - // @input float listeningTimeoutSeconds = 12
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Pace evidence (running only, asked once)"}'
+    - // @input SceneObject paceOfferGroup
+    - // @input Component.Text paceOfferPromptText
+    - '// @input string paceOfferPrompt = "Know your recent 5K time?"'
+    - // @input Component.Text fiveKValueText
+    - // @input Component.ScriptComponent fiveKMinuteDownButton
+    - // @input Component.ScriptComponent fiveKMinuteUpButton
+    - // @input Component.ScriptComponent fiveKSecondDownButton
+    - // @input Component.ScriptComponent fiveKSecondUpButton
+    - // @input Component.ScriptComponent fiveKKeyboardButton
+    - // @input Component.ScriptComponent fiveKInputField
+    - // @input Component.ScriptComponent paceAddButton
+    - // @input Component.ScriptComponent paceSkipButton
+    - // @input Component.Text paceProvenanceText
+    - // @input Component.ScriptComponent startButton
+    - // @input Component.ScriptComponent backButton
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Settings"}'
+    - // @input bool debugPrint = true
