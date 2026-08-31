@@ -1,10 +1,10 @@
 # FauxRox
 
-**FauxRox is a realtime AR fitness engine for Spectacles.**
+**FauxRox is an adaptive spatial fitness framework for Spectacles.**
 
-It runs a HYROX-inspired race in the space you are standing in — and, since this update, generates a training session for that space instead.
+It runs the original HYROX-inspired AR race — and now composes training sessions for the athlete and the space they have.
 
-Movement tracking, Bluetooth heart rate, Gemini Live voice coaching, Supabase cloud persistence, personal bests, dynamic station spawning, and a training layer that composes sessions from the constraints an athlete states.
+Movement tracking, Bluetooth heart rate, Gemini Live voice coaching, Supabase cloud persistence, personal bests, dynamic station spawning, and a training layer that turns stated constraints into a session.
 
 Built with **Lens Studio 5.15.4**, for **Spectacles (2024)**.
 
@@ -12,28 +12,30 @@ Built with **Lens Studio 5.15.4**, for **Spectacles (2024)**.
 
 ## Two modes
 
-**Race** is the eight-station course, unscaled and unchanged. It is what counts for a personal best and the leaderboard.
+**Race** is the original eight-station competitive course, unscaled, and it is what counts for a personal best and the leaderboard. What this update changed for it: the runs in a finished race now contribute measured evidence of the pace that athlete holds between stations — which nothing else can measure — and the countdown and start gun are gated on what a session is rather than on what it will count for.
 
-**Training** is generated. The athlete says how much space they have, how long they have and what they want to work on; the generator composes the session — distances, rounds, recovery, dose — and the Lens runs it through the same engine.
+**Training** did not exist before this update. The athlete chooses — or tells the coach — how much space they have, how long they have and what they want to work on, and the generator composes the session from it: distances, rounds, recovery, dose. It then runs through the same engine the race does.
 
-Race Day was the whole Lens before this update. It is untouched by it.
+Race Day was the whole Lens before this update. It remains the competitive core of FauxRox.
 
 ---
 
 ## The training framework is separate from the Lens
 
-Session generation, running physiology, scheduling, pace derivation and post-session analysis are **pure TypeScript with no Lens Studio imports**. They run in plain Node and are covered by **1856 automated tests that need no headset**.
+Session generation, running physiology, scheduling, pace derivation and post-session analysis are **pure TypeScript with no Lens Studio imports**. They run in plain Node and are covered by **1,856 assertions that need no headset**.
 
+```text
+Pure training modules            no Lens Studio imports, no scene, no device
+  AdaptiveSessionGenerator         what a session is
+  RunningArchetype / Schedule      what a running session is
+  PaceModel / PaceTarget           what may be said about an athlete's pace
+  TrainingAnalysis / RaceAnalysis  what a finished session did
+         ↓  read by
+Lens Studio runtime shells       scene objects, sensors, UI, audio
+  RaceStateMachine · CourseManager · SessionPickerUI · OnboardingUI
 ```
-Assets/Scripts/*.ts     pure logic — imports nothing from Lens Studio
-                        ↑
-                        │  read by
-                        │
-RaceStateMachine        thin runtime shells: components, inputs, scene objects
-SessionPickerUI
-CourseManager
-OnboardingUI
-```
+
+Both halves live under `Assets/Scripts` because Lens Studio compiles that folder; the boundary is the import list, not the directory. A module in the top half imports nothing from Lens Studio and can be lifted out of the Lens as it stands.
 
 Every rule that can be stated without a headset is stated without one: what follows what in the picker, which archetypes a duration can hold, how a pace band is derived, what a session is allowed to say about an athlete. The shells own scene objects and nothing else.
 
@@ -49,7 +51,7 @@ npm run test:fast # everything but the two sweeps, ~10 s
 ## Adaptive sessions
 
 ```
-SPACE      SMALL | NORMAL          stated by the athlete
+SPACE      SMALL | NORMAL          chosen, or said out loud
 DURATION   SHORT | MEDIUM | FULL   11-20 · 21-29 · 31-45 minutes
 FOCUS      RUNNING | ENGINE | STRENGTH | MIXED
 LEVEL      BEGINNER | REGULAR | ATHLETE   from their profile
@@ -288,7 +290,7 @@ FauxRox.v9/
     RunArrowGuide.ts / WristMenu.ts / LeaderboardController.ts
     BLEConnectionUI.ts / MotivationalShouts.ts / StartTrigger.ts
 
-  Tests/                          35 suites, 1856 assertions, no headset
+  Tests/                          35 suites, 1,856 assertions, no headset
 ```
 
 ---
@@ -328,4 +330,4 @@ Built as an open-source Spectacles project for the Lenslist / Snap AR Spectacles
 
 ## License
 
-MIT
+MIT 
