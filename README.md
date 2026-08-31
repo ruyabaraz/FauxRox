@@ -330,4 +330,4 @@ Built as an open-source Spectacles project for the Lenslist / Snap AR Spectacles
 
 ## License
 
-MIT
+MIT 
