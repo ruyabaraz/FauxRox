@@ -1,0 +1,53 @@
+- !<AssetImportMetadata/9b0b7fc4-dccc-4a3e-85b5-cee27a49b0e9>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 212a0831-93d4-4df0-b62a-26374305bb99
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 212a0831-93d4-4df0-b62a-26374305bb99
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 13eefbcf-8d8f-4633-a70e-dc3dba6543a2
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/13eefbcf-8d8f-4633-a70e-dc3dba6543a2>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: f7654679-83d2-40ec-86f5-156106526e80
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    fill: false
+    fillFromLeft: false
+    minimumVisible: false
+    pointer: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - fill: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      fillFromLeft: true
+      pointer: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      minimumVisible: 0.005000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input Component.ScriptComponent fill
+    - // @input bool fillFromLeft = true
+    - // @input SceneObject pointer
+    - // @input float minimumVisible = 0.005

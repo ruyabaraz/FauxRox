@@ -42,6 +42,17 @@ export class BLEConnectionUI extends BaseScriptComponent {
   /** Skip button - allows user to skip BLE and continue */
   @input @allowUndefined skipButton: ScriptComponent;
 
+  /**
+   * Back - returns to the question, rather than answering it for them.
+   *
+   * Skip and Cancel both mean "carry on without a monitor", which is an
+   * answer. Somebody who scanned, found nothing and wants to turn their strap
+   * on and try again was being made to choose between that answer and
+   * standing there: with no devices found and no way back, the only screen
+   * left was one that said "No HR monitors found." and offered nothing.
+   */
+  @input @allowUndefined backButton: ScriptComponent;
+
   @input debugPrint: boolean = true;
 
   // ── Internal State ──────────────────────────────────────────────────────────
@@ -127,6 +138,17 @@ export class BLEConnectionUI extends BaseScriptComponent {
       }
     }
 
+    // Back - to the question, not past it
+    if (this.backButton) {
+      var back = this.backButton as any;
+      if (back.onTriggerUp && back.onTriggerUp.add) {
+        back.onTriggerUp.add(() => this.onBackPressed());
+        this.log('Back button callback bound');
+      } else if (back.onButtonPinched) {
+        back.onButtonPinched.add(() => this.onBackPressed());
+      }
+    }
+
     // Skip button - allows skipping BLE connection
     if (this.skipButton) {
       var skip = this.skipButton as any;
@@ -188,6 +210,19 @@ export class BLEConnectionUI extends BaseScriptComponent {
     this.skipBLEConnection();
   }
 
+  /**
+   * Back to the question.
+   *
+   * The scan is stopped on the way: a scan still running behind the prompt
+   * would finish later and move the panel underneath whoever is reading it.
+   */
+  private onBackPressed(): void {
+    this.log('User pressed BACK - returning to the prompt');
+
+    if (this.heartRateTracker) this.heartRateTracker.stopScan();
+    this.setState(BLEUIState.PROMPT);
+  }
+
   private skipBLEConnection(): void {
     // Disable HR HUD
     if (this.heartRateHUD) {
@@ -237,6 +272,9 @@ export class BLEConnectionUI extends BaseScriptComponent {
             this.scanningText.text = 'Scanning for HR monitors...';
           }
         }
+        // A scan can take a while and can find nothing. Either way there is
+        // a way out of it from the moment it starts.
+        this.setButtonVisible(this.backButton, true);
         break;
 
       case BLEUIState.DEVICE_LIST:
@@ -244,6 +282,7 @@ export class BLEConnectionUI extends BaseScriptComponent {
           this.deviceListPanel.enabled = true;
           this.populateDeviceList();
         }
+        this.setButtonVisible(this.backButton, true);
         // Rescan and Cancel buttons are outside DeviceListPanel, enable separately
         if (this.rescanButton) {
           this.rescanButton.getSceneObject().enabled = true;
@@ -275,13 +314,23 @@ export class BLEConnectionUI extends BaseScriptComponent {
     if (this.promptPanel) this.promptPanel.enabled = false;
     if (this.scanningPanel) this.scanningPanel.enabled = false;
     if (this.deviceListPanel) this.deviceListPanel.enabled = false;
-    // Rescan and Cancel buttons are outside DeviceListPanel
-    if (this.rescanButton) {
-      this.rescanButton.getSceneObject().enabled = false;
-    }
-    if (this.cancelButton) {
-      this.cancelButton.getSceneObject().enabled = false;
-    }
+
+    // Rescan, Cancel and Back live outside the panels they belong to
+    this.setButtonVisible(this.rescanButton, false);
+    this.setButtonVisible(this.cancelButton, false);
+    this.setButtonVisible(this.backButton, false);
+  }
+
+  private setButtonVisible(button: ScriptComponent, visible: boolean): void {
+    if (!button) return;
+
+    var object = button.getSceneObject();
+    if (object) object.enabled = visible;
+  }
+
+  /** True when the athlete has some way off this screen other than finishing it */
+  private hasWayOut(): boolean {
+    return !!(this.backButton || this.rescanButton || this.cancelButton);
   }
 
   // ── Button Handlers ─────────────────────────────────────────────────────────
@@ -316,18 +365,25 @@ export class BLEConnectionUI extends BaseScriptComponent {
     this.log('Scan complete. Found ' + devices.length + ' devices');
 
     if (devices.length === 0) {
+      // Nothing found, and nothing wired to leave by. Back to the question,
+      // which is the one screen whose buttons are not optional - rather than
+      // leaving somebody in front of "No HR monitors found." with no way on.
+      if (!this.hasWayOut()) {
+        this.log('WARNING: no back, rescan or cancel button wired — ' +
+                 'returning to the prompt so the athlete is not stranded');
+        this.setState(BLEUIState.PROMPT);
+        return;
+      }
+
       // No devices found - show scanning panel with rescan/cancel buttons
       this.setState(BLEUIState.SCANNING);
       if (this.scanningText) {
         this.scanningText.text = 'No HR monitors found.';
       }
-      // Show rescan and cancel buttons
-      if (this.rescanButton) {
-        this.rescanButton.getSceneObject().enabled = true;
-      }
-      if (this.cancelButton) {
-        this.cancelButton.getSceneObject().enabled = true;
-      }
+
+      this.setButtonVisible(this.rescanButton, true);
+      this.setButtonVisible(this.cancelButton, true);
+      this.setButtonVisible(this.backButton, true);
     } else {
       this.setState(BLEUIState.DEVICE_LIST);
     }

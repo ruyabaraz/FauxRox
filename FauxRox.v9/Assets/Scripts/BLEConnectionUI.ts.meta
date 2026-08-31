@@ -26,6 +26,7 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    backButton: false
     cancelButton: false
     debugPrint: false
     deviceButtonPrefab: false
@@ -64,6 +65,7 @@
       heartRateHUD: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       frame: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       skipButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      backButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
       debugPrint: true
   ScriptTypes:
     -
@@ -83,4 +85,5 @@
     - // @input SceneObject heartRateHUD
     - // @input SceneObject frame
     - // @input Component.ScriptComponent skipButton
+    - // @input Component.ScriptComponent backButton
     - // @input bool debugPrint = true

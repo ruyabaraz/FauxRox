@@ -33,6 +33,7 @@
     crabWalkDistance: false
     crabWalkPrefab: false
     defaultWorkoutPrefab: false
+    demoWarmupSeconds: false
     fadeDuration: false
     finishPrefab: false
     heavyCarryDistance: false
@@ -81,6 +82,7 @@
       runDistance: !<float> 100.000000
       spawnDistanceAhead: !<float> 200.000000
       fadeDuration: 0.500000
+      demoWarmupSeconds: !<float> 0.000000
       previewAutoComplete: true
       previewStationSeconds: !<float> 4.000000
       previewWarmupSeconds: !<float> 6.000000
@@ -119,6 +121,9 @@
     - // @input float runDistance = 100
     - // @input float spawnDistanceAhead = 150
     - // @input float fadeDuration = 0.5
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Demo"}'
+    - // @input float demoWarmupSeconds
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"label", "label":"Preview (Editor Only)"}'
     - // @input bool previewAutoComplete = true

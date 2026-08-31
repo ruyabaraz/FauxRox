@@ -94,6 +94,24 @@ export class CourseManager extends BaseScriptComponent {
   // ── Preview / No-Hardware Mode ───────────────────────────────────────────
 
   @ui.separator
+  @ui.label("Demo")
+
+  /**
+   * Cap every warm-up drill at this many seconds, on the glasses too.
+   *
+   * Zero means the prescription, which is what an athlete should get. This is
+   * for filming: a warm-up is three drills of thirty to forty seconds, and
+   * ninety seconds of leg swings before the part being demonstrated is ninety
+   * seconds nobody watches.
+   *
+   * The one duration that can be cut without making the session dishonest -
+   * the warm-up is excluded from the analysis by construction, so nothing
+   * that gets measured is affected and the session still counts. Everything
+   * else stays exactly as prescribed.
+   */
+  @input demoWarmupSeconds: number = 0;
+
+  @ui.separator
   @ui.label("Preview (Editor Only)")
 
   /**
@@ -837,6 +855,39 @@ export class CourseManager extends BaseScriptComponent {
   }
 
   /**
+   * Shorten the warm-up for filming, on the glasses as well as in the editor.
+   *
+   * Nothing else is touched and the session still counts: a warm-up is not
+   * measured, so its length is the one thing that can be cut without the
+   * numbers afterwards describing a session nobody did.
+   */
+  private applyDemoWarmup(stations: StationConfig[]): StationConfig[] {
+    if (!(this.demoWarmupSeconds > 0)) return stations;
+
+    var out: StationConfig[] = [];
+    var cut = 0;
+
+    for (var i = 0; i < stations.length; i++) {
+      var cfg = stations[i];
+
+      if (isWarmupStation(cfg) && cfg.requirement > this.demoWarmupSeconds) {
+        out.push(simplifyForPreview(cfg, this.demoWarmupSeconds));
+        cut++;
+        continue;
+      }
+
+      out.push(cfg);
+    }
+
+    if (cut > 0) {
+      print('[CourseManager] DEMO: ' + cut + ' warm-up drills capped at ' +
+            this.demoWarmupSeconds + 's — nothing else changed');
+    }
+
+    return out;
+  }
+
+  /**
    * Replace hand-tracked stations with timed ones so the course can be walked
    * in preview. Returns the list untouched on device, or when switched off.
    *
@@ -846,8 +897,12 @@ export class CourseManager extends BaseScriptComponent {
   private applyPreviewMode(stations: StationConfig[]): StationConfig[] {
     this._previewSimplified = false;
 
-    if (!this.previewAutoComplete) return stations;
-    if (!global.deviceInfoSystem.isEditor()) return stations;
+    var demoed = this.applyDemoWarmup(stations);
+
+    if (!this.previewAutoComplete) return demoed;
+    if (!global.deviceInfoSystem.isEditor()) return demoed;
+
+    stations = demoed;
 
     var out: StationConfig[] = [];
     var replaced = 0;
