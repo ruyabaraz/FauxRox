@@ -620,7 +620,15 @@ EXERCISE GUIDE:
           },
           {
             name: 'stopSession',
-            description: 'Stops and ends whatever is currently running - a race or a training session. Use when user says stop, end, quit, finish early, or similar. The athlete may call a training session a "race" out of habit; stop the session that is actually running.'
+            description: 'Stops and ends whatever is currently running - a race or a training session. Use when user says stop, end, quit, finish early, or similar. The athlete may call a training session a "race" out of habit; stop the session that is actually running. NOT for "skip this" or "move on", which end one block and carry on - that is skipBlock.'
+          },
+          {
+            name: 'startNewSession',
+            description: 'Open the session panel so the athlete can set up another session. Call this for "start a new session", "let us do another", "another workout", "go again", "new session" - anything asking to begin again WITHOUT saying what they want. It decides nothing: the panel opens and they choose. If they DID say what they want - a duration, a focus, how much space - use prescribeSession or setSessionIntent instead. Never while a session is running.'
+          },
+          {
+            name: 'skipBlock',
+            description: 'Move on to the next block of a training session, leaving the rest of the current one undone. Call this for any of: "next block", "skip this block", "skip this", "move on", "can we go to the next block", "I am done with this one", "enough of this", "next set", "let us move on". This ENDS THE CURRENT BLOCK ONLY and the session continues - it is not stopping, so never use stopSession for these. Only for training; a race is the whole course in order.'
           },
           {
             name: 'prescribeSession',
@@ -887,6 +895,14 @@ EXERCISE GUIDE:
         }
         break;
 
+      case 'startNewSession':
+        this.handleStartNewSession();
+        break;
+
+      case 'skipBlock':
+        this.handleSkipBlock();
+        break;
+
       case 'prescribeSession':
         this.handlePrescribeSession(args);
         break;
@@ -903,6 +919,69 @@ EXERCISE GUIDE:
         this.log('Unknown function: ' + name);
         this.sendFunctionResponse(name, 'Unknown command');
     }
+  }
+
+  /**
+   * Another session, with nothing decided about it.
+   *
+   * The athlete asked to begin again and said nothing else, so nothing else
+   * is assumed. Prescribing here would mean inventing a duration and a focus
+   * they never mentioned, which is the one thing the session tools exist not
+   * to do.
+   */
+  private handleStartNewSession(): void {
+    var rsm = this.raceStateMachine as any;
+    if (!rsm || !rsm.startNewSession) {
+      this.sendFunctionResponse('startNewSession', 'No session panel available');
+      return;
+    }
+
+    var refused = rsm.startNewSession();
+
+    if (refused) {
+      this.log('New session refused: ' + refused);
+      this.sendFunctionResponse(
+        'startNewSession',
+        'Not opened - ' + refused + '. Tell them that in one short line.');
+      return;
+    }
+
+    this.log('Session panel opened');
+    this.sendFunctionResponse(
+      'startNewSession',
+      'The session panel is open. Tell them to pick what they want, or to ' +
+      'say it, in one short line. Do not suggest a session for them.');
+  }
+
+  /**
+   * On to the next block, when the athlete asks.
+   *
+   * The state machine decides whether it can happen and says why not when it
+   * cannot; the coach passes that on rather than having its own opinion about
+   * what a race is.
+   */
+  private handleSkipBlock(): void {
+    var rsm = this.raceStateMachine as any;
+    if (!rsm || !rsm.skipToNextBlock) {
+      this.sendFunctionResponse('skipBlock', 'Nothing is running');
+      return;
+    }
+
+    var refused = rsm.skipToNextBlock();
+
+    if (refused) {
+      this.log('Skip refused: ' + refused);
+      this.sendFunctionResponse(
+        'skipBlock',
+        'Not skipped - ' + refused + '. Tell them that in one short line.');
+      return;
+    }
+
+    this.log('Skipped to the next block');
+    this.sendFunctionResponse(
+      'skipBlock',
+      'Moved on to the next block. Say so in a few words and name nothing ' +
+      'they did not do.');
   }
 
   /**
@@ -1622,12 +1701,14 @@ EXERCISE GUIDE:
       var name = this.profileManager.getDisplayName();
 
       instructions += '\n\nPRESCRIBING:';
+      instructions += '\n- "Start a new session" or "let us go again", with nothing else said, is startNewSession. It opens the panel and decides nothing - never invent a duration or focus they did not ask for.';
       instructions += '\n- After a session, if they ask what to train or the verdict names a limiter, call prescribeSession.';
       instructions += '\n- Choose duration, focus and space only. Never list exercises, reps or distances yourself - the app builds those.';
       instructions += '\n- A slow station under high cardiovascular load suggests ENGINE; one without it suggests STRENGTH.';
       instructions += '\n- RUNNING needs a NORMAL space. Never prescribe it in a SMALL one - say running needs room and ask what they want instead.';
       instructions += '\n- While they are setting a session up, call setSessionIntent with ONLY what they said. Do not guess the rest; the app asks for it.';
       instructions += '\n- After setSessionIntent, ask at most one short question about what it says is missing, then stop.';
+      instructions += '\n- Mid-session, anything meaning next block - "next block", "skip this block", "move on", "can we go to the next block", "done with this one" - is skipBlock, not stopSession. Never during a race.';
 
       instructions += '\n\nPERSONALIZATION:';
       instructions += '\n- User name: ' + name + ' (use their name occasionally)';

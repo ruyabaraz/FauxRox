@@ -19,6 +19,7 @@ import {
   ratioBindingRange,
   ALL_LEVELS,
   Level,
+  makeRecoveryStation,
 } from '../Assets/Scripts/SessionTypes';
 
 let passed = 0;
@@ -244,6 +245,41 @@ describe('the same inputs always give the same rest', () => {
         recoverySeconds(75, profile, level, 0.3));
     }
   }
+});
+
+describe('the recovery is named for who is doing it', () => {
+  // The kind is WALK_OR_JOG because both are correct between repetitions run
+  // at speed - what matters is coming back fully. Which of the two it is
+  // depends on the athlete, and the panel has to say one of them: "walk or
+  // jog" is a menu, and somebody mid-session reading a menu has stopped.
+  const beginner = makeRecoveryStation(180, 'BEGINNER', 'WALK_OR_JOG');
+  const regular = makeRecoveryStation(180, 'REGULAR', 'WALK_OR_JOG');
+  const athlete = makeRecoveryStation(180, 'ATHLETE', 'WALK_OR_JOG');
+
+  check('a beginner walks', beginner.name === 'WALK', beginner.name);
+  check('and everybody else jogs',
+    regular.name === 'JOG' && athlete.name === 'JOG',
+    regular.name + '/' + athlete.name);
+
+  check('and the instruction says the same thing the name does',
+    beginner.instruction.indexOf('Walk') === 0 &&
+    regular.instruction.indexOf('Jog') === 0,
+    regular.instruction);
+
+  // The archetype's contract is unchanged whoever is doing it - what was
+  // prescribed is full recovery, and that is what the analysis reads.
+  check('and all of them are still the same kind of recovery',
+    beginner.recoveryKind === 'WALK_OR_JOG' &&
+    regular.recoveryKind === 'WALK_OR_JOG' &&
+    athlete.recoveryKind === 'WALK_OR_JOG');
+  check('for the same length of time',
+    beginner.requirement === regular.requirement);
+
+  // The other two kinds say what they are whoever is running: a float is a
+  // float because it is short, not because of who is doing it.
+  check('a float is a float for everybody',
+    makeRecoveryStation(45, 'BEGINNER', 'FLOAT_JOG').name === 'FLOAT' &&
+    makeRecoveryStation(45, 'ATHLETE', 'FLOAT_JOG').name === 'FLOAT');
 });
 
 console.log('\n' + passed + ' passed, ' + failed + ' failed');

@@ -269,5 +269,36 @@ describe('a keypad with no colon on it', () => {
   check('and so does every time the stepper can show', broken === 0, broken);
 });
 
+describe('a time on a profile that nobody entered', () => {
+  // Reported from the glasses: a stored 5K of 1488 seconds on a profile whose
+  // owner had never been shown the question. There is exactly one function
+  // that writes one, so a time that exists came through here - and these are
+  // the ways it could have been given something it should have refused.
+  check('an empty answer writes nothing',
+    recordFiveK(emptyPaceEvidence(), 0, 1).fiveK === undefined);
+  check('and neither does a stray number',
+    recordFiveK(emptyPaceEvidence(), NaN, 1).fiveK === undefined);
+
+  // The store keeps when it was written, which is how a time nobody
+  // remembers entering can be placed.
+  const written = recordFiveK(emptyPaceEvidence(), 1488, 1700000000000);
+  check('and a real one is stamped with when',
+    written.fiveK !== undefined &&
+    written.fiveK.enteredAtEpochMs === 1700000000000);
+
+  // Being able to take it back matters as much as being asked: a wrong time
+  // was permanent, because the question is only asked when there is nothing
+  // on file.
+  check('an answered profile is not asked again',
+    !shouldOfferPaceEvidence(written));
+  check('and forgetting it brings the question back',
+    shouldOfferPaceEvidence(emptyPaceEvidence()));
+
+  // Four digits from a keypad are a time; a leftover field value is not
+  // supposed to reach this at all, but if it does it has to look like one.
+  check('and 2448 is what 1488 seconds looks like typed',
+    parseFiveKEntry('2448') === 1488);
+});
+
 console.log('\n' + passed + ' passed, ' + failed + ' failed');
 process.exit(failed > 0 ? 1 : 0);

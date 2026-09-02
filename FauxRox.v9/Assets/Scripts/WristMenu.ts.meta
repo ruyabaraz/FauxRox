@@ -29,8 +29,13 @@
     aiCoach: false
     askCoachButton: false
     askCoachButtonObject: false
+    askCoachIcon: false
+    askCoachOffTexture: false
+    askCoachOnTexture: false
     debugPrint: false
     menuContainer: false
+    nextBlockButton: false
+    nextBlockButtonObject: false
     pauseButton: false
     pauseButtonObject: false
     raceStateMachineScript: false
@@ -57,6 +62,11 @@
       stopButtonObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       askCoachButton: !<MappingBased.AssignableType_4> 00000000-0000-0000-0000-000000000000
       askCoachButtonObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      askCoachIcon: !<reference.Image> 00000000-0000-0000-0000-000000000000
+      askCoachOnTexture: !<reference.Texture> 00000000-0000-0000-0000-000000000000
+      askCoachOffTexture: !<reference.Texture> 00000000-0000-0000-0000-000000000000
+      nextBlockButton: !<MappingBased.AssignableType_5> 00000000-0000-0000-0000-000000000000
+      nextBlockButtonObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       menuContainer: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       debugPrint: true
   ScriptTypes:
@@ -73,5 +83,10 @@
     - // @input SceneObject stopButtonObject
     - // @input AssignableType_4 askCoachButton
     - // @input SceneObject askCoachButtonObject
+    - // @input Component.Image askCoachIcon
+    - // @input Asset.Texture askCoachOnTexture
+    - // @input Asset.Texture askCoachOffTexture
+    - // @input AssignableType_5 nextBlockButton
+    - // @input SceneObject nextBlockButtonObject
     - // @input SceneObject menuContainer
     - // @input bool debugPrint = true

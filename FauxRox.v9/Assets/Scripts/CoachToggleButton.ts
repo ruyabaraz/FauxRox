@@ -50,6 +50,29 @@ export class CoachToggleButton extends BaseScriptComponent {
     this.createEvent('OnStartEvent').bind(() => {
       this.initializeIcon();
     });
+
+    // The coach is the one that knows whether it is listening, and there is
+    // more than one button that can start it - one here and one on the wrist.
+    // A button that only updates itself when pressed goes stale the moment
+    // the other one is used, and then two buttons disagree about a thing
+    // there is only one of.
+    this.createEvent('UpdateEvent').bind(() => {
+      this.followCoach();
+    });
+  }
+
+  /** What the icon is currently showing, so it is only redrawn on a change */
+  private shownOn: boolean = false;
+
+  private followCoach(): void {
+    if (!this.aiCoach) return;
+
+    var isOn = (this.aiCoach as any).isToggleOn === true;
+    if (isOn === this.shownOn) return;
+
+    this.shownOn = isOn;
+    this.setIconTexture(isOn);
+    this.setMuteButtonVisible(isOn);
   }
 
   private initializeIcon(): void {
@@ -58,6 +81,7 @@ export class CoachToggleButton extends BaseScriptComponent {
 
     // Initial state: toggle is OFF, show grey mic, hide mute button
     print('[CoachToggleButton] Initializing - toggle OFF by default');
+    this.shownOn = false;
     this.setIconTexture(false);
     this.setMuteButtonVisible(false);
   }
@@ -68,15 +92,12 @@ export class CoachToggleButton extends BaseScriptComponent {
       return;
     }
 
-    // Toggle the coach
+    // Ask the coach to change; the icon follows what it actually did rather
+    // than what this button assumed it would do.
     (this.aiCoach as any).toggleCoach();
 
-    // Get new state and update icon
-    const isOn = (this.aiCoach as any).isToggleOn;
-    this.setIconTexture(isOn);
-    this.setMuteButtonVisible(isOn);
-
-    print('[CoachToggleButton] Toggle: ' + (isOn ? 'ON' : 'OFF'));
+    print('[CoachToggleButton] Toggle pressed: now ' +
+          ((this.aiCoach as any).isToggleOn ? 'ON' : 'OFF'));
   }
 
   private setIconTexture(isOn: boolean): void {

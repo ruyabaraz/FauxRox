@@ -42,6 +42,7 @@
     fiveKSecondUpButton: false
     fiveKValueText: false
     focusGroup: false
+    forgetPaceEvidenceOnStart: false
     fullButton: false
     goalGroup: false
     headerLabel: false
@@ -73,6 +74,7 @@
     readyMetaPrimaryText: false
     readyMetaSecondaryText: false
     runningButton: false
+    screenSettleSeconds: false
     shortButton: false
     smallSpaceButton: false
     spaceGroup: false
@@ -138,6 +140,7 @@
       paceOfferGroup: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       paceOfferPromptText: !<reference.Text> 00000000-0000-0000-0000-000000000000
       paceOfferPrompt: "Know your recent 5K time?"
+      forgetPaceEvidenceOnStart: false
       fiveKValueText: !<reference.Text> 00000000-0000-0000-0000-000000000000
       fiveKMinuteDownButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
       fiveKMinuteUpButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
@@ -150,6 +153,7 @@
       paceProvenanceText: !<reference.Text> 00000000-0000-0000-0000-000000000000
       startButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
       backButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      screenSettleSeconds: 0.500000
       debugPrint: true
   ScriptTypes:
     -
@@ -222,6 +226,7 @@
     - // @input SceneObject paceOfferGroup
     - // @input Component.Text paceOfferPromptText
     - '// @input string paceOfferPrompt = "Know your recent 5K time?"'
+    - // @input bool forgetPaceEvidenceOnStart
     - // @input Component.Text fiveKValueText
     - // @input Component.ScriptComponent fiveKMinuteDownButton
     - // @input Component.ScriptComponent fiveKMinuteUpButton
@@ -236,4 +241,5 @@
     - // @input Component.ScriptComponent backButton
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"label", "label":"Settings"}'
+    - // @input float screenSettleSeconds = 0.5
     - // @input bool debugPrint = true

@@ -167,15 +167,15 @@ describe('starting a session and walking out of it', () => {
 describe('history and draw state cannot stand in for each other', () => {
   // This is the bug that shipped: one counter served both meanings, so
   // "trained three times" and "threw away three offers" were the same state.
-  const trained = { completionOrdinal: 3, offerOrdinal: 0, recent: [], lastArchetype: '', lastCompletedAt: 0 };
-  const abandoned = { completionOrdinal: 0, offerOrdinal: 3, recent: [], lastArchetype: '', lastCompletedAt: 0 };
+  const trained = { completionOrdinal: 3, offerOrdinal: 0, recent: [], lastArchetype: '', lastCompletedAt: 0, launchOrdinal: 0 };
+  const abandoned = { completionOrdinal: 0, offerOrdinal: 3, recent: [], lastArchetype: '', lastCompletedAt: 0, launchOrdinal: 0 };
   check('swapping the counters is a different seed',
     seedOf(trained) !== seedOf(abandoned),
     seedOf(trained) + ' vs ' + seedOf(abandoned));
 
   // Adding them was the original mistake; make sure we did not re-add them
-  const split = { completionOrdinal: 1, offerOrdinal: 2, recent: [], lastArchetype: '', lastCompletedAt: 0 };
-  const other = { completionOrdinal: 2, offerOrdinal: 1, recent: [], lastArchetype: '', lastCompletedAt: 0 };
+  const split = { completionOrdinal: 1, offerOrdinal: 2, recent: [], lastArchetype: '', lastCompletedAt: 0, launchOrdinal: 0 };
+  const other = { completionOrdinal: 2, offerOrdinal: 1, recent: [], lastArchetype: '', lastCompletedAt: 0, launchOrdinal: 0 };
   check('and so is every other split of the same total',
     seedOf(split) !== seedOf(other));
 

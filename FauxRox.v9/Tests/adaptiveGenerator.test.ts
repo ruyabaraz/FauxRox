@@ -1585,14 +1585,17 @@ describe('what a recovery is, and who is recovering, are two questions', () => {
   //
   // But where the kind is definitive it wins at every level. A threshold
   // float that is walked is not a float: the lactate clears and the session
-  // becomes a different one. Speed work's recovery is walked by everybody,
-  // because near-full recovery is the point rather than a concession.
+  // becomes a different one, and the shortness is the prescription.
+  //
+  // Speed work recovers fully, and both walking and jogging do that - which
+  // is why the kind is named for the pair. Which of the two a person takes is
+  // a question about them, so it follows the level like an ordinary recovery.
   const recoveries = (plan: SessionPlan) =>
     plan.stations.filter((s) => s.prefabType === 'RECOVERY');
 
   const EXPECTED: { [kind: string]: { [level: string]: string } } = {
     FLOAT_JOG:   { BEGINNER: 'FLOAT', REGULAR: 'FLOAT', ATHLETE: 'FLOAT' },
-    WALK_OR_JOG: { BEGINNER: 'WALK',  REGULAR: 'WALK',  ATHLETE: 'WALK'  },
+    WALK_OR_JOG: { BEGINNER: 'WALK',  REGULAR: 'JOG',   ATHLETE: 'JOG'   },
     EASY_JOG:    { BEGINNER: 'WALK',  REGULAR: 'JOG',   ATHLETE: 'JOG'   },
   };
 

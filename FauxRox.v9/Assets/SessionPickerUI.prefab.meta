@@ -2741,6 +2741,7 @@
     paceOfferGroup: true
     paceOfferPromptText: true
     paceOfferPrompt: true
+    forgetPaceEvidenceOnStart: true
     fiveKValueText: true
     fiveKMinuteDownButton: true
     fiveKMinuteUpButton: true
@@ -2751,6 +2752,7 @@
     paceAddButton: true
     paceSkipButton: true
     paceProvenanceText: true
+    screenSettleSeconds: true
     debugPrint: true
   ScriptTypesDefault:
     {}
@@ -2801,6 +2803,7 @@
       paceOfferGroup: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       paceOfferPromptText: !<reference.Text> 00000000-0000-0000-0000-000000000000
       paceOfferPrompt: "Know your recent 5K time?"
+      forgetPaceEvidenceOnStart: false
       fiveKValueText: !<reference.Text> 00000000-0000-0000-0000-000000000000
       fiveKMinuteDownButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
       fiveKMinuteUpButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
@@ -2813,6 +2816,7 @@
       paceProvenanceText: !<reference.Text> 00000000-0000-0000-0000-000000000000
       startButton: !<reference.ScriptComponent> 8c83e286-2e05-4cdc-5672-ce2dfc7683d2
       backButton: !<reference.ScriptComponent> a1f3e8ce-8a67-4d28-5350-657708c3d7f9
+      screenSettleSeconds: 0.500000
       debugPrint: true
   ScriptTypes:
     "":

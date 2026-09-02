@@ -122,5 +122,130 @@ describe('a room is a fact, not a preference', () => {
     COACH.indexOf('RUNNING needs a NORMAL space') > 0);
 });
 
+describe('moving on is the athlete\'s call, and the engine\'s decision', () => {
+  // They know when a set has given them what it was going to. What the coach
+  // must not do is decide whether it is allowed - that depends on what is
+  // running, which the state machine knows and the coach does not.
+  check('the coach can be asked to move on', COACH.indexOf("name: 'skipBlock'") > 0);
+
+  const handler = COACH.substring(COACH.indexOf('private handleSkipBlock'));
+  const body = handler.substring(0, handler.indexOf('\n  }'));
+
+  check('and it asks the engine rather than deciding',
+    body.indexOf('skipToNextBlock') > 0, body);
+  check('and passes on the refusal it is given',
+    body.indexOf('Not skipped') > 0 && body.indexOf('refused') > 0, body);
+
+  // A race is eight stations in an order. One with a station missing is not a
+  // faster race.
+  check('and is told never to offer it in a race',
+    COACH.indexOf('Never during a race') > 0);
+
+  // The words somebody actually says, and the one it must not be confused
+  // with: skipping ends a block and carries on, stopping ends the session.
+  for (const said of ['next block', 'skip this block', 'move on',
+                      'can we go to the next block']) {
+    check('"' + said + '" is one of them', COACH.indexOf('"' + said + '"') > 0);
+  }
+
+  check('and stopping is told it is not this',
+    COACH.indexOf('that is skipBlock') > 0);
+  check('and skipping is told it is not stopping',
+    COACH.indexOf('never use stopSession for these') > 0);
+
+  const ROOT2 = path.join(__dirname, '..', '..', '..');
+  const MACHINE = fs.readFileSync(
+    path.join(ROOT2, 'Assets', 'Scripts', 'RaceStateMachine.ts'), 'utf8');
+
+  const skip = MACHINE.substring(MACHINE.indexOf('skipToNextBlock(): string'));
+  const skipBody = skip.substring(0, skip.indexOf('\n  }'));
+
+  check('the engine refuses it in a race',
+    skipBody.indexOf('isTrainingSession') > 0 &&
+    skipBody.indexOf('the whole course') > 0, skipBody);
+  check('and when nothing is running',
+    skipBody.indexOf('isSessionUnderway') > 0);
+  check('and when there is no next block to move to',
+    skipBody.indexOf('last block') > 0);
+
+  // Skipping is not a way of finishing early with the same result.
+  check('and nothing is written down for what was not done',
+    skipBody.indexOf('recordEffort') < 0 && skipBody.indexOf('_splitNames') < 0);
+});
+
+describe('the button and the voice ask the same question', () => {
+  const ROOT3 = path.join(__dirname, '..', '..', '..');
+  const WRIST = fs.readFileSync(
+    path.join(ROOT3, 'Assets', 'Scripts', 'WristMenu.ts'), 'utf8');
+  const MACHINE2 = fs.readFileSync(
+    path.join(ROOT3, 'Assets', 'Scripts', 'RaceStateMachine.ts'), 'utf8');
+
+  check('the wrist menu has a next-block button',
+    WRIST.indexOf('nextBlockButton') > 0);
+  check('and it calls the same method the coach does',
+    WRIST.indexOf('skipToNextBlock') > 0);
+
+  // A button that is there and does nothing reads as broken, and one that
+  // decides for itself whether to appear will one day disagree with the
+  // engine about whether there is a block to go to.
+  check('and it is shown only when pressing it would do something',
+    WRIST.indexOf('race.canSkipBlock === true') > 0);
+  check('which is the engine\'s answer, not the menu\'s',
+    MACHINE2.indexOf('get canSkipBlock(): boolean') > 0);
+
+  const can = MACHINE2.substring(MACHINE2.indexOf('get canSkipBlock(): boolean'));
+  const canBody = can.substring(0, can.indexOf('\n  }'));
+  check('and it asks exactly what the skip asks',
+    canBody.indexOf('isTrainingSession') > 0 &&
+    canBody.indexOf('isSessionUnderway') > 0 &&
+    canBody.indexOf('firstStationOfNextBlock') > 0, canBody);
+});
+
+describe('asking to begin again decides nothing', () => {
+  // "Start a new session" says one thing: another one. Answering it with
+  // prescribeSession would mean inventing a duration and a focus the athlete
+  // never mentioned, which is the one thing these tools exist not to do -
+  // and prescribeSession requires both, so the model would have had to.
+  check('there is a way to ask for the panel',
+    COACH.indexOf("name: 'startNewSession'") > 0);
+
+  const tool = COACH.substring(COACH.indexOf("name: 'startNewSession'"));
+  const description = tool.substring(0, tool.indexOf('\n          }'));
+
+  check('and it takes no parameters at all',
+    description.indexOf('parameters') < 0, description);
+
+  for (const said of ['start a new session', 'let us do another', 'new session']) {
+    check('"' + said + '" reaches it', description.indexOf(said) > 0);
+  }
+
+  check('and it is told what the other two are for instead',
+    description.indexOf('prescribeSession or setSessionIntent') > 0);
+  check('and never to do it mid-session',
+    description.indexOf('Never while a session is running') > 0);
+
+  const handler = COACH.substring(COACH.indexOf('private handleStartNewSession'));
+  const body = handler.substring(0, handler.indexOf('\n  }'));
+
+  check('the coach asks the engine rather than deciding',
+    body.indexOf('startNewSession()') > 0, body);
+  check('and is told not to suggest one once it is open',
+    body.indexOf('Do not suggest a session for them') > 0);
+
+  const ROOT4 = path.join(__dirname, '..', '..', '..');
+  const MACHINE3 = fs.readFileSync(
+    path.join(ROOT4, 'Assets', 'Scripts', 'RaceStateMachine.ts'), 'utf8');
+
+  const open = MACHINE3.substring(MACHINE3.indexOf('startNewSession(): string'));
+  const openBody = open.substring(0, open.indexOf('\n  }'));
+
+  // Quietly throwing away a session in progress is not a recoverable mistake.
+  check('the engine refuses it while something is running',
+    openBody.indexOf('isUnderway') > 0 && openBody.indexOf('stopped first') > 0,
+    openBody);
+  check('and opens the panel the way the finish button does',
+    openBody.indexOf('resetRace()') > 0);
+});
+
 console.log('\n' + passed + ' passed, ' + failed + ' failed');
 process.exit(failed > 0 ? 1 : 0);

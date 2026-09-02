@@ -134,6 +134,7 @@ export function axisOf(mode: string): Axis {
     case 'REPS':
     case 'VERTICAL_REPS':
     case 'LATERAL_REPS':
+    case 'PITCH_REPS':
     case 'ZONE_HIT':
       return 'WORK_RATE';
 

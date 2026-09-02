@@ -576,5 +576,48 @@ describe('the refusal is on the screen, not only in the voice', () => {
     voiceRefusalFor('RUNNING', 'SMALL').indexOf('room') > 0);
 });
 
+// ── The panel's own guard against a press it did not receive ────────────────
+//
+// The flow cannot see this one: it is about when a press arrives rather than
+// what it means. One pinch chose RUNNING, the 5K question appeared where the
+// focus buttons had been, and the release of that same pinch landed on SKIP -
+// so the question was declined in the frame it was asked, and the athlete
+// never saw it. The log said "5K declined" and nobody had declined anything.
+
+import * as fs from 'fs';
+import * as path from 'path';
+
+describe('a screen that just appeared has not been pressed yet', () => {
+  const ROOT = path.join(__dirname, '..', '..', '..');
+  const PANEL = fs.readFileSync(
+    path.join(ROOT, 'Assets', 'Scripts', 'SessionPickerUI.ts'), 'utf8');
+
+  check('the panel knows when the screen it is showing arrived',
+    PANEL.indexOf('_shownAt') > 0 && PANEL.indexOf('_shownState') > 0);
+  check('and only resets that when the screen actually changes',
+    PANEL.indexOf('if (state !== this._shownState)') > 0);
+
+  // Short enough that nobody deliberate is refused, long enough to outlast
+  // the release of the press that got them here.
+  check('and how long it waits can be tuned',
+    PANEL.indexOf('@input screenSettleSeconds') > 0);
+
+  function guarded(signature: string): boolean {
+    const start = PANEL.indexOf(signature);
+    if (start < 0) return false;
+
+    const body = PANEL.substring(start, PANEL.indexOf('\n  }', start));
+    return body.indexOf('this.settled()') > 0;
+  }
+
+  check('declining the 5K question is guarded',
+    guarded('private declineFiveK'));
+  check('and accepting it', guarded('private acceptFiveK'));
+
+  // START appears exactly where the focus buttons were, so the same pinch
+  // could have started the session.
+  check('and starting the session', guarded('private confirm'));
+});
+
 console.log('\n' + passed + ' passed, ' + failed + ' failed');
 process.exit(failed > 0 ? 1 : 0);

@@ -238,10 +238,19 @@ describe('a break carries what it is, not only how long', () => {
   check('and for an athlete', floatForAnAthlete.name === 'FLOAT');
   check('and says so', float.recoveryKind === 'FLOAT_JOG');
 
-  // Speed work is walked by everybody: near-full recovery is the point,
-  // because the last repetition has to be as good as the first.
+  // Speed work recovers fully, and how somebody takes a full recovery is a
+  // question about them. A beginner walks it; anybody else jogs. What does
+  // not change is the length of it or what it was prescribed as - the last
+  // repetition still has to be as good as the first.
   const speed = build('SPEED_REPETITION', 'FULL', 3, 'ATHLETE')[0].items[0];
-  check('speed work is walked even by an athlete', speed.name === 'WALK', speed.name);
+  const speedForABeginner = build('SPEED_REPETITION', 'FULL', 3, 'BEGINNER')[0].items[0];
+
+  check('an athlete jogs the full recovery', speed.name === 'JOG', speed.name);
+  check('and a beginner walks it',
+    speedForABeginner.name === 'WALK', speedForABeginner.name);
+  check('and it is the same recovery either way',
+    speed.recoveryKind === 'WALK_OR_JOG' &&
+    speedForABeginner.recoveryKind === 'WALK_OR_JOG');
   check('and says why', speed.instruction.toLowerCase().indexOf('as good as') >= 0,
     speed.instruction);
 

@@ -248,5 +248,40 @@ describe('a stored archetype is checked before it is believed', () => {
   check('nor an empty one', !isRunningArchetype(''));
 });
 
+describe('what does and does not put an athlete on easy runs', () => {
+  // Reported from the glasses: every running session coming out easy, from
+  // somebody who had never finished a hard one. These are the things that
+  // could have caused it, each asked directly.
+  const everything: RunningArchetype[] =
+    ['EASY_BASE', 'HYROX_PACE', 'THRESHOLD', 'VO2', 'SPEED_REPETITION'];
+
+  check('an easy run an hour ago does not hold anything back',
+    scheduleRunning(everything, { recent: ['EASY_BASE'], hoursSinceLast: 1 })
+      .length === everything.length);
+
+  // Two easy runs in a row is ordinary endurance training.
+  check('nor two of them',
+    scheduleRunning(everything, { recent: ['EASY_BASE', 'EASY_BASE'], hoursSinceLast: 12 })
+      .length === everything.length);
+
+  check('and an athlete with no history at all is held back by nothing',
+    scheduleRunning(everything, {}).length === everything.length &&
+    scheduleRunning(everything, undefined).length === everything.length);
+
+  // The one thing that does, and only while it is recent.
+  check('a hard session an hour ago leaves only easy',
+    scheduleRunning(everything, { recent: ['VO2'], hoursSinceLast: 1 })
+      .join(',') === 'EASY_BASE');
+  check('and stops holding once it is old enough',
+    scheduleRunning(everything,
+      { recent: ['VO2'], hoursSinceLast: QUALITY_RECOVERY_WINDOW_HOURS + 1 }
+    ).length > 1);
+
+  // A log with no timestamp cannot say whether the session was yesterday, and
+  // holding somebody back on a guess is worse than not holding them back.
+  check('and a hard session with no time on it holds nothing back',
+    scheduleRunning(everything, { recent: ['VO2'] }).length > 1);
+});
+
 console.log('\n' + passed + ' passed, ' + failed + ' failed');
 process.exit(failed > 0 ? 1 : 0);

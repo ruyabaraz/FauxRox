@@ -57,6 +57,23 @@ export interface TrainingLog {
    * them back would be a guess against their interest.
    */
   lastCompletedAt: number;
+
+  /**
+   * How many times the Lens has been opened.
+   *
+   * The draw moved when a session was finished or abandoned, and only then.
+   * That is right while somebody is standing in the picker changing their
+   * mind - toggling the options should not reshuffle the workout underneath
+   * them - and wrong across days: an athlete who opens the Lens, is offered
+   * an easy run and closes it again was offered the same easy run the next
+   * morning, and the morning after that, because nothing they did counted as
+   * an outcome. Three of those in a row is indistinguishable from a broken
+   * generator, which is what it was reported as.
+   *
+   * So opening the app moves it too. Same session all the way through one
+   * visit; a different draw the next time they come back.
+   */
+  launchOrdinal: number;
 }
 
 export function emptyTrainingLog(): TrainingLog {
@@ -66,6 +83,28 @@ export function emptyTrainingLog(): TrainingLog {
     recent: [],
     lastArchetype: '',
     lastCompletedAt: 0,
+    launchOrdinal: 0,
+  };
+}
+
+/**
+ * Another visit.
+ *
+ * Called once when the Lens starts. Everything else about the log is a claim
+ * about training; this is a claim about the app, and it exists so that the
+ * same athlete on the same profile is not handed the same session every
+ * morning until they happen to finish one.
+ */
+export function noteLaunch(log: TrainingLog): TrainingLog {
+  var current = log || emptyTrainingLog();
+
+  return {
+    completionOrdinal: current.completionOrdinal,
+    offerOrdinal: current.offerOrdinal,
+    recent: current.recent,
+    lastArchetype: current.lastArchetype,
+    lastCompletedAt: current.lastCompletedAt,
+    launchOrdinal: (current.launchOrdinal | 0) + 1,
   };
 }
 
@@ -134,6 +173,7 @@ export function recordCompletedSession(
     recent: movements ? movements.slice() : [],
     lastArchetype: archetype || '',
     lastCompletedAt: completedAt !== undefined ? completedAt : 0,
+    launchOrdinal: previous.launchOrdinal,
   };
 }
 
@@ -157,6 +197,7 @@ export function recordAbandonedSession(log: TrainingLog): TrainingLog {
     // recovery it owed.
     lastArchetype: previous.lastArchetype,
     lastCompletedAt: previous.lastCompletedAt,
+    launchOrdinal: previous.launchOrdinal,
   };
 }
 
@@ -178,10 +219,13 @@ export function trainingSeed(log: TrainingLog, previewOffset: number): number {
   var current = log || emptyTrainingLog();
   var completed = current.completionOrdinal | 0;
   var offered = (current.offerOrdinal + (previewOffset || 0)) | 0;
+  var visits = current.launchOrdinal | 0;
 
   var h = 2166136261 ^ completed;
   h = Math.imul(h, 16777619);
   h ^= offered;
+  h = Math.imul(h, 16777619);
+  h ^= visits;
   h = Math.imul(h, 16777619);
 
   h ^= h >>> 13;
@@ -228,6 +272,7 @@ export function parseTrainingLog(raw: string): TrainingLog {
       lastArchetype: typeof parsed.lastArchetype === 'string'
         ? parsed.lastArchetype : '',
       lastCompletedAt: count(parsed.lastCompletedAt),
+      launchOrdinal: count(parsed.launchOrdinal),
     };
   } catch (e) {
     return emptyTrainingLog();

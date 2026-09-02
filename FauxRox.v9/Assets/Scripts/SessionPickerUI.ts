@@ -240,6 +240,16 @@ export class SessionPickerUI extends BaseScriptComponent {
   /** The question, and where a mistyped time gets answered */
   @input @allowUndefined paceOfferPromptText: Text;
   @input paceOfferPrompt: string = 'Know your recent 5K time?';
+
+  /**
+   * Forget any stored 5K when the Lens starts, and ask again.
+   *
+   * For testing the question, and for anybody whose profile has a time on it
+   * they did not enter. Off by default: an athlete's evidence is theirs, and
+   * a switch that silently wiped it every launch would be the same bug in the
+   * other direction.
+   */
+  @input forgetPaceEvidenceOnStart: boolean = false;
   /**
    * The time itself, as a stepper.
    *
@@ -288,6 +298,20 @@ export class SessionPickerUI extends BaseScriptComponent {
   @ui.separator
   @ui.label('Settings')
 
+  /**
+   * How long a screen ignores presses after it appears.
+   *
+   * A pinch that chose the last answer is still in progress when the next
+   * screen is drawn, and its release lands on whatever is now under the
+   * finger. That is how the 5K question got declined the instant it was
+   * asked: one pinch chose RUNNING and dismissed the question that choosing
+   * RUNNING had just raised.
+   *
+   * Short enough that nobody deliberate is refused, long enough to outlast
+   * the release of the press that got them here.
+   */
+  @input screenSettleSeconds: number = 0.5;
+
   @input debugPrint: boolean = true;
 
   // ── State ───────────────────────────────────────────────────────────────
@@ -306,8 +330,23 @@ export class SessionPickerUI extends BaseScriptComponent {
 
   /** Varies the workout between sessions without breaking determinism */
   private _seed: number = 0;
+  private _lastLoggedSeed: number = -1;
 
   private _preview: SessionPlan = null;
+
+  /** Which screen is up, and since when */
+  private _shownState: PickerState = 'MODE';
+  private _shownAt: number = 0;
+
+  /**
+   * Whether this screen has been up long enough to have been answered.
+   *
+   * The release of the pinch that got them here is not an answer to what it
+   * revealed.
+   */
+  private settled(): boolean {
+    return getTime() - this._shownAt >= this.screenSettleSeconds;
+  }
 
   private onStartCallback: (plan: SessionPlan) => void = null;
   private onBackCallback: () => void = null;
@@ -369,6 +408,12 @@ export class SessionPickerUI extends BaseScriptComponent {
 
     if (this.profileManager && this.profileManager.hasProfile()) {
       this._goal = this.profileManager.getGoal();
+    }
+
+    if (this.forgetPaceEvidenceOnStart && this.profileManager &&
+        (this.profileManager as any).clearPaceEvidence) {
+      this.log('forgetPaceEvidenceOnStart is on - clearing the stored 5K');
+      (this.profileManager as any).clearPaceEvidence();
     }
 
     this.hide();
@@ -614,6 +659,13 @@ export class SessionPickerUI extends BaseScriptComponent {
   private refresh(): void {
     var state = this._flow.state;
     var selection = this._flow.selection;
+
+    // A screen that has just appeared has not been pressed yet, whatever the
+    // hand is doing.
+    if (state !== this._shownState) {
+      this._shownState = state;
+      this._shownAt = getTime();
+    }
 
     // A session is only generated once there is enough to generate one. The
     // old picker rebuilt it on every keypress, including while the athlete
@@ -874,6 +926,19 @@ export class SessionPickerUI extends BaseScriptComponent {
       // distances either way; only the targets alongside them depend on this.
       var anchors = this.paceAnchors();
       if (anchors.length > 0) genInput.paceAnchors = anchors;
+
+      // What was decided and why, on the glasses, where it cannot otherwise
+      // be seen. A running session that comes out easy every time is either
+      // the draw or the history, and those are two different bugs.
+      genInput.log = (line: string) => this.log(line);
+
+      // Whether the draw moved at all since last time. A seed that never
+      // changes hands out the same session forever, and from the outside
+      // that looks like the generator having one idea.
+      if (this._seed !== this._lastLoggedSeed) {
+        this._lastLoggedSeed = this._seed;
+        this.log('Draw seed is now ' + this._seed);
+      }
 
       return generateSession(genInput, request);
     } catch (e) {
@@ -1224,10 +1289,21 @@ export class SessionPickerUI extends BaseScriptComponent {
    * is a time. Validating each keystroke is how a field becomes unusable.
    */
   private acceptFiveK(): void {
-    // What they typed, if they typed anything; otherwise where they left the
-    // stepper, which is a real answer and is sitting in front of them.
-    var typed = this._fiveKTyped ||
-      ((this.fiveKInputField as any) ? (this.fiveKInputField as any).text : '');
+    if (!this.settled()) {
+      this.log('Ignoring a press that arrived with the question');
+      return;
+    }
+
+    // What they typed in this turn, if anything; otherwise where they left
+    // the stepper, which is a real answer and is sitting in front of them.
+    //
+    // Never whatever the field happens to contain. A text field holds its
+    // last value, its placeholder, or something left over from another
+    // screen, and none of those is somebody telling us their 5K time - a
+    // stored personal best arrived from one of them and nobody had typed
+    // anything.
+    var typed = this._fiveKTyped;
+    var source = typed ? 'typed' : 'stepper';
 
     var seconds = typed ? parseFiveKEntry(typed) : this._fiveKStepped;
 
@@ -1246,12 +1322,18 @@ export class SessionPickerUI extends BaseScriptComponent {
 
     this._fiveKTyped = '';
     this._flow.resolvePaceOffer();
-    this.log('5K entered: ' + formatFiveKTime(seconds));
+    this.log('5K entered: ' + formatFiveKTime(seconds) + ' (' + seconds + 's, ' +
+             source + ')');
     this.refresh();
   }
 
   /** No is an answer, and it is remembered so the question stops being asked */
   private declineFiveK(): void {
+    if (!this.settled()) {
+      this.log('Ignoring a press that arrived with the question');
+      return;
+    }
+
     if (this.profileManager && (this.profileManager as any).declinePaceEvidence) {
       (this.profileManager as any).declinePaceEvidence();
     }
@@ -1284,6 +1366,13 @@ export class SessionPickerUI extends BaseScriptComponent {
     // finished describing.
     if (this._flow.isConfiguring) {
       this.log('Still configuring - nothing to start');
+      return;
+    }
+
+    // And the release of the pinch that finished the last question is not
+    // somebody starting a session. START appears where FOCUS was.
+    if (!this.settled()) {
+      this.log('Ignoring a press that arrived with the panel');
       return;
     }
 

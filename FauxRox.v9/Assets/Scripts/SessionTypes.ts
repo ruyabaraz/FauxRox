@@ -24,8 +24,18 @@ export enum StationMode {
   // Accessory movements. Both count camera oscillations and neither asks the
   // athlete to travel, which is what makes them usable in a room. REPS is left
   // alone: it drives the burpee, whose thresholds are tuned on the device.
-  VERTICAL_REPS = 'VERTICAL_REPS',  // drop and rise on the spot - push up, air squat, sit up
+  VERTICAL_REPS = 'VERTICAL_REPS',  // drop and rise on the spot - push up, air squat
   LATERAL_REPS  = 'LATERAL_REPS',   // drop, rise, hop sideways - burpee over dumbbell
+
+  /**
+   * Counted by where the head is looking rather than how high it is.
+   *
+   * A sit up moves the head about as far as a squat does, and counting the
+   * distance counted squats: down and up is the same signal in both. What is
+   * not the same is the view. On your back you are looking at the ceiling; at
+   * the top you are looking across the room, and no squat ever does that.
+   */
+  PITCH_REPS = 'PITCH_REPS',
 }
 
 /** Which motion HandZoneDetector should look for at a ZONE_HIT station */
@@ -344,7 +354,8 @@ export function isStationary(cfg: StationConfig): boolean {
          cfg.mode === StationMode.TIMED ||
          cfg.mode === StationMode.REPS ||
          cfg.mode === StationMode.VERTICAL_REPS ||
-         cfg.mode === StationMode.LATERAL_REPS;
+         cfg.mode === StationMode.LATERAL_REPS ||
+         cfg.mode === StationMode.PITCH_REPS;
 }
 
 /**
@@ -410,9 +421,9 @@ export const ACCESSORY_STATIONS: AccessoryStation[] = [
   },
   {
     name: 'SIT UP',
-    mode: StationMode.VERTICAL_REPS,
+    mode: StationMode.PITCH_REPS,
     requirement: 25,
-    instruction: 'All the way down, all the way up.',
+    instruction: 'Shoulders to the floor, then all the way up.',
     prefabType: 'SIT_UP',
     dropCm: 40,
     develops: ['HEAVY_CARRY', 'POWER_LANE'],
@@ -1134,7 +1145,8 @@ export function needsHandTracking(cfg: StationConfig): boolean {
   return cfg.mode === StationMode.ZONE_HIT ||
          cfg.mode === StationMode.REPS ||
          cfg.mode === StationMode.VERTICAL_REPS ||
-         cfg.mode === StationMode.LATERAL_REPS;
+         cfg.mode === StationMode.LATERAL_REPS ||
+         cfg.mode === StationMode.PITCH_REPS;
 }
 
 /**
@@ -1225,18 +1237,27 @@ export function makeRecoveryStation(
     };
   }
 
+  // Named for what this athlete should do, not for what the archetype allows.
+  //
+  // The kind is WALK_OR_JOG because both are correct recoveries between
+  // repetitions run at speed - the point is that they come back fully. Which
+  // of the two it is depends on who is doing it, and the panel has to say one
+  // of them: "walk or jog" is a menu, and somebody mid-session reading a menu
+  // is somebody who has stopped.
+  var walks = level === 'BEGINNER';
+
   if (kind === 'WALK_OR_JOG') {
     return {
-      name: 'WALK',
+      name: walks ? 'WALK' : 'JOG',
       mode: StationMode.TIMED,
       requirement: requirement,
-      instruction: 'Walk it out. Take all of it - the next one has to be as good as this one.',
+      instruction: walks
+        ? 'Walk it out. Take all of it - the next one has to be as good as this one.'
+        : 'Jog it out. Take all of it - the next one has to be as good as this one.',
       prefabType: 'RECOVERY',
       recoveryKind: kind,
     };
   }
-
-  var walks = level === 'BEGINNER';
 
   return {
     name: walks ? 'WALK' : 'JOG',
@@ -1596,6 +1617,7 @@ export function stationWorkCostSeconds(cfg: StationConfig): number {
     case StationMode.ZONE_HIT:
       return cfg.requirement * ZONE_HIT_SECONDS;
     case StationMode.VERTICAL_REPS:
+    case StationMode.PITCH_REPS:
       return cfg.requirement * VERTICAL_REP_SECONDS;
     case StationMode.LATERAL_REPS:
       return cfg.requirement * LATERAL_REP_SECONDS;

@@ -98,6 +98,8 @@ import {
   SchedulingContext,
 } from './RunningArchetype';
 
+import { scheduleRunning } from './RunningSchedule';
+
 import { PaceAnchor, PaceTarget, resolveTarget, targetPaceSecPerKm } from './PaceTarget';
 
 import { effortLine } from './EffortCue';
@@ -159,6 +161,16 @@ export interface GeneratorInput {
    * nothing else, a 5K speaks for the rest.
    */
   paceAnchors?: PaceAnchor[];
+
+  /**
+   * Somewhere to say what was decided and why.
+   *
+   * Optional, and unused by the tests. The module cannot print - it has no
+   * Lens Studio in it, which is the point of it - so the shell that does
+   * hands it a way to, and a session built on the glasses can explain itself
+   * in the log instead of being guessed at afterwards.
+   */
+  log?: (line: string) => void;
   /**
    * Accessory movements available to training sessions. Defaults to the full
    * catalogue; pass an empty array for race-stations-only sessions.
@@ -1405,15 +1417,28 @@ function buildRunningBlocks(
   request: SessionRequest,
   seed: number,
   history?: SchedulingContext,
-  paceAnchors?: PaceAnchor[]
+  paceAnchors?: PaceAnchor[],
+  log?: (line: string) => void
 ): SessionBlock[] {
   var budget = workingBudgetSeconds(request.duration);
 
-  var archetype = selectRunningArchetype(
-    legalArchetypes(request.duration, budget),
-    seed,
-    history
-  );
+  var legal = legalArchetypes(request.duration, budget);
+  var eligible = scheduleRunning(legal, history);
+  var archetype = selectRunningArchetype(legal, seed, history);
+
+  if (log) {
+    var recent = history && history.recent ? history.recent.join(',') : '-';
+    var hours = history && history.hoursSinceLast !== undefined
+      ? history.hoursSinceLast.toFixed(1)
+      : '-';
+
+    log('running: ' + request.duration + ' budget=' + budget.toFixed(0) + 's' +
+        ' seed=' + seed +
+        ' | legal=[' + legal.join(',') + ']' +
+        ' | recent=' + recent + ' hoursSince=' + hours +
+        ' | eligible=[' + eligible.join(',') + ']' +
+        ' | chose=' + archetype);
+  }
 
   return archetype
     ? buildArchetypeBlocks(archetype, request, seed, budget, paceAnchors)
@@ -2106,7 +2131,8 @@ function buildBlocks(input: GeneratorInput, request: SessionRequest): SessionBlo
 
   switch (request.focus) {
     case 'RUNNING':
-      working = buildRunningBlocks(request, seed, input.history, input.paceAnchors);
+      working = buildRunningBlocks(
+        request, seed, input.history, input.paceAnchors, input.log);
       // The running is the session. Nothing is appended to round it off.
       wantsFinisher = false;
       break;

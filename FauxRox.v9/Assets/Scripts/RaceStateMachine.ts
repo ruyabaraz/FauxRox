@@ -34,6 +34,12 @@ import { PathTracker } from "./PathTracker";
 import { MovingClock } from "./MovingClock";
 import { PaceMeter } from "./PaceMeter";
 import {
+  PaceCoach,
+  PaceCall,
+  paceCueContext,
+  paceCueLine,
+} from "./PaceCoaching";
+import {
   PaceTarget,
   formatPaceBand,
   formatPace,
@@ -344,8 +350,33 @@ export class RaceStateMachine extends BaseScriptComponent {
   private _oscState: string = 'waiting_drop';
   private _oscReps: number = 0;
   private _oscTopY: number = 0;
+
+  /**
+   * Where a sit up is in its cycle: on the back, or up.
+   *
+   * Counted by where the head is looking rather than how high it is. A sit up
+   * moves the head about as far as a squat does, so counting the distance
+   * counted squats - down and up is the same signal in both. What is not the
+   * same is the view: on your back you are looking at the ceiling, and at the
+   * top you are looking across the room.
+   */
+  private _pitchState: string = 'waiting_down';
+  private _pitchReps: number = 0;
   private _oscBottomY: number = 0;
   private _oscSidePos: vec3 = null;
+
+  /**
+   * How far above the horizon the gaze has to go to count as lying down.
+   *
+   * The height of the direction the glasses are looking, from -1 straight
+   * down to 1 straight up. Flat on your back is near 1; propped on your
+   * elbows is around 0.7. Tune on the device: the log prints the value at
+   * every repetition.
+   */
+  @input situpLyingGaze: number = 0.6;
+
+  /** And how near the horizon it has to come back to count as sitting up */
+  @input situpUpGaze: number = 0.25;
 
   /** Head travel per rep when a station does not specify one, cm */
   private readonly DEFAULT_ACCESSORY_DROP_CM: number = 25;
@@ -503,6 +534,20 @@ export class RaceStateMachine extends BaseScriptComponent {
    * somewhere absurd.
    */
   private _paceMeter: PaceMeter = new PaceMeter();
+
+  /**
+   * When to say something about the pace, and when to say nothing.
+   *
+   * A band on the panel says where they should be; it does not say they have
+   * drifted out of it, and reading a number while running is what a voice is
+   * for. The restraint is the hard part - a rolling window wobbles all the
+   * time, and a coach that remarks on every wobble is one nobody hears by the
+   * second repetition.
+   */
+  private _paceCoach: PaceCoach = new PaceCoach();
+
+  /** When the pace cue on the status line stops being current */
+  private _paceCueUntil: number = 0;
 
   /**
    * The part of the run the session is measured on.
@@ -2071,8 +2116,15 @@ export class RaceStateMachine extends BaseScriptComponent {
         if (this.runStretchCounts()) {
           this._countedMetres += movedThisFrame;
           this._countedMovingSeconds += dt;
+
+          // Only over a stretch the session is measuring. The settling
+          // minutes of an easy run are meant to be run at whatever pace
+          // arrives, and correcting them would be correcting the plan.
+          this.updatePaceCoaching();
         }
       }
+
+      this.expirePaceCue();
 
       if (this._runClock.update(movedThisFrame, dt)) {
         print('[RaceStateMachine] Run clock ' +
@@ -2728,6 +2780,96 @@ export class RaceStateMachine extends BaseScriptComponent {
   /** True when the movement just shown travels, so the zone must follow */
   private _lastTrainingMoved: boolean = false;
 
+  /**
+   * Move on to the next block, leaving the rest of this one undone.
+   *
+   * An athlete's call, and a real one: they know when a set has given them
+   * what it was going to. What is left of the block is not recorded, because
+   * they did not do it - skipping is not a way of finishing early with the
+   * same result.
+   *
+   * Refused in a race. Eight stations in an order is what a race is, and one
+   * with a station missing is not a faster race, it is a different thing with
+   * a time attached to it.
+   *
+   * @returns why not, or '' when it happened
+   */
+  skipToNextBlock(): string {
+    if (!this.isTrainingSession) {
+      return 'a race is the whole course, in order';
+    }
+
+    if (!isSessionUnderway(this._state)) {
+      return 'nothing is running';
+    }
+
+    var course = this.cm();
+    if (!course || !this._currentConfig) return 'nothing is running';
+
+    var next = this.firstStationOfNextBlock();
+    if (next < 0) {
+      return 'this is the last block of the session';
+    }
+
+    print('[RaceStateMachine] Skipping the rest of block ' +
+          this._currentConfig.blockIndex + ' — station ' +
+          this._currentStationIndex + ' to ' + next);
+
+    // Everything the athlete was in the middle of stops, the same way it
+    // stops when a station is finished. The difference is what is written
+    // down afterwards, which is nothing.
+    if (this.handZoneDetector) this.handZoneDetector.stopDetection();
+    this.hideSkiergGuides();
+    if (this.instructionText) this.instructionText.text = '';
+
+    this._stationCompleting = true;
+    this._currentStationIndex = next - 1;
+
+    course.fadeOutAndDestroy(() => {
+      this.prepareForNextStation();
+    });
+
+    return '';
+  }
+
+  /**
+   * Whether moving on is something that could happen right now.
+   *
+   * Asked by anything that offers it, so a button and a voice command cannot
+   * disagree about whether there is a block to go to. It is the same set of
+   * conditions the skip itself checks, which is why it is one question.
+   */
+  get canSkipBlock(): boolean {
+    if (!this.isTrainingSession) return false;
+    if (!isSessionUnderway(this._state)) return false;
+
+    return this.firstStationOfNextBlock() >= 0;
+  }
+
+  /**
+   * Where the next block starts, or -1 when this is the last one.
+   *
+   * A warm-up counts as a block here: somebody who wants to get on with the
+   * session is asking to skip the drills, and telling them the warm-up is not
+   * really a block would be a technicality rather than an answer.
+   */
+  private firstStationOfNextBlock(): number {
+    var course = this.cm();
+    if (!course || !this._currentConfig) return -1;
+
+    var here = this._currentConfig.blockIndex;
+    if (here === undefined) return -1;
+
+    for (var i = this._currentStationIndex + 1; i < course.stationCount; i++) {
+      var config = course.getStationConfig(i);
+      if (!config || config.isFinish) return -1;
+
+      if (config.blockIndex !== undefined && config.blockIndex > here) return i;
+    }
+
+    return -1;
+  }
+
   private prepareForNextStation(): void {
     var course = this.cm();
     if (!course) return;
@@ -3120,6 +3262,13 @@ export class RaceStateMachine extends BaseScriptComponent {
         }
         break;
 
+      case StationMode.PITCH_REPS:
+        this.trackPitchReps();
+        if (this._stationProgress >= this._stationRequirement) {
+          this.completeCurrentStation();
+        }
+        break;
+
       // ZONE_HIT is handled by callback in handZoneDetector
     }
 
@@ -3225,6 +3374,49 @@ export class RaceStateMachine extends BaseScriptComponent {
     this._stationProgress = this._oscReps;
   }
 
+  /**
+   * Count sit ups by where the head is pointing.
+   *
+   * On your back the glasses look at the ceiling, so the gaze direction has a
+   * large positive height. Sitting up, the same gaze goes to the horizon and
+   * that height falls to near nothing. A squat never does this: the head
+   * stays level throughout, which is exactly why counting head height counted
+   * squats as sit ups.
+   *
+   * Two thresholds with a gap between them rather than one, so somebody
+   * hovering at the crossing point does not score ten repetitions without
+   * moving.
+   */
+  private trackPitchReps(): void {
+    if (!this.camTransform || !this._currentConfig) return;
+
+    // The camera looks down its own -Z on Spectacles, so `back` is the gaze.
+    var gaze = this.camTransform.back;
+
+    switch (this._pitchState) {
+      case 'waiting_down':
+        if (gaze.y >= this.situpLyingGaze) {
+          this._pitchState = 'waiting_up';
+        }
+        break;
+
+      case 'waiting_up':
+        if (gaze.y <= this.situpUpGaze) {
+          this._pitchReps++;
+          this._pitchState = 'waiting_down';
+
+          this.showBurpeeFeedback('+1');
+          this.playGoodFormSound();
+
+          print('[FormDetect] Sit up #' + this._pitchReps +
+                ' (gaze ' + gaze.y.toFixed(2) + ')');
+        }
+        break;
+    }
+
+    this._stationProgress = this._pitchReps;
+  }
+
   private completeOscillationRep(pos: vec3): void {
     this._oscReps++;
     this._oscState = 'waiting_drop';
@@ -3235,6 +3427,11 @@ export class RaceStateMachine extends BaseScriptComponent {
 
     print('[FormDetect] Accessory rep #' + this._oscReps +
           ' (' + this._currentConfig.name + ')');
+  }
+
+  private resetPitchState(): void {
+    this._pitchState = 'waiting_down';
+    this._pitchReps = 0;
   }
 
   private resetOscillationState(): void {
@@ -3258,6 +3455,7 @@ export class RaceStateMachine extends BaseScriptComponent {
 
   private resetFormState(): void {
     this.resetOscillationState();
+    this.resetPitchState();
     this._cameraYHistory = [];
     this._burpeeState = 'waiting_drop';
     this._burpeeDropY = 0;
@@ -3470,6 +3668,8 @@ export class RaceStateMachine extends BaseScriptComponent {
     this._runPath.reset();
     this._runClock.reset();
     this._paceMeter.reset();
+    this._paceCoach.reset();
+    this._paceCueUntil = 0;
     this._countedMetres = 0;
     this._countedMovingSeconds = 0;
     this._announcedPhase = '';
@@ -3563,6 +3763,60 @@ export class RaceStateMachine extends BaseScriptComponent {
     }
 
     return this.archetypeEffortShort();
+  }
+
+  /**
+   * Say something about the pace, if there is anything worth saying.
+   *
+   * The decision is not made here - it is made by something that can be
+   * tested without a headset, and this hands it a measurement and does as it
+   * is told.
+   */
+  private updatePaceCoaching(): void {
+    var target = this.runPaceTarget();
+    if (!target) return;
+
+    var call = this._paceCoach.update(
+      this._paceMeter.secPerKm, target.band, getTime());
+
+    if (call === 'NOTHING') return;
+
+    this.announcePaceCall(call, this._paceMeter.secPerKm, target.band);
+  }
+
+  /**
+   * Out loud, and on the panel for anybody with the sound off.
+   *
+   * The coach is given the measurement and the instruction rather than the
+   * sentence: it says it in its own voice, in the athlete's language, and it
+   * is the one thing here that knows how they like to be spoken to.
+   */
+  private announcePaceCall(call: PaceCall, secPerKm: number, band: any): void {
+    var line = paceCueLine(call);
+    if (line) {
+      this.setStatusLine(line);
+      this.triggerStatusZoom();
+      this._paceCueUntil = getTime() + RaceStateMachine.PACE_CUE_SECONDS;
+    }
+
+    var coach = this.aiCoach as any;
+    if (coach && coach.speakShout) {
+      coach.speakShout(paceCueContext(call, secPerKm, band));
+    }
+
+    print('[RaceStateMachine] Pace: ' + call + ' at ' +
+          (secPerKm === null ? '?' : secPerKm.toFixed(0)) + ' s/km');
+  }
+
+  /** How long a pace cue stays on the status line */
+  private static readonly PACE_CUE_SECONDS: number = 4;
+
+  private expirePaceCue(): void {
+    if (this._paceCueUntil <= 0) return;
+    if (getTime() < this._paceCueUntil) return;
+
+    this._paceCueUntil = 0;
+    this.setStatusLine('');
   }
 
   /** Whether the stretch of the run being served is one the session measures */
@@ -4471,6 +4725,12 @@ export class RaceStateMachine extends BaseScriptComponent {
 
     var wasPreview = course.isPreviewSimplified === true;
 
+    print('[RaceStateMachine] Session outcome: ' +
+          (completed ? 'completed' : 'abandoned') +
+          ', archetype "' + archetypeOf(plan) + '"' +
+          ', preview ' + wasPreview +
+          ' — ' + (wasPreview ? 'nothing stored' : 'written to history'));
+
     if (completed) {
       // The archetype comes from the plan rather than from the movements: a
       // threshold repetition and a maximal aerobic one are both "a run", and
@@ -4562,6 +4822,35 @@ export class RaceStateMachine extends BaseScriptComponent {
    * could not. Any state added later is live by default, which is the safe
    * direction: refusing to stop is worse than stopping from an odd state.
    */
+  /**
+   * Put the panel back up, with nothing decided.
+   *
+   * What the button on the finish screen does, reachable by asking. The
+   * athlete has said they want another session and nothing more than that,
+   * so nothing more than that is assumed: the picker opens with their last
+   * choice still selected, which is one pinch to repeat and a tap to change.
+   *
+   * Refused mid-session. "Start a new one" while one is running is either a
+   * misheard word or somebody who means to stop this one first, and quietly
+   * throwing away a session in progress is not a recoverable mistake.
+   *
+   * @returns why not, or '' when the panel is up
+   */
+  startNewSession(): string {
+    if (this.isUnderway) {
+      return 'there is a session running - it would have to be stopped first';
+    }
+
+    if (!this.sessionPicker) {
+      return 'there is no session picker in this Lens';
+    }
+
+    print('[RaceStateMachine] New session asked for - opening the picker');
+    this.resetRace();
+
+    return '';
+  }
+
   get isUnderway(): boolean {
     return isSessionUnderway(this._state);
   }

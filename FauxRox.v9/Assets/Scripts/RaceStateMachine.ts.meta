@@ -76,6 +76,8 @@
     repPopupPrefab: false
     runArrowGuide: false
     sessionPicker: false
+    situpLyingGaze: false
+    situpUpGaze: false
     skiergGuides: false
     splitsGoBackButton: false
     splitsListText: false
@@ -167,6 +169,8 @@
       splitsRaceAgainButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
       splitsGoBackButton: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
       countdownSeconds: !<float> 3.000000
+      situpLyingGaze: 0.600000
+      situpUpGaze: 0.250000
   ScriptTypes:
     -
       {}
@@ -237,3 +241,5 @@
     - // @input Component.ScriptComponent splitsRaceAgainButton
     - // @input Component.ScriptComponent splitsGoBackButton
     - // @input float countdownSeconds = 3
+    - // @input float situpLyingGaze = 0.6
+    - // @input float situpUpGaze = 0.25

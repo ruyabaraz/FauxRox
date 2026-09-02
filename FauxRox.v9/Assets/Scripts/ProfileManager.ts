@@ -12,6 +12,7 @@ import {
   recordCompletedSession,
   recordAbandonedSession,
   trainingSeed,
+  noteLaunch,
   parseTrainingLog,
 } from './TrainingHistory';
 
@@ -444,13 +445,24 @@ export class ProfileManager extends BaseScriptComponent {
    */
   get schedulingContext(): SchedulingContext {
     var log = this._trainingLog;
-    if (!log || !isRunningArchetype(log.lastArchetype)) return {};
+
+    if (!log || !isRunningArchetype(log.lastArchetype)) {
+      this.log('Scheduling: nothing to go on (lastArchetype "' +
+               (log ? log.lastArchetype : '') + '")');
+      return {};
+    }
+
+    var hours = log.lastCompletedAt > 0
+      ? (Date.now() - log.lastCompletedAt) / 3600000
+      : undefined;
+
+    this.log('Scheduling: last was ' + log.lastArchetype + ', ' +
+             (hours === undefined ? 'when is not recorded' : hours.toFixed(1) + 'h ago') +
+             ' (completed ' + log.completionOrdinal + ', offered ' + log.offerOrdinal + ')');
 
     return {
       recent: [log.lastArchetype as any],
-      hoursSinceLast: log.lastCompletedAt > 0
-        ? (Date.now() - log.lastCompletedAt) / 3600000
-        : undefined,
+      hoursSinceLast: hours,
     };
   }
 
@@ -578,9 +590,30 @@ export class ProfileManager extends BaseScriptComponent {
   }
 
   recordFiveKTime(seconds: number): void {
+    var before = this._paceEvidence.fiveK
+      ? this._paceEvidence.fiveK.seconds + 's'
+      : 'nothing';
+
     this._paceEvidence = recordFiveK(this._paceEvidence, seconds, Date.now());
     this.savePaceEvidence();
-    this.log('5K recorded: ' + seconds + 's');
+
+    // Loud on purpose. This is the only place a 5K is ever written down, so
+    // a time that appears on a profile without this line in the log got
+    // there some other way, and there is no other way.
+    this.log('5K WRITTEN: ' + seconds + 's (was ' + before + ') at ' + Date.now());
+  }
+
+  /**
+   * Forget what was entered, and ask again.
+   *
+   * For somebody who mistyped, or whose evidence arrived by accident. There
+   * was no way to correct a 5K once it was on the profile, which made a wrong
+   * one permanent.
+   */
+  clearPaceEvidence(): void {
+    this._paceEvidence = emptyPaceEvidence();
+    this.savePaceEvidence();
+    this.log('Pace evidence cleared - the 5K question comes back');
   }
 
   /**
@@ -604,7 +637,15 @@ export class ProfileManager extends BaseScriptComponent {
         store.getString(ProfileManager.PACE_EVIDENCE_KEY));
 
       if (this._paceEvidence.fiveK) {
-        this.log('Pace evidence: 5K in ' + this._paceEvidence.fiveK.seconds + 's');
+        this.log('Pace evidence: 5K in ' + this._paceEvidence.fiveK.seconds +
+                 's, entered at ' + this._paceEvidence.fiveK.enteredAtEpochMs +
+                 ' — the question will not be asked again');
+      } else if (this._paceEvidence.declinedAtEpochMs) {
+        this.log('Pace evidence: declined at ' +
+                 this._paceEvidence.declinedAtEpochMs +
+                 ' — the question will not be asked again');
+      } else {
+        this.log('Pace evidence: none — the question will be asked');
       }
     } catch (error) {
       this.log('Pace evidence load error: ' + error);
@@ -631,8 +672,15 @@ export class ProfileManager extends BaseScriptComponent {
       var store = global.persistentStorageSystem.store;
       this._trainingLog = parseTrainingLog(store.getString(ProfileManager.TRAINING_LOG_KEY));
 
+      // Opening the Lens is a visit, and the draw moves with it. Otherwise an
+      // athlete who is offered a session and closes the app is offered the
+      // same one tomorrow, and the morning after that.
+      this._trainingLog = noteLaunch(this._trainingLog);
+      this.saveTrainingLog();
+
       this.log('Training log: ' + this._trainingLog.completionOrdinal + ' completed, ' +
                this._trainingLog.offerOrdinal + ' abandoned, ' +
+               this._trainingLog.launchOrdinal + ' visits, ' +
                this._trainingLog.recent.length + ' recent movements');
     } catch (error) {
       this.log('Training log load error: ' + error);
